@@ -39,14 +39,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\Activity.cs" />
     <Compile Include="Activities\ActivityService.cs" />
+    <Compile Include="Activities\ActivityType.cs" />
+    <Compile Include="Activities\Map.cs" />
+    <Compile Include="Activities\ResourceState.cs" />
+    <Compile Include="Athletes\Athlete.cs" />
     <Compile Include="Authentication\IAuthentication.cs" />
     <Compile Include="Authentication\StaticAuthentication.cs" />
+    <Compile Include="Common\Coordinate.cs" />
     <Compile Include="Common\Marshaller.cs" />
     <Compile Include="Common\Unmarshaller.cs" />
+    <Compile Include="Gear\Bike.cs" />
+    <Compile Include="Gear\BikeType.cs" />
+    <Compile Include="Gear\IGear.cs" />
     <Compile Include="Http\HttpMethod.cs" />
     <Compile Include="Http\WebRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Segments\SegmentEffort.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
