@@ -2,6 +2,9 @@
 using System.IO;
 using System.Net;
 using System.Text;
+using com.strava.api.Activities;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace com.strava.api.Http
 {
@@ -29,7 +32,12 @@ namespace com.strava.api.Http
                 json.Append(reader.ReadLine());
             }
 
-            Console.WriteLine(json);
+            var root = JsonConvert.DeserializeObject<Activity>(json.ToString());
+
+            Console.WriteLine(root.KudosCount);
+            Console.WriteLine(root.ExternalId);
+
+            //Console.WriteLine(json);
         }
     }
 }

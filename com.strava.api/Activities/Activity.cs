@@ -4,77 +4,92 @@ using com.strava.api.Athletes;
 using com.strava.api.Common;
 using com.strava.api.Gear;
 using com.strava.api.Segments;
+using Newtonsoft.Json;
 
 namespace com.strava.api.Activities
 {
     public class Activity
     {
+        [JsonProperty("id")]
         public String Id { get; set; }
-        public ResourceState ResourceState { get; set; }
-        public String ExternalId { get; set; }
-
-        public Athlete Athlete { get; set; }
+        [JsonProperty("name")]
         public String Name { get; set; }
-
+        [JsonProperty("external_id")]
+        public String ExternalId { get; set; }
+        [JsonProperty("distance")]
         public float Distance { get; set; }
-
+        [JsonProperty("moving_time")]
         public int MovingTime { get; set; }
+        [JsonProperty("elapsed_time")]
         public int ElapsedTime { get; set; }
-
+        [JsonProperty("total_elevation_gain")]
         public float ElevationGain { get; set; }
-
-        public ActivityType ActivityType { get; set; }
-
+        [JsonProperty("calories")]
+        public float Calories { get; set; }
+        [JsonProperty("has_kudoed")]
+        public bool HasKudoed { get; set; }
+        [JsonProperty("average_heartrate")]
+        public float AverageHeartrate { get; set; }
+        [JsonProperty("max_heartrate")]
+        public float MaxHeartrate { get; set; }
+        [JsonProperty("truncated")]
+        public int? Truncated { get; set; }
+        [JsonProperty("city")]
+        public String City { get; set; }
+        [JsonProperty("state")]
+        public String State { get; set; }
+        [JsonProperty("country")]
+        public String Country { get; set; }
+        [JsonProperty("gear_id")]
+        public String GearId { get; set; }
+        [JsonProperty("average_speed")]
+        public float AverageSpeed { get; set; }
+        [JsonProperty("max_speed")]
+        public float MaxSpeed { get; set; }
+        [JsonProperty("average_cadence")]
+        public float AverageCadence { get; set; }
+        [JsonProperty("average_temp")]
+        public float AverageTemperature { get; set; }
+        [JsonProperty("average_watts")]
+        public float AveragePower { get; set; }
+        [JsonProperty("kilojoules")]
+        public float Kilojoules { get; set; }
+        [JsonProperty("trainer")]
+        public bool IsTrainer { get; set; }
+        [JsonProperty("commute")]
+        public bool IsCommute { get; set; }
+        [JsonProperty("manual")]
+        public bool IsManual { get; set; }
+        [JsonProperty("private")]
+        public bool IsPrivate { get; set; }
+        [JsonProperty("flagged")]
+        public bool IsFlagged { get; set; }
+        [JsonProperty("achievement_count")]
+        public int AchievementCount { get; set; }
+        [JsonProperty("kudos_count")]
+        public int KudosCount { get; set; }
+        [JsonProperty("comment_count")]
+        public int CommentCount { get; set; }
+        [JsonProperty("athelete_count")]
+        public int AtheleteCount { get; set; }
+        [JsonProperty("photo_count")]
+        public int PhotoCount { get; set; }
+        [JsonProperty("start_date")]
         public String StartDate { get; set; }
+        [JsonProperty("start_date_local")]
         public String StartDateLocal { get; set; }
+        [JsonProperty("timezone")]
         public String TimeZone { get; set; }
 
-        public Coordinate StartPoint { get; set; }
-        public Coordinate EndPoint { get; set; }
-        
-        public String City { get; set; }
-        public String State { get; set; }
-        public String Country { get; set; }
-
-        public int AchievementCount { get; set; }
-        public int KudosCount { get; set; }
-        public int CommentCount { get; set; }
-        public int AtheleteCount { get; set; }
-        public int PhotoCount { get; set; }
-
-        public Map Map { get; set; }
-
-        public bool IsTrainer { get; set; }
-        public bool IsCommute { get; set; }
-        public bool IsManual { get; set; }
-        public bool IsPrivate { get; set; }
-        public bool IsFlagged { get; set; }
-
-        public String GearId { get; set; }
-
-        public IGear Gear { get; set; }
-
-        public float AverageSpeed { get; set; }
-        public float MaxSpeed { get; set; }
-
-        public int AverageCadence { get; set; }
-
-        public int AverageTemperature { get; set; }
-
-        public int AveragePower { get; set; }
-
-        public int Kilojoules { get; set; }
-
-        public int AverageHeartrate { get; set; }
-        public int MaxHeartrate { get; set; }
-
-        public int Calories { get; set; }
-
-        public int Truncated { get; set; }
-
-        public bool HasKudoed { get; set; }
-
-        public List<SegmentEffort> SegmentEfforts { get; set; }
+        //Objects
+        //public List<SegmentEffort> SegmentEfforts { get; set; }
+        //public Map Map { get; set; }
+        //public Coordinate StartPoint { get; set; }
+        //public Coordinate EndPoint { get; set; }
+        //public Athlete Athlete { get; set; }
+        //public IGear Gear { get; set; }
+        //public ActivityType ActivityType { get; set; }
+        //public ResourceState ResourceState { get; set; }
 
         /*
          * splits_metric: 	array of metric split summaries
