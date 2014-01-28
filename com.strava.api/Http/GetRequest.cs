@@ -17,6 +17,9 @@ namespace com.strava.api.Http
 
         public void Execute(string requestUri)
         {
+            if (String.IsNullOrEmpty(requestUri))
+                throw new ArgumentException("Parameter requestUri can not be null or empty. Please commit a valid Uri.");
+
             // GET https://www.strava.com/api/v3/activities/109557593?access_token=72e8fa9d4f63477adc76555de382a033b6aedf6d
             // 72e8fa9d4f63477adc76555de382a033b6aedf6d
 
@@ -26,7 +29,7 @@ namespace com.strava.api.Http
             StreamReader reader = new StreamReader(stream);
 
             StringBuilder json = new StringBuilder();
-            
+
             while (!reader.EndOfStream)
             {
                 json.Append(reader.ReadLine());
@@ -34,10 +37,9 @@ namespace com.strava.api.Http
 
             var root = JsonConvert.DeserializeObject<Activity>(json.ToString());
 
-            Console.WriteLine(root.KudosCount);
-            Console.WriteLine(root.ExternalId);
-
-            //Console.WriteLine(json);
+            Console.WriteLine(root.Name);
+            Console.WriteLine("HR: " + root.AverageHeartrate);
+            Console.WriteLine("Max HR: " + root.MaxHeartrate);
         }
     }
 }

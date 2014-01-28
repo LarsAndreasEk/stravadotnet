@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.strava.api", "com.strav
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.strava.api.client", "com.strava.api.client\com.strava.api.client.csproj", "{6171149B-3F05-4219-B009-43E549678954}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.strava.api.tests", "com.strava.api.tests\com.strava.api.tests.csproj", "{3144FCB0-DAAF-4234-9202-AB085F191E51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6171149B-3F05-4219-B009-43E549678954}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6171149B-3F05-4219-B009-43E549678954}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6171149B-3F05-4219-B009-43E549678954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3144FCB0-DAAF-4234-9202-AB085F191E51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3144FCB0-DAAF-4234-9202-AB085F191E51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3144FCB0-DAAF-4234-9202-AB085F191E51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3144FCB0-DAAF-4234-9202-AB085F191E51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
