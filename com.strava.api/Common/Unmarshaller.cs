@@ -8,5 +8,9 @@ namespace com.strava.api.Common
 {
     public class Unmarshaller<T>
     {
+        //public static T Unmarshal(String baseString)
+        //{
+            
+        //}
     }
 }

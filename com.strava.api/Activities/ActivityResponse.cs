@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace com.strava.api.Http
+namespace com.strava.api.Activities
 {
-    public class WebRequest
+    public class ActivityResponse
     {
-
     }
 }
