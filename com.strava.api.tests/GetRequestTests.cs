@@ -9,18 +9,9 @@ namespace com.strava.api.tests
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void TestExecuteNull()
+        public async void TestExecuteNull()
         {
-            GetRequest r = new GetRequest();
-            r.Execute(null);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void TestExecuteEmpty()
-        {
-            GetRequest r = new GetRequest();
-            r.Execute(String.Empty);
+            await GetRequest.ExecuteAsync(null);
         }
     }
 }

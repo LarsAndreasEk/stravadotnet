@@ -1,30 +1,27 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace com.strava.api.Http
 {
     public static class GetRequest
     {
-        public static async Task<String> ExecuteAsync(string uri)
+        public static async Task<String> ExecuteAsync(Uri uri)
         {
-            if (String.IsNullOrEmpty(uri))
-                throw new ArgumentException("Parameter requestUri can not be null or empty. Please commit a valid Uri.");
-            
-            //  Anfrage
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
-            WebResponse response = await request.GetResponseAsync();
+            if (uri == null)
+                throw new ArgumentException("Parameter uri must not be null. Please commit a valid Uri object.");
 
-            //  Auslesen
-            if (response != null)
+            using (var httpClient = new HttpClient())
             {
-                Stream stream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(stream);
+                HttpResponseMessage response = await httpClient.GetAsync(uri);
 
-                return reader.ReadToEnd();
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    return await response.Content.ReadAsStringAsync();
+                }
             }
-
 
             return String.Empty;
         }

@@ -4,11 +4,11 @@ namespace com.strava.api.Authentication
 {
     public class StaticAuthentication : IAuthentication
     {
-        public String Token { get; set; }
+        public string AuthToken { get; set; }
 
-        public StaticAuthentication(String token)
+        public StaticAuthentication(String authToken)
         {
-            Token = token;
+            AuthToken = authToken;
         }
     }
 }
