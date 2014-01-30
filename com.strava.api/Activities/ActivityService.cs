@@ -4,12 +4,15 @@ using System.Threading.Tasks;
 using com.strava.api.Authentication;
 using com.strava.api.Common;
 using com.strava.api.Http;
-using Newtonsoft.Json;
 
 namespace com.strava.api.Activities
 {
     public class ActivityService
     {
+        #region Events
+
+        #endregion
+
         private const String ActivityUrl = "https://www.strava.com/api/v3/activities/";
         private readonly IAuthentication _authenticator;
 
@@ -35,12 +38,11 @@ namespace com.strava.api.Activities
         public async Task<Activity> GetActivityAsync(string id)
         {
             String getUrl = String.Format("{0}/{1}?access_token={2}", ActivityUrl, id, _authenticator.AuthToken);
-            Console.WriteLine(getUrl);
 
             string json = await GetRequest.ExecuteAsync(new Uri(getUrl));
 
             //  Unmarshalling
-            return JsonConvert.DeserializeObject<Activity>(json);
+            return Unmarshaller<Activity>.Unmarshal(json);
         }
     }
 }
