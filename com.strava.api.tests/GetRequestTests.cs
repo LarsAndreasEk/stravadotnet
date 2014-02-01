@@ -11,7 +11,7 @@ namespace com.strava.api.tests
         [ExpectedException(typeof(ArgumentException))]
         public async void TestExecuteNull()
         {
-            await GetRequest.ExecuteAsync(null);
+            await WebRequest.SendGetAsync(null);
         }
     }
 }

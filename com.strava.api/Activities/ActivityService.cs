@@ -39,7 +39,7 @@ namespace com.strava.api.Activities
         {
             String getUrl = String.Format("{0}/{1}?access_token={2}", ActivityUrl, id, _authenticator.AuthToken);
 
-            string json = await GetRequest.ExecuteAsync(new Uri(getUrl));
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
             //  Unmarshalling
             return Unmarshaller<Activity>.Unmarshal(json);

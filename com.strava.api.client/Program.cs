@@ -1,5 +1,6 @@
 ﻿using System;
 using com.strava.api.Activities;
+using com.strava.api.Api;
 using com.strava.api.Authentication;
 
 namespace com.strava.api.client
@@ -17,6 +18,7 @@ namespace com.strava.api.client
             StaticAuthentication auth = new StaticAuthentication("72e8fa9d4f63477adc76555de382a033b6aedf6d");
 
             ActivityService service = new ActivityService(auth);
+
             Activity a = await service.GetActivityAsync("109557593");
 
             //   Activity ID
