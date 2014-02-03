@@ -50,14 +50,26 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="GetRequestTests.cs" />
+    <Compile Include="Http\GetRequestTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Unmarshalling\GearUnmarshalling.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\com.strava.api\com.strava.api.csproj">
       <Project>{22adbc7c-a736-49f8-bd04-bc4e2ad9b5b8}</Project>
       <Name>com.strava.api</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

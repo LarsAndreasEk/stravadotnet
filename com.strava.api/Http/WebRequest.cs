@@ -18,7 +18,7 @@ namespace com.strava.api.Http
             using (var httpClient = new HttpClient())
             {
                 HttpResponseMessage response = await httpClient.GetAsync(uri);
-                
+
                 //Request was successful
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
@@ -31,7 +31,7 @@ namespace com.strava.api.Http
                         Limits.Usage = new Usage(Int32.Parse(usage.Value.ElementAt(0).Split(',')[0]),
                             Int32.Parse(usage.Value.ElementAt(0).Split(',')[1]));
                     }
-                    
+
                     return await response.Content.ReadAsStringAsync();
                 }
             }
