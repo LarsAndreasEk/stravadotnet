@@ -33,9 +33,8 @@ namespace com.strava.api.client
 
             //Athlete
             AthleteService service = new AthleteService(auth);
-            Athlete a = await service.GetActivityAsync();
-            Console.WriteLine(a.Bikes.Count);
-            Console.WriteLine(a.Bikes.First().Name);
+            Athlete a = await service.GetAthleteAsync("3471492");
+            Console.WriteLine(a.FirstName);
         }
     }
 }
