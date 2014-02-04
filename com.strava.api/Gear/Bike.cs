@@ -6,7 +6,7 @@ namespace com.strava.api.Gear
     public class Bike
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public String Id { get; set; }
 
         [JsonProperty("primary")]
         public bool IsPrimary { get; set; }

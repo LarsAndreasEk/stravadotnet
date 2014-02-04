@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using com.strava.api.Authentication;
 using com.strava.api.Common;
 using com.strava.api.Http;
 
-namespace com.strava.api.Activities
+namespace com.strava.api.Athletes
 {
-    public class ActivityService
+    public class AthleteService
     {
-        private const String ActivityUrl = "https://www.strava.com/api/v3/activities/";
+        private const String CurrentAthleteUrl = "https://www.strava.com/api/v3/athlete";
         private readonly IAuthentication _authenticator;
 
-        public ActivityService(IAuthentication authenticator)
+        public AthleteService(IAuthentication authenticator)
         {
             if (authenticator == null)
             {
@@ -22,14 +21,16 @@ namespace com.strava.api.Activities
             _authenticator = authenticator;
         }
 
-        public async Task<Activity> GetActivityAsync(string id)
+
+        public async Task<Athlete> GetActivityAsync()
         {
-            String getUrl = String.Format("{0}/{1}?access_token={2}", ActivityUrl, id, _authenticator.AuthToken);
+            String getUrl = String.Format("{0}?access_token={1}", CurrentAthleteUrl, _authenticator.AuthToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
             //  Unmarshalling
-            return Unmarshaller<Activity>.Unmarshal(json);
+            return Unmarshaller<Athlete>.Unmarshal(json);
         }
+
     }
 }

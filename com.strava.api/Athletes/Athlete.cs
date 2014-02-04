@@ -39,6 +39,9 @@ shoes: 	array of object
 array of summary representations of the athlete’s shoes
 */
 
+using System;
+using System.Collections.Generic;
+using com.strava.api.Gear;
 using Newtonsoft.Json;
 
 namespace com.strava.api.Athletes
@@ -52,24 +55,69 @@ namespace com.strava.api.Athletes
         public int ResourceState { get; set; }
 
         [JsonProperty("firstname")]
-        public int FirstName { get; set; }
+        public String FirstName { get; set; }
 
         [JsonProperty("lastname")]
-        public int LastName { get; set; }
+        public String LastName { get; set; }
 
         [JsonProperty("profile_medium")]
-        public int ProfileMedium { get; set; }
+        public String ProfileMedium { get; set; }
 
         [JsonProperty("profile")]
-        public int Profile { get; set; }
+        public String Profile { get; set; }
 
         [JsonProperty("city")]
-        public int City { get; set; }
+        public String City { get; set; }
 
         [JsonProperty("state")]
-        public int State { get; set; }
+        public String State { get; set; }
 
         [JsonProperty("country")]
-        public int Country { get; set; }
+        public String Country { get; set; }
+
+        [JsonProperty("sex")]
+        public String Sex { get; set; }
+
+        [JsonProperty("friend")]
+        public String Friend { get; set; }
+
+        [JsonProperty("follower")]
+        public String Follower { get; set; }
+
+        [JsonProperty("premium")]
+        public String Premium { get; set; }
+
+        [JsonProperty("created_at")]
+        public String CreatedAt { get; set; }
+
+        [JsonProperty("updated_at")]
+        public String UpdatedAt { get; set; }
+
+        [JsonProperty("approve_followers")]
+        public Boolean ApproveFollowers { get; set; }
+
+        [JsonProperty("follower_count")]
+        public int FollowerCount { get; set; }
+
+        [JsonProperty("friend_count")]
+        public int FriendCount { get; set; }
+
+        [JsonProperty("mutual_friend_count")]
+        public int MutualFriendCount { get; set; }
+
+        [JsonProperty("date_preference")]
+        public String DatePreference { get; set; }
+
+        [JsonProperty("measurement_preference")]
+        public String MeasurementPreference { get; set; }
+
+        [JsonProperty("email")]
+        public String Email { get; set; }
+
+        [JsonProperty("ftp")]
+        public int? Ftp { get; set; }
+
+        [JsonProperty("bikes")]
+        public List<Bike> Bikes { get; set; }
     }
 }

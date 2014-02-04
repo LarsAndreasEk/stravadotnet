@@ -2,7 +2,7 @@
 using com.strava.api.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace com.strava.api.tests
+namespace com.strava.api.tests.Http
 {
     [TestClass]
     public class GetRequestTests

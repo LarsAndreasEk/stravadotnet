@@ -52,6 +52,7 @@
     <Compile Include="Api\Usage.cs" />
     <Compile Include="Api\UsageChangedEventArgs.cs" />
     <Compile Include="Athletes\Athlete.cs" />
+    <Compile Include="Athletes\AthleteService.cs" />
     <Compile Include="Authentication\IAuthentication.cs" />
     <Compile Include="Authentication\StaticAuthentication.cs" />
     <Compile Include="Common\Coordinate.cs" />

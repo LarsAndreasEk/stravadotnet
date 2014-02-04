@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using com.strava.api.Activities;
 using com.strava.api.Api;
+using com.strava.api.Athletes;
 using com.strava.api.Authentication;
 
 namespace com.strava.api.client
@@ -24,9 +26,16 @@ namespace com.strava.api.client
             //Console.WriteLine(a.MaxHeartrate);
             #endregion
 
-            object o = await Http.WebRequest.SendGetAsync(new Uri("https://www.strava.com/api/v3/gear/814946?access_token=72e8fa9d4f63477adc76555de382a033b6aedf6d"));
+            //object o = await Http.WebRequest.SendGetAsync(new Uri("https://www.strava.com/api/v3/gear/814946?access_token=72e8fa9d4f63477adc76555de382a033b6aedf6d"));
 
-            Console.WriteLine(o);
+            //Console.WriteLine(o);
+
+
+            //Athlete
+            AthleteService service = new AthleteService(auth);
+            Athlete a = await service.GetActivityAsync();
+            Console.WriteLine(a.Bikes.Count);
+            Console.WriteLine(a.Bikes.First().Name);
         }
     }
 }
