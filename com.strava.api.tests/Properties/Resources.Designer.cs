@@ -62,6 +62,33 @@ namespace com.strava.api.tests.Properties {
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die {
+        ///  &quot;id&quot;: 227615,
+        ///  &quot;resource_state&quot;: 3,
+        ///  &quot;firstname&quot;: &quot;John&quot;,
+        ///  &quot;lastname&quot;: &quot;Applestrava&quot;,
+        ///  &quot;profile_medium&quot;: &quot;http://pics.com/227615/medium.jpg&quot;,
+        ///  &quot;profile&quot;: &quot;http://pics.com/227615/large.jpg&quot;,
+        ///  &quot;city&quot;: &quot;San Francisco&quot;,
+        ///  &quot;state&quot;: &quot;California&quot;,
+        ///  &quot;country&quot;: &quot;United States&quot;,
+        ///  &quot;sex&quot;: &quot;M&quot;,
+        ///  &quot;friend&quot;: null,
+        ///  &quot;follower&quot;: null,
+        ///  &quot;premium&quot;: true,
+        ///  &quot;created_at&quot;: &quot;2008-01-01T17:44:00Z&quot;,
+        ///  &quot;updated_at&quot;: &quot;2013-09-04T20:00:50Z&quot;,
+        ///  &quot;follower_count&quot;: 273,
+        ///  &quot;friend_count&quot;: 19,
+        ///  &quot;mutual_frien [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        /// </summary>
+        internal static string AthleteJson {
+            get {
+                return ResourceManager.GetString("AthleteJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die {
         ///    &quot;id&quot;: &quot;b814946&quot;,
         ///    &quot;primary&quot;: true,
         ///    &quot;name&quot;: &quot;Canyon Roadlite AL 7.0&quot;,
@@ -76,6 +103,67 @@ namespace com.strava.api.tests.Properties {
         internal static string GearJson {
             get {
                 return ResourceManager.GetString("GearJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die {
+        ///  &quot;id&quot;: 269990681,
+        ///  &quot;resource_state&quot;: 3,
+        ///  &quot;name&quot;: &quot;Geysers Road Climb&quot;,
+        ///  &quot;segment&quot;: {
+        ///    &quot;id&quot;: 1818385,
+        ///    &quot;resource_state&quot;: 2,
+        ///    &quot;name&quot;: &quot;Geysers Road Climb&quot;,
+        ///    &quot;activity_type&quot;: &quot;Ride&quot;,
+        ///    &quot;distance&quot;: 6001.74,
+        ///    &quot;average_grade&quot;: 6.24152,
+        ///    &quot;maximum_grade&quot;: 23.5131,
+        ///    &quot;elevation_high&quot;: 745.6,
+        ///    &quot;elevation_low&quot;: 371.0,
+        ///    &quot;start_latlng&quot;: [
+        ///      38.810384860262275,
+        ///      -122.85571538843215
+        ///    ],
+        ///    &quot;end_latlng&quot;: [
+        ///      38.79168709740043,
+        ///      -122.82848568633199        /// [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        /// </summary>
+        internal static string SegmentEffortJson {
+            get {
+                return ResourceManager.GetString("SegmentEffortJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die {
+        ///  &quot;id&quot;: 229781,
+        ///  &quot;resource_state&quot;: 3,
+        ///  &quot;name&quot;: &quot;Hawk Hill&quot;,
+        ///  &quot;activity_type&quot;: &quot;Ride&quot;,
+        ///  &quot;distance&quot;: 2684.82,
+        ///  &quot;average_grade&quot;: 5.7,
+        ///  &quot;maximum_grade&quot;: 14.2,
+        ///  &quot;elevation_high&quot;: 245.3,
+        ///  &quot;elevation_low&quot;: 92.4,
+        ///  &quot;start_latlng&quot;: [
+        ///    37.8331119,
+        ///    -122.4834356
+        ///  ],
+        ///  &quot;end_latlng&quot;: [
+        ///    37.8280722,
+        ///    -122.4981393
+        ///  ],
+        ///  &quot;start_latitude&quot;: 37.8331119,
+        ///  &quot;start_longitude&quot;: -122.4834356,
+        ///  &quot;end_latitude&quot;: 37.8280722,
+        ///  &quot;end_longitude&quot;: -122.4981393,
+        ///  &quot;climb_category&quot;: 1,
+        ///  &quot;city [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        /// </summary>
+        internal static string SegmentJson {
+            get {
+                return ResourceManager.GetString("SegmentJson", resourceCulture);
             }
         }
     }

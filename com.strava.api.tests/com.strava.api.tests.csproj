@@ -57,7 +57,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Unmarshalling\AthleteUnmarshalling.cs" />
     <Compile Include="Unmarshalling\GearUnmarshalling.cs" />
+    <Compile Include="Unmarshalling\SegmentEffortUnmarshalling.cs" />
+    <Compile Include="Unmarshalling\SegmentUnmarshalling.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\com.strava.api\com.strava.api.csproj">

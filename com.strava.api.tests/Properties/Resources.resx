@@ -117,6 +117,66 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AthleteJson" xml:space="preserve">
+    <value>{
+  "id": 227615,
+  "resource_state": 3,
+  "firstname": "John",
+  "lastname": "Applestrava",
+  "profile_medium": "http://pics.com/227615/medium.jpg",
+  "profile": "http://pics.com/227615/large.jpg",
+  "city": "San Francisco",
+  "state": "California",
+  "country": "United States",
+  "sex": "M",
+  "friend": null,
+  "follower": null,
+  "premium": true,
+  "created_at": "2008-01-01T17:44:00Z",
+  "updated_at": "2013-09-04T20:00:50Z",
+  "follower_count": 273,
+  "friend_count": 19,
+  "mutual_friend_count": 0,
+  "date_preference": "%m/%d/%Y",
+  "measurement_preference": "feet",
+  "email": "john@applestrava.com",
+  "ftp": 280,
+  "clubs": [
+    {
+      "id": 1,
+      "resource_state": 2,
+      "name": "Team Strava Cycling",
+      "profile_medium": "http://pics.com/clubs/1/medium.jpg",
+      "profile": "http://pics.com/clubs/1/large.jpg"
+    }
+  ],
+  "bikes": [
+    {
+      "id": "b105763",
+      "primary": false,
+      "name": "Cannondale TT",
+      "distance": 476612.9,
+      "resource_state": 2
+    },
+    {
+      "id": "b105762",
+      "primary": true,
+      "name": "Masi",
+      "distance": 9000578.2,
+      "resource_state": 2
+    }
+  ],
+  "shoes": [
+    {
+      "id": "g1",
+      "primary": true,
+      "name": "Running Shoes",
+      "distance": 67492.9,
+      "resource_state": 2
+    }
+  ]
+}</value>
+  </data>
   <data name="GearJson" xml:space="preserve">
     <value>{
     "id": "b814946",
@@ -128,6 +188,100 @@
     "model_name": "Roadlite AL 7.0",
     "frame_type": 3,
     "description": ""
+}</value>
+  </data>
+  <data name="SegmentEffortJson" xml:space="preserve">
+    <value>{
+  "id": 269990681,
+  "resource_state": 3,
+  "name": "Geysers Road Climb",
+  "segment": {
+    "id": 1818385,
+    "resource_state": 2,
+    "name": "Geysers Road Climb",
+    "activity_type": "Ride",
+    "distance": 6001.74,
+    "average_grade": 6.24152,
+    "maximum_grade": 23.5131,
+    "elevation_high": 745.6,
+    "elevation_low": 371.0,
+    "start_latlng": [
+      38.810384860262275,
+      -122.85571538843215
+    ],
+    "end_latlng": [
+      38.79168709740043,
+      -122.82848568633199
+    ],
+    "start_latitude": 38.810384860262275,
+    "start_longitude": -122.85571538843215,
+    "end_latitude": 38.79168709740043,
+    "end_longitude": -122.82848568633199,
+    "climb_category": 3,
+    "city": "Cloverdale",
+    "state": "CA",
+    "country": "United States",
+    "private": false
+  },
+  "activity": {
+    "id": 14296826
+  },
+  "athlete": {
+    "id": 3776
+  },
+  "kom_rank": null,
+  "pr_rank": 2,
+  "elapsed_time": 1137,
+  "moving_time": 1137,
+  "start_date": "2013-03-30T18:43:50Z",
+  "start_date_local": "2013-03-30T11:43:50Z",
+  "distance": 6001.7,
+  "start_index": 5348,
+  "end_index": 6485
+}</value>
+  </data>
+  <data name="SegmentJson" xml:space="preserve">
+    <value>{
+  "id": 229781,
+  "resource_state": 3,
+  "name": "Hawk Hill",
+  "activity_type": "Ride",
+  "distance": 2684.82,
+  "average_grade": 5.7,
+  "maximum_grade": 14.2,
+  "elevation_high": 245.3,
+  "elevation_low": 92.4,
+  "start_latlng": [
+    37.8331119,
+    -122.4834356
+  ],
+  "end_latlng": [
+    37.8280722,
+    -122.4981393
+  ],
+  "start_latitude": 37.8331119,
+  "start_longitude": -122.4834356,
+  "end_latitude": 37.8280722,
+  "end_longitude": -122.4981393,
+  "climb_category": 1,
+  "city": "San Francisco",
+  "state": "CA",
+  "country": "United States",
+  "private": false,
+  "created_at": "2008-01-01T17:44:00Z",
+  "updated_at": "2013-09-04T20:00:50Z",
+  "total_elevation_gain": 155.7,
+  "map": {
+    "id": "s229781",
+    "polyline": "}g|e...VJr@",
+    "resource_state": 3
+  },
+  "effort_count": 51335,
+  "athlete_count": 7036,
+  "hazardous": false,
+  "pr_time": 550,
+  "pr_distance": 2713.32,
+  "starred": false
 }</value>
   </data>
 </root>
