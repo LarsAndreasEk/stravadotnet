@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using com.strava.api.Authentication;
 using com.strava.api.Common;
@@ -8,9 +10,16 @@ namespace com.strava.api.Athletes
 {
     public class AthleteService
     {
+        private readonly IAuthentication _authenticator;
+
         private const String CurrentAthleteUrl = "https://www.strava.com/api/v3/athlete";
         private const String AthleteUrl = "https://www.strava.com/api/v3/athletes/";
-        private readonly IAuthentication _authenticator;
+        
+        private const String CurrentAthleteFriendsUrl = "https://www.strava.com/api/v3/athlete/friends";
+        private const String FriendsUrl = "https://www.strava.com/api/v3/athletes/";
+        
+        private const String CurrentFollowerUrl = "https://www.strava.com/api/v3/athlete/followers";
+        private const String FollowerUrl = "https://www.strava.com/api/v3/athletes/";
 
         public AthleteService(IAuthentication authenticator)
         {
@@ -23,7 +32,7 @@ namespace com.strava.api.Athletes
         }
 
 
-        public async Task<Athlete> GetCurrentAthleteAsync()
+        public async Task<Athlete> GetAthleteAsync()
         {
             String getUrl = String.Format("{0}?access_token={1}", CurrentAthleteUrl, _authenticator.AuthToken);
 
@@ -43,5 +52,44 @@ namespace com.strava.api.Athletes
             return Unmarshaller<Athlete>.Unmarshal(json);
         }
 
+        public async Task<List<Athlete>> GetFriends()
+        {
+            String getUrl = String.Format("{0}?access_token={1}", CurrentAthleteFriendsUrl, _authenticator.AuthToken);
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<List<Athlete>>.Unmarshal(json);
+        }
+
+        public async Task<List<Athlete>> GetFriends(string athleteId)
+        {
+            String getUrl = String.Format("{0}/{1}/friends?access_token={2}", FriendsUrl, athleteId, _authenticator.AuthToken);
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<List<Athlete>>.Unmarshal(json);
+        }
+
+        public async Task<List<Athlete>> GetFollowers()
+        {
+            String getUrl = String.Format("{0}?access_token={1}", CurrentFollowerUrl, _authenticator.AuthToken);
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<List<Athlete>>.Unmarshal(json);
+        }
+
+        public async Task<List<Athlete>> GetFollowers(String athleteId)
+        {
+            String getUrl = String.Format("{0}/{1}/followers?access_token={2}", FollowerUrl, athleteId, _authenticator.AuthToken);
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<List<Athlete>>.Unmarshal(json);
+        }
     }
 }
