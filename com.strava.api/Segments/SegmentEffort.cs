@@ -8,7 +8,7 @@ namespace com.strava.api.Segments
     public class SegmentEffort
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [JsonProperty("resource_state")]
         public int ResourceState { get; set; }
