@@ -46,6 +46,9 @@ namespace com.strava.api.client
             //List<Athlete> followers = await service.GetFollowers();
             //List<Athlete> followers = await service.GetFollowers("528819");
             //Console.WriteLine(followers.Count);
+
+            List<Athlete> both = await service.GetBothFollowing("528819");
+            Console.WriteLine(both.Count);
         }
     }
 }

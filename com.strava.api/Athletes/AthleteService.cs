@@ -91,5 +91,15 @@ namespace com.strava.api.Athletes
             //  Unmarshalling
             return Unmarshaller<List<Athlete>>.Unmarshal(json);
         }
+
+        public async Task<List<Athlete>> GetBothFollowing(String athleteId)
+        {
+            String getUrl = String.Format("{0}/{1}/both-following?access_token={2}", FollowerUrl, athleteId, _authenticator.AuthToken);
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<List<Athlete>>.Unmarshal(json);
+        }
     }
 }
