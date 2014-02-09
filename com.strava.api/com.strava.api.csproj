@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\Activity.cs" />
-    <Compile Include="Activities\ActivityService.cs" />
     <Compile Include="Activities\ActivityType.cs" />
     <Compile Include="Activities\Map.cs" />
     <Compile Include="Activities\ResourceState.cs" />
@@ -52,9 +51,9 @@
     <Compile Include="Api\Usage.cs" />
     <Compile Include="Api\UsageChangedEventArgs.cs" />
     <Compile Include="Athletes\Athlete.cs" />
-    <Compile Include="Athletes\AthleteService.cs" />
     <Compile Include="Authentication\IAuthentication.cs" />
     <Compile Include="Authentication\StaticAuthentication.cs" />
+    <Compile Include="Client\StravaClient.cs" />
     <Compile Include="Common\Coordinate.cs" />
     <Compile Include="Common\Marshaller.cs" />
     <Compile Include="Common\Unmarshaller.cs" />

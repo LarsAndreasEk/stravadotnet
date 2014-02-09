@@ -1,37 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Threading.Tasks;
+using com.strava.api.Activities;
+using com.strava.api.Athletes;
 using com.strava.api.Authentication;
 using com.strava.api.Common;
 using com.strava.api.Http;
 using com.strava.api.Segments;
 
-namespace com.strava.api.Athletes
+namespace com.strava.api.Client
 {
-    public class AthleteService
+    public class StravaClient
     {
-        private readonly IAuthentication _authenticator;
+        private IAuthentication _authenticator;
+
+        private const String ActivityUrl = "https://www.strava.com/api/v3/activities/";
 
         private const String CurrentAthleteUrl = "https://www.strava.com/api/v3/athlete";
         private const String AthleteUrl = "https://www.strava.com/api/v3/athletes/";
 
         private const String CurrentAthleteFriendsUrl = "https://www.strava.com/api/v3/athlete/friends";
         private const String FriendsUrl = "https://www.strava.com/api/v3/athletes/";
-        
+
         private const String CurrentFollowerUrl = "https://www.strava.com/api/v3/athlete/followers";
         private const String FollowerUrl = "https://www.strava.com/api/v3/athletes/";
 
-        public AthleteService(IAuthentication authenticator)
+        public StravaClient(IAuthentication authenticator)
         {
-            if (authenticator == null)
+            if (authenticator != null)
             {
-                throw new ArgumentException("The IAuthenticator object must not be null.");
+                _authenticator = authenticator;    
             }
-
-            _authenticator = authenticator;
+            else
+            {
+                throw new ArgumentException("The IAuthentication object must not be null.");
+            }
         }
 
+        #region Activity
+
+        public async Task<Activity> GetActivityAsync(string id)
+        {
+            String getUrl = String.Format("{0}/{1}?access_token={2}", ActivityUrl, id, _authenticator.AuthToken);
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<Activity>.Unmarshal(json);
+        }
+
+        #endregion
+
+        #region Athlete
 
         public async Task<Athlete> GetAthleteAsync()
         {
@@ -52,7 +72,7 @@ namespace com.strava.api.Athletes
             //  Unmarshalling
             return Unmarshaller<Athlete>.Unmarshal(json);
         }
-
+        
         public async Task<List<Athlete>> GetFriends()
         {
             String getUrl = String.Format("{0}?access_token={1}", CurrentAthleteFriendsUrl, _authenticator.AuthToken);
@@ -103,6 +123,10 @@ namespace com.strava.api.Athletes
             return Unmarshaller<List<Athlete>>.Unmarshal(json);
         }
 
+        #endregion
+
+        #region Records
+
         public async Task<List<SegmentEffort>> GetRecordsAsync(string athleteId)
         {
             String getUrl = String.Format("{0}/{1}/koms?access_token={2}", AthleteUrl, athleteId, _authenticator.AuthToken);
@@ -112,5 +136,7 @@ namespace com.strava.api.Athletes
             //  Unmarshalling
             return Unmarshaller<List<SegmentEffort>>.Unmarshal(json);
         }
+
+        #endregion
     }
 }
