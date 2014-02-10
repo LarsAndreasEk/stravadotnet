@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Activities\Activity.cs" />
     <Compile Include="Activities\ActivityType.cs" />
+    <Compile Include="Activities\Leaderboard.cs" />
+    <Compile Include="Activities\LeaderboardEntry.cs" />
     <Compile Include="Activities\Map.cs" />
     <Compile Include="Activities\ResourceState.cs" />
     <Compile Include="Api\Limits.cs" />

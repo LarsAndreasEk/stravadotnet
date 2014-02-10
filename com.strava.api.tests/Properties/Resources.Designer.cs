@@ -108,6 +108,31 @@ namespace com.strava.api.tests.Properties {
         
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die {
+        ///
+        ///    &quot;effort_count&quot;: 8774,
+        ///    &quot;entry_count&quot;: 8774,
+        ///    &quot;entries&quot;: [
+        ///        {
+        ///            &quot;athlete_name&quot;: &quot;Jim Whimpey&quot;,
+        ///            &quot;athlete_id&quot;: 123529,
+        ///            &quot;athlete_gender&quot;: &quot;M&quot;,
+        ///            &quot;average_hr&quot;: 190.5,
+        ///            &quot;average_watts&quot;: 460.8,
+        ///            &quot;distance&quot;: 2659.9,
+        ///            &quot;elapsed_time&quot;: 360,
+        ///            &quot;moving_time&quot;: 360,
+        ///            &quot;start_date&quot;: &quot;2013-03-29T13:49:35Z&quot;,
+        ///            &quot;start_date_local&quot;: &quot;2013-03-29T06:49:35Z&quot;,
+        ///            &quot;activity_id&quot;: 4632 [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        /// </summary>
+        internal static string LeaderboardJson {
+            get {
+                return ResourceManager.GetString("LeaderboardJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die {
         ///  &quot;id&quot;: 269990681,
         ///  &quot;resource_state&quot;: 3,
         ///  &quot;name&quot;: &quot;Geysers Road Climb&quot;,

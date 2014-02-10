@@ -53,14 +53,30 @@ namespace com.strava.api.client
             //List<Athlete> both = await client.GetBothFollowingAsync("528819");
             //Console.WriteLine(both.Count);
 
-            List<SegmentEffort> records = await client.GetRecordsAsync("528819");
+            //List<SegmentEffort> records = await client.GetRecordsAsync("528819");
 
-            foreach (SegmentEffort effort in records)
-            {
-                Console.WriteLine(effort.Name);
-            }
+            //foreach (SegmentEffort effort in records)
+            //{
+            //    Console.WriteLine(effort.Name);
+            //}
 
-            Console.WriteLine(records.Count);
+            //List<Segment> starred = await client.GetStarredSegmentsAsync();
+            //Console.WriteLine(starred.Count);
+
+            //#region Leaderboard
+
+            //Leaderboard leaderboard = await client.GetSegmentLeaderboardAsync("1300798");
+            
+            //foreach (var entry in leaderboard.Entries)
+            //{
+            //    Console.WriteLine(entry.AthleteId);
+            //    Console.WriteLine(entry.AthleteName);
+            //    Console.WriteLine(entry.AverageHeartrate);
+            //    Console.WriteLine();
+            //}
+            
+            //#endregion
+
         }
     }
 }

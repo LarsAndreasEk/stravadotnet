@@ -14,16 +14,20 @@ namespace com.strava.api.Client
     {
         private IAuthentication _authenticator;
 
-        private const String ActivityUrl = "https://www.strava.com/api/v3/activities/";
+        private const String ActivityUrl = "https://www.strava.com/api/v3/activities";
 
         private const String CurrentAthleteUrl = "https://www.strava.com/api/v3/athlete";
-        private const String AthleteUrl = "https://www.strava.com/api/v3/athletes/";
+        private const String AthleteUrl = "https://www.strava.com/api/v3/athletes";
 
         private const String CurrentAthleteFriendsUrl = "https://www.strava.com/api/v3/athlete/friends";
-        private const String FriendsUrl = "https://www.strava.com/api/v3/athletes/";
+        private const String FriendsUrl = "https://www.strava.com/api/v3/athletes";
 
         private const String CurrentFollowerUrl = "https://www.strava.com/api/v3/athlete/followers";
-        private const String FollowerUrl = "https://www.strava.com/api/v3/athletes/";
+        private const String FollowerUrl = "https://www.strava.com/api/v3/athletes";
+
+        private const String StarredUrl = "https://www.strava.com/api/v3/segments/starred";
+
+        private const String LeaderboardUrl = "https://www.strava.com/api/v3/segments";
 
         public StravaClient(IAuthentication authenticator)
         {
@@ -125,7 +129,7 @@ namespace com.strava.api.Client
 
         #endregion
 
-        #region Records
+        #region Segments
 
         public async Task<List<SegmentEffort>> GetRecordsAsync(string athleteId)
         {
@@ -135,6 +139,26 @@ namespace com.strava.api.Client
 
             //  Unmarshalling
             return Unmarshaller<List<SegmentEffort>>.Unmarshal(json);
+        }
+
+        public async Task<List<Segment>> GetStarredSegmentsAsync()
+        {
+            String getUrl = String.Format("{0}/?access_token={1}", StarredUrl, _authenticator.AuthToken);
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<List<Segment>>.Unmarshal(json);
+        }
+
+        public async Task<Leaderboard> GetSegmentLeaderboardAsync(string segmentId)
+        {
+            String getUrl = String.Format("{0}/{1}/leaderboard?access_token={2}", LeaderboardUrl, segmentId, _authenticator.AuthToken);
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<Leaderboard>.Unmarshal(json);
         }
 
         #endregion
