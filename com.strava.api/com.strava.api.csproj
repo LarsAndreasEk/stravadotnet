@@ -45,10 +45,14 @@
   <ItemGroup>
     <Compile Include="Activities\Activity.cs" />
     <Compile Include="Activities\ActivityType.cs" />
+    <Compile Include="Activities\AgeGroup.cs" />
+    <Compile Include="Activities\Gender.cs" />
     <Compile Include="Activities\Leaderboard.cs" />
     <Compile Include="Activities\LeaderboardEntry.cs" />
     <Compile Include="Activities\Map.cs" />
     <Compile Include="Activities\ResourceState.cs" />
+    <Compile Include="Activities\WeightClassKilo.cs" />
+    <Compile Include="Activities\WeightClassPound.cs" />
     <Compile Include="Api\Limits.cs" />
     <Compile Include="Api\Usage.cs" />
     <Compile Include="Api\UsageChangedEventArgs.cs" />

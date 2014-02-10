@@ -65,15 +65,15 @@ namespace com.strava.api.client
 
             //#region Leaderboard
 
-            //Leaderboard leaderboard = await client.GetSegmentLeaderboardAsync("1300798");
-            
-            //foreach (var entry in leaderboard.Entries)
-            //{
-            //    Console.WriteLine(entry.AthleteId);
-            //    Console.WriteLine(entry.AthleteName);
-            //    Console.WriteLine(entry.AverageHeartrate);
-            //    Console.WriteLine();
-            //}
+            Leaderboard leaderboard = await client.GetSegmentLeaderboardAsync("1300798");
+
+            foreach (var entry in leaderboard.Entries)
+            {
+                Console.WriteLine(entry.AthleteId);
+                Console.WriteLine(entry.AthleteName);
+                Console.WriteLine(entry.AverageHeartrate);
+                Console.WriteLine();
+            }
             
             //#endregion
 

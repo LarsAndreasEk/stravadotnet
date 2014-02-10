@@ -151,9 +151,41 @@ namespace com.strava.api.Client
             return Unmarshaller<List<Segment>>.Unmarshal(json);
         }
 
-        public async Task<Leaderboard> GetSegmentLeaderboardAsync(string segmentId)
+        public async Task<Leaderboard> GetFullSegmentLeaderboardAsync(string segmentId)
         {
             String getUrl = String.Format("{0}/{1}/leaderboard?access_token={2}", LeaderboardUrl, segmentId, _authenticator.AuthToken);
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<Leaderboard>.Unmarshal(json);
+        }
+
+        public async Task<Leaderboard> GetSegmentLeaderboardByGenderAsync(string segmentId, Gender gender = Gender.Male)
+        {
+            String genderFilter = gender == Gender.Male ? "M" : "F";
+            String getUrl = String.Format("{0}/{1}/leaderboard?gender={2}&access_token={3}",
+                LeaderboardUrl, 
+                segmentId, 
+                genderFilter,
+                _authenticator.AuthToken
+                );
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<Leaderboard>.Unmarshal(json);
+        }
+
+        public async Task<Leaderboard> GetSegmentLeaderboardByAgeAsync(string segmentId, Gender gender = Gender.Male)
+        {
+            String genderFilter = gender == Gender.Male ? "M" : "F";
+            String getUrl = String.Format("{0}/{1}/leaderboard?gender={2}&access_token={3}",
+                LeaderboardUrl,
+                segmentId,
+                genderFilter,
+                _authenticator.AuthToken
+                );
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
