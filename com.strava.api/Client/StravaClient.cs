@@ -12,7 +12,7 @@ namespace com.strava.api.Client
 {
     public class StravaClient
     {
-        private IAuthentication _authenticator;
+        private readonly IAuthentication _authenticator;
 
         private const String ActivityUrl = "https://www.strava.com/api/v3/activities";
 
@@ -77,7 +77,7 @@ namespace com.strava.api.Client
             return Unmarshaller<Athlete>.Unmarshal(json);
         }
         
-        public async Task<List<Athlete>> GetFriends()
+        public async Task<List<Athlete>> GetFriendsAsync()
         {
             String getUrl = String.Format("{0}?access_token={1}", CurrentAthleteFriendsUrl, _authenticator.AuthToken);
 
@@ -125,6 +125,31 @@ namespace com.strava.api.Client
 
             //  Unmarshalling
             return Unmarshaller<List<Athlete>>.Unmarshal(json);
+        }
+
+        public async Task<Athlete> UpdateAthleteCityAsync(string city)
+        {
+            
+        }
+
+        public async Task<Athlete> UpdateAthleteCountryAsync(string country)
+        {
+
+        }
+
+        public async Task<Athlete> UpdateAthleteStateAsync(string state)
+        {
+
+        }
+
+        public async Task<Athlete> UpdateAthleteSexAsync(Gender gender)
+        {
+
+        }
+
+        public async Task<Athlete> UpdateAthleteWeightAsync(float weight)
+        {
+
         }
 
         #endregion

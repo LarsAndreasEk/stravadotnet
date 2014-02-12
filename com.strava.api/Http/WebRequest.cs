@@ -38,5 +38,10 @@ namespace com.strava.api.Http
 
             return String.Empty;
         }
+
+        public static async Task<String> SendPutAsync(Uri uri)
+        {
+            
+        }
     }
 }
