@@ -51,8 +51,7 @@
     <Compile Include="Activities\LeaderboardEntry.cs" />
     <Compile Include="Activities\Map.cs" />
     <Compile Include="Activities\ResourceState.cs" />
-    <Compile Include="Activities\WeightClassKilo.cs" />
-    <Compile Include="Activities\WeightClassPound.cs" />
+    <Compile Include="Activities\WeightClass.cs" />
     <Compile Include="Api\Limits.cs" />
     <Compile Include="Api\Usage.cs" />
     <Compile Include="Api\UsageChangedEventArgs.cs" />

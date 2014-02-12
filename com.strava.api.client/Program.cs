@@ -63,9 +63,9 @@ namespace com.strava.api.client
             //List<Segment> starred = await client.GetStarredSegmentsAsync();
             //Console.WriteLine(starred.Count);
 
-            //#region Leaderboard
+            #region Leaderboard
 
-            Leaderboard leaderboard = await client.GetSegmentLeaderboardAsync("1300798");
+            Leaderboard leaderboard = await client.GetSegmentLeaderboardAsync("5799831", Gender.Male, WeightClass.One);
 
             foreach (var entry in leaderboard.Entries)
             {
@@ -75,7 +75,7 @@ namespace com.strava.api.client
                 Console.WriteLine();
             }
             
-            //#endregion
+            #endregion
 
         }
     }

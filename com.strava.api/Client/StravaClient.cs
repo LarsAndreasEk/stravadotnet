@@ -161,7 +161,7 @@ namespace com.strava.api.Client
             return Unmarshaller<Leaderboard>.Unmarshal(json);
         }
 
-        public async Task<Leaderboard> GetSegmentLeaderboardByGenderAsync(string segmentId, Gender gender = Gender.Male)
+        public async Task<Leaderboard> GetSegmentLeaderboardAsync(string segmentId, Gender gender)
         {
             String genderFilter = gender == Gender.Male ? "M" : "F";
             String getUrl = String.Format("{0}/{1}/leaderboard?gender={2}&access_token={3}",
@@ -177,13 +177,93 @@ namespace com.strava.api.Client
             return Unmarshaller<Leaderboard>.Unmarshal(json);
         }
 
-        public async Task<Leaderboard> GetSegmentLeaderboardByAgeAsync(string segmentId, Gender gender = Gender.Male)
+        /// <summary>
+        /// This method requires a Strava premium account.
+        /// </summary>
+        /// <param name="segmentId"></param>
+        /// <param name="gender"></param>
+        /// <param name="age"></param>
+        /// <returns></returns>
+        public async Task<Leaderboard> GetSegmentLeaderboardAsync(string segmentId, Gender gender, AgeGroup age)
         {
+            String ageFilter = String.Empty;
             String genderFilter = gender == Gender.Male ? "M" : "F";
-            String getUrl = String.Format("{0}/{1}/leaderboard?gender={2}&access_token={3}",
+
+            switch (age)
+            {
+                case AgeGroup.TwentyFourAndYounger:
+                    ageFilter = "0_24";
+                    break;
+                case AgeGroup.TwentyFiveToThirtyFour:
+                    ageFilter = "25_34";
+                    break;
+                case AgeGroup.ThirtyFiveToFourtyFour:
+                    ageFilter = "35_44";
+                    break;
+                case AgeGroup.FourtyFiveToFiftyFour:
+                    ageFilter = "45_54";
+                    break;
+                case AgeGroup.FiftyFiveToSixtyFour:
+                    ageFilter = "55_64";
+                    break;
+                case AgeGroup.SixtyFiveAndOver:
+                    ageFilter = "65_plus";
+                    break;
+            }
+
+            String getUrl = String.Format("{0}/{1}/leaderboard?gender={2}&age_group={3}&filter=age_group&access_token={4}",
                 LeaderboardUrl,
                 segmentId,
                 genderFilter,
+                ageFilter,
+                _authenticator.AuthToken
+                );
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<Leaderboard>.Unmarshal(json);
+        }
+
+        /// <summary>
+        /// This method requires a Strava premium account.
+        /// </summary>
+        /// <param name="segmentId"></param>
+        /// <param name="gender"></param>
+        /// <param name="weight"></param>
+        /// <returns></returns>
+        public async Task<Leaderboard> GetSegmentLeaderboardAsync(string segmentId, Gender gender, WeightClass weight)
+        {
+            String weightClass = String.Empty;
+            String genderFilter = gender == Gender.Male ? "M" : "F";
+
+            switch (weight)
+            {
+                case WeightClass.One:
+                    weightClass = "0_54";
+                    break;
+                case WeightClass.Two:
+                    weightClass = "55_64";
+                    break;
+                case WeightClass.Three:
+                    weightClass = "65_74";
+                    break;
+                case WeightClass.Four:
+                    weightClass = "75_84";
+                    break;
+                case WeightClass.Five:
+                    weightClass = "85_94";
+                    break;
+                case WeightClass.Six:
+                    weightClass = "95_plus";
+                    break;
+            }
+
+            String getUrl = String.Format("{0}/{1}/leaderboard?gender={2}&weight_class={3}&filter=weight_class&access_token={4}",
+                LeaderboardUrl,
+                segmentId,
+                genderFilter,
+                weightClass,
                 _authenticator.AuthToken
                 );
 
