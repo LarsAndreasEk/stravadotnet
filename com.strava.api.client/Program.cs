@@ -6,6 +6,7 @@ using System.Net.Http;
 using com.strava.api.Activities;
 using com.strava.api.Api;
 using com.strava.api.Athletes;
+using com.strava.api.Auth;
 using com.strava.api.Authentication;
 using com.strava.api.Client;
 using com.strava.api.Segments;
@@ -17,6 +18,7 @@ namespace com.strava.api.client
         public static void Main(String[] args)
         {
             Test();
+            
             Console.ReadLine();
         }
 
@@ -26,9 +28,13 @@ namespace com.strava.api.client
 
             StravaClient client = new StravaClient(auth);
 
+            WebAuthentication web = new WebAuthentication();
+            web.AccessTokenReceived += delegate(object sender, TokenReceivedEventArgs args) { Console.WriteLine("Token: " + args.Token); };
+            web.GetTokenAsync("605", Scope.Full);
+
             #region Activity
-            Activity a = await client.GetActivityAsync("109557593");
-            Console.WriteLine(a.AthleteCount);
+            //Activity a = await client.GetActivityAsync("109557593");
+            //Console.WriteLine(a.AthleteCount);
             #endregion
 
             //object o = await Http.WebRequest.SendGetAsync(new Uri("https://www.strava.com/api/v3/gear/814946?access_token=72e8fa9d4f63477adc76555de382a033b6aedf6d"));

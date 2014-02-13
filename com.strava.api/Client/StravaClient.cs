@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using com.strava.api.Activities;
 using com.strava.api.Athletes;
+using com.strava.api.Auth;
 using com.strava.api.Authentication;
 using com.strava.api.Common;
 using com.strava.api.Http;
@@ -50,6 +53,38 @@ namespace com.strava.api.Client
         #endregion
 
         #region Methods
+
+        public void RequestAuthorization(String clientId, Scope scope, Uri redirectUri)
+        {
+            String url = "https://www.strava.com/oauth/authorize";
+            String scopeLevel = String.Empty;
+
+            switch (scope)
+            {
+                case Scope.Full:
+                    scopeLevel = "view_private,write";
+                    break;
+                case Scope.Public:
+                    scopeLevel = "public";
+                    break;
+                case Scope.ViewPrivate:
+                    scopeLevel = "view_rpivate";
+                    break;
+                case Scope.Write:
+                    scopeLevel = "write";
+                    break;
+            }
+
+            Process process = new Process();
+            process.StartInfo = new ProcessStartInfo(
+                String.Format("{0}?client_id={1}&response_type=code&responce_type=code&redirect_uri={2}&scope={3}&approval_prompt=auto",
+                    url,
+                    clientId,
+                    redirectUri.AbsoluteUri,
+                    scopeLevel));
+
+            process.Start();
+        }
 
         #region Activity
 
