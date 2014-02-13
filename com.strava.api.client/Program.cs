@@ -31,7 +31,7 @@ namespace com.strava.api.client
             WebAuthentication web = new WebAuthentication();
             web.AccessTokenReceived += delegate(object sender, TokenReceivedEventArgs args) { Console.WriteLine("Token: " + args.Token); };
             web.GetTokenAsync("605", Scope.Full);
-
+            
             #region Activity
             //Activity a = await client.GetActivityAsync("109557593");
             //Console.WriteLine(a.AthleteCount);
