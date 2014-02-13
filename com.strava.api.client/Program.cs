@@ -28,17 +28,14 @@ namespace com.strava.api.client
             StravaClient client = new StravaClient(auth);
 
             WebAuthentication web = new WebAuthentication();
-            web.AccessTokenReceived += delegate(object sender, TokenReceivedEventArgs args) { Console.WriteLine("Token: " + args.Token); };
+            web.AuthCodeReceived += delegate(object sender, AuthCodeReceivedEventArgs args) { Console.WriteLine("Auth Code: " + args.AuthCode); };
+            web.AccessTokenReceived += delegate(object sender, TokenReceivedEventArgs args) { Console.WriteLine("Access Token: " + args.Token); };
             web.GetTokenAsync("605", "87a5085fb5ded25ebb08a72131c1b9c6b1a83c7a", Scope.Full);
             
             #region Activity
             //Activity a = await client.GetActivityAsync("109557593");
             //Console.WriteLine(a.AthleteCount);
             #endregion
-
-            //object o = await Http.WebRequest.SendGetAsync(new Uri("https://www.strava.com/api/v3/gear/814946?access_token=72e8fa9d4f63477adc76555de382a033b6aedf6d"));
-            //Console.WriteLine(o);
-
 
             //Athlete
             //Athlete a = await client.GetAthleteAsync("3471492");

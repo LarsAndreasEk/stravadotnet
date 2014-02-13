@@ -7,8 +7,10 @@ namespace com.strava.api.Authentication
     public class WebAuthentication : IAuthentication
     {
         public event EventHandler<TokenReceivedEventArgs> AccessTokenReceived;
+        public event EventHandler<AuthCodeReceivedEventArgs> AuthCodeReceived;
 
         public string AuthToken { get; set; }
+        public String AuthCode { get; set; }
 
         public void GetTokenAsync(String clientId, String clientSecret, Scope scope, int callbackPort = 1895)
         {
@@ -22,6 +24,15 @@ namespace com.strava.api.Authentication
                 {
                     AccessTokenReceived(this, args);
                     AuthToken = args.Token;
+                }
+            };
+
+            server.AuthCodeReceived += delegate(object sender, AuthCodeReceivedEventArgs args)
+            {
+                if (AccessTokenReceived != null)
+                {
+                    AuthCodeReceived(this, args);
+                    AuthToken = args.AuthCode;
                 }
             };
 

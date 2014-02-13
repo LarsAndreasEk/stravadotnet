@@ -15,6 +15,7 @@ namespace com.strava.api.Authentication
     /// </summary>
     public class LocalWebServer
     {
+        public event EventHandler<AuthCodeReceivedEventArgs> AuthCodeReceived;
         public event EventHandler<TokenReceivedEventArgs> AccessTokenReceived;
 
         public String ClientId { get; set; }
@@ -51,6 +52,14 @@ namespace com.strava.api.Authentication
             // 0 = state
             // 1 = code
             String code = queries.GetValues(1)[0];
+
+            if (!String.IsNullOrEmpty(code))
+            {
+                if (AuthCodeReceived != null)
+                {
+                    AuthCodeReceived(this, new AuthCodeReceivedEventArgs(code));
+                }
+            }
             
             // Save token to hard disk
             String path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "StravaApi");
@@ -76,13 +85,13 @@ namespace com.strava.api.Authentication
             String url = String.Format("https://www.strava.com/oauth/token?client_id={0}&client_secret={1}&code={2}", ClientId, ClientSecret, code);
             String json = await WebRequest.SendPostAsync(new Uri(url));
 
-            AuthToken auth = Unmarshaller<AuthToken>.Unmarshal(json);
+            AccessToken auth = Unmarshaller<AccessToken>.Unmarshal(json);
 
-            if (!String.IsNullOrEmpty(auth.AccessToken))
+            if (!String.IsNullOrEmpty(auth.Token))
             {
                 if (AccessTokenReceived != null)
                 {
-                    AccessTokenReceived(this, new TokenReceivedEventArgs(auth.AccessToken));
+                    AccessTokenReceived(this, new TokenReceivedEventArgs(auth.Token));
                 }
             }
         }

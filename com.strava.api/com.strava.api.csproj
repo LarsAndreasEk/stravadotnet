@@ -59,7 +59,8 @@
     <Compile Include="Api\Usage.cs" />
     <Compile Include="Api\UsageChangedEventArgs.cs" />
     <Compile Include="Athletes\Athlete.cs" />
-    <Compile Include="Authentication\AuthToken.cs" />
+    <Compile Include="Authentication\AuthCodeReceivedEventArgs.cs" />
+    <Compile Include="Authentication\AccessToken.cs" />
     <Compile Include="Authentication\IAuthentication.cs" />
     <Compile Include="Authentication\LocalWebServer.cs" />
     <Compile Include="Authentication\StaticAuthentication.cs" />

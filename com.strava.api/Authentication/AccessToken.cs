@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 
 namespace com.strava.api.Authentication
 {
-    public class AuthToken
+    public class AccessToken
     {
         [JsonProperty("access_token")]
-        public String AccessToken { get; set; }
+        public String Token { get; set; }
     }
 }
