@@ -27,8 +27,8 @@ namespace com.strava.api.client
             StravaClient client = new StravaClient(auth);
 
             #region Activity
-            //Activity a = await client.GetActivityAsync("109557593");
-            //Console.WriteLine(a.MaxSpeed);
+            Activity a = await client.GetActivityAsync("109557593");
+            Console.WriteLine(a.AthleteCount);
             #endregion
 
             //object o = await Http.WebRequest.SendGetAsync(new Uri("https://www.strava.com/api/v3/gear/814946?access_token=72e8fa9d4f63477adc76555de382a033b6aedf6d"));
