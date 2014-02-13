@@ -13,7 +13,9 @@ namespace com.strava.api.Http
         public static async Task<String> SendGetAsync(Uri uri)
         {
             if (uri == null)
+            {
                 throw new ArgumentException("Parameter uri must not be null. Please commit a valid Uri object.");
+            }
 
             using (var httpClient = new HttpClient())
             {
@@ -32,6 +34,27 @@ namespace com.strava.api.Http
                             Int32.Parse(usage.Value.ElementAt(0).Split(',')[1]));
                     }
 
+                    return await response.Content.ReadAsStringAsync();
+                }
+            }
+
+            return String.Empty;
+        }
+
+        public static async Task<String> SendPostAsync(Uri uri)
+        {
+            if (uri == null)
+            {
+                throw new ArgumentException("Parameter uri must not be null. Please commit a valid Uri object.");
+            }
+
+            using (var httpClient = new HttpClient())
+            {
+                HttpResponseMessage response = await httpClient.PostAsync(uri, null);
+
+                //Request was successful
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
                     return await response.Content.ReadAsStringAsync();
                 }
             }
