@@ -177,6 +177,84 @@
   ]
 }</value>
   </data>
+  <data name="CommentsJson" xml:space="preserve">
+    <value>[
+
+    {
+        "id": 21370882,
+        "activity_id": 112861810,
+        "resource_state": 2,
+        "text": "Schöne Runde, dafür, dass es so übel begonnen hat!",
+        "athlete": {
+            "id": 1012287,
+            "resource_state": 2,
+            "firstname": "Thorsten",
+            "lastname": "Metzger",
+            "profile_medium": "http://dgalywyr863hv.cloudfront.net/pictures/athletes/1012287/245096/1/medium.jpg",
+            "profile": "http://dgalywyr863hv.cloudfront.net/pictures/athletes/1012287/245096/1/large.jpg",
+            "city": "Karlsruhe",
+            "state": "Baden-Württemberg",
+            "country": "Deutschland",
+            "sex": "M",
+            "friend": null,
+            "follower": null,
+            "premium": false,
+            "created_at": "2012-08-21T19:13:07Z",
+            "updated_at": "2014-02-13T06:58:24Z"
+        },
+        "created_at": "2014-02-12T18:49:35Z"
+    },
+    {
+        "id": 21371009,
+        "activity_id": 112861810,
+        "resource_state": 2,
+        "text": ":) ja war nett da hinten nur den Rückweg muss ich besser planen war dann etwas dunkel und die Straßen etwas zu stark frequentiert.",
+        "athlete": {
+            "id": 2638971,
+            "resource_state": 2,
+            "firstname": "Toni",
+            "lastname": "Stubenrauch",
+            "profile_medium": "http://dgalywyr863hv.cloudfront.net/pictures/athletes/2638971/832804/1/medium.jpg",
+            "profile": "http://dgalywyr863hv.cloudfront.net/pictures/athletes/2638971/832804/1/large.jpg",
+            "city": "Ettlingen",
+            "state": "BW",
+            "country": "Germany",
+            "sex": "M",
+            "friend": null,
+            "follower": null,
+            "premium": true,
+            "created_at": "2013-07-24T05:07:48Z",
+            "updated_at": "2014-02-12T18:14:34Z"
+        },
+        "created_at": "2014-02-12T18:53:56Z"
+    },
+    {
+        "id": 21376322,
+        "activity_id": 112861810,
+        "resource_state": 2,
+        "text": "was hastn mitm Opi?!",
+        "athlete": {
+            "id": 3471492,
+            "resource_state": 2,
+            "firstname": "Alfons",
+            "lastname": "Muntean",
+            "profile_medium": "http://dgalywyr863hv.cloudfront.net/pictures/athletes/3471492/1162687/1/medium.jpg",
+            "profile": "http://dgalywyr863hv.cloudfront.net/pictures/athletes/3471492/1162687/1/large.jpg",
+            "city": "Karlsruhe",
+            "state": "BW",
+            "country": "Deutschland",
+            "sex": "M",
+            "friend": null,
+            "follower": null,
+            "premium": false,
+            "created_at": "2013-12-07T17:12:51Z",
+            "updated_at": "2014-02-12T20:48:12Z"
+        },
+        "created_at": "2014-02-12T20:53:31Z"
+    }
+
+]</value>
+  </data>
   <data name="GearJson" xml:space="preserve">
     <value>{
     "id": "b814946",
@@ -358,6 +436,23 @@
         }
     ]
 
+}</value>
+  </data>
+  <data name="PhotoJson" xml:space="preserve">
+    <value>{
+  "id": 10701863,
+  "activity_id": 81121657,
+  "resource_state": 2,
+  "ref": "http://instagram.com/p/eAvA-tir85/",
+  "uid": "540638730806542137_2865686",
+  "caption": "City on a cottonbal",
+  "type": "InstagramPhoto",
+  "uploaded_at": "2013-09-08T19:39:40Z",
+  "created_at": "2013-09-08T22:05:14Z",
+  "location": [
+    37.839333333,
+    -122.489833333
+  ]
 }</value>
   </data>
   <data name="SegmentEffortJson" xml:space="preserve">

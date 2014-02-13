@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using com.strava.api.Athletes;
+using System.Linq;
 using com.strava.api.Common;
-using com.strava.api.Gear;
 using com.strava.api.Segments;
 using Newtonsoft.Json;
 
@@ -81,11 +80,53 @@ namespace com.strava.api.Activities
         [JsonProperty("timezone")]
         public String TimeZone { get; set; }
 
-        //Objects
-        //public List<SegmentEffort> SegmentEfforts { get; set; }
-        //public Map Map { get; set; }
-        //public Coordinate StartPoint { get; set; }
-        //public Coordinate EndPoint { get; set; }
+        #region Objects
+
+        [JsonProperty("segment_efforts")]
+        public List<SegmentEffort> SegmentEfforts { get; set; }
+
+        [JsonProperty("start_latlng")]
+        public List<double> StartPoint { get; set; }
+
+        public double StartLatitude
+        {
+            get
+            {
+                return StartPoint.ElementAt(0);
+            }
+        }
+
+        public double StartLongitude
+        {
+            get
+            {
+                return StartPoint.ElementAt(1);
+            }
+        }
+
+        [JsonProperty("end_latlng")]
+        public List<double> EndPoint { get; set; }
+
+        public double EndLatitude
+        {
+            get
+            {
+                return EndPoint.ElementAt(0);
+            }
+        }
+
+        public double EndLongitude
+        {
+            get
+            {
+                return EndPoint.ElementAt(1);
+            }
+        }
+
+        [JsonProperty("map")]
+        public Map Map { get; set; }
+        #endregion
+        
         //public Athlete Athlete { get; set; }
         //public IGear Gear { get; set; }
         //public ActivityType ActivityType { get; set; }

@@ -46,10 +46,12 @@
     <Compile Include="Activities\Activity.cs" />
     <Compile Include="Activities\ActivityType.cs" />
     <Compile Include="Activities\AgeGroup.cs" />
+    <Compile Include="Activities\Comment.cs" />
     <Compile Include="Activities\Gender.cs" />
     <Compile Include="Activities\Leaderboard.cs" />
     <Compile Include="Activities\LeaderboardEntry.cs" />
     <Compile Include="Activities\Map.cs" />
+    <Compile Include="Activities\Photo.cs" />
     <Compile Include="Activities\ResourceState.cs" />
     <Compile Include="Activities\WeightClass.cs" />
     <Compile Include="Api\Limits.cs" />
@@ -59,7 +61,6 @@
     <Compile Include="Authentication\IAuthentication.cs" />
     <Compile Include="Authentication\StaticAuthentication.cs" />
     <Compile Include="Client\StravaClient.cs" />
-    <Compile Include="Common\Coordinate.cs" />
     <Compile Include="Common\Marshaller.cs" />
     <Compile Include="Common\Unmarshaller.cs" />
     <Compile Include="Gear\BikeType.cs" />

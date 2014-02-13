@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using com.strava.api.Activities;
 using com.strava.api.Api;
 using com.strava.api.Athletes;
@@ -26,9 +27,8 @@ namespace com.strava.api.client
             StravaClient client = new StravaClient(auth);
 
             #region Activity
-            //ActivityService service = new ActivityService(auth);
-            //Activity a = await service.GetActivityAsync("109557593");
-            //Console.WriteLine(a.MaxHeartrate);
+            //Activity a = await client.GetActivityAsync("109557593");
+            //Console.WriteLine(a.MaxSpeed);
             #endregion
 
             //object o = await Http.WebRequest.SendGetAsync(new Uri("https://www.strava.com/api/v3/gear/814946?access_token=72e8fa9d4f63477adc76555de382a033b6aedf6d"));
@@ -65,18 +65,36 @@ namespace com.strava.api.client
 
             #region Leaderboard
 
-            Leaderboard leaderboard = await client.GetSegmentLeaderboardAsync("5799831", Gender.Male, WeightClass.One);
+            //Leaderboard leaderboard = await client.GetSegmentLeaderboardAsync("5799831", Gender.Male, WeightClass.One);
 
-            foreach (var entry in leaderboard.Entries)
-            {
-                Console.WriteLine(entry.AthleteId);
-                Console.WriteLine(entry.AthleteName);
-                Console.WriteLine(entry.AverageHeartrate);
-                Console.WriteLine();
-            }
+            //foreach (var entry in leaderboard.Entries)
+            //{
+            //    Console.WriteLine(entry.AthleteId);
+            //    Console.WriteLine(entry.AthleteName);
+            //    Console.WriteLine(entry.AverageHeartrate);
+            //    Console.WriteLine();
+            //}
             
             #endregion
 
+            #region Comments
+
+            //List<Comment> comments = await client.GetCommentsAsync("112861810");
+
+            //foreach (var comment in comments)
+            //{
+            //    Console.WriteLine(comment.Text);
+            //    Console.WriteLine();
+            //}
+
+            #endregion
+
+            //List<Athlete> kudoAthletes = await client.GetKudosAsync("112818941");
+            
+            //foreach (var kudos in kudoAthletes)
+            //{
+            //    Console.WriteLine(kudos.FirstName);
+            //}
         }
     }
 }

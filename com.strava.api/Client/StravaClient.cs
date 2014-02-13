@@ -12,6 +12,8 @@ namespace com.strava.api.Client
 {
     public class StravaClient
     {
+        #region Members
+
         private readonly IAuthentication _authenticator;
 
         private const String ActivityUrl = "https://www.strava.com/api/v3/activities";
@@ -29,6 +31,10 @@ namespace com.strava.api.Client
 
         private const String LeaderboardUrl = "https://www.strava.com/api/v3/segments";
 
+        #endregion
+
+        #region Ctor
+
         public StravaClient(IAuthentication authenticator)
         {
             if (authenticator != null)
@@ -41,6 +47,10 @@ namespace com.strava.api.Client
             }
         }
 
+        #endregion
+
+        #region Methods
+
         #region Activity
 
         public async Task<Activity> GetActivityAsync(string id)
@@ -51,6 +61,26 @@ namespace com.strava.api.Client
 
             //  Unmarshalling
             return Unmarshaller<Activity>.Unmarshal(json);
+        }
+
+        public async Task<List<Comment>> GetCommentsAsync(string activityId)
+        {
+            String getUrl = String.Format("{0}/{1}/comments?access_token={2}", ActivityUrl, activityId, _authenticator.AuthToken);
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<List<Comment>>.Unmarshal(json);
+        }
+
+        public async Task<List<Athlete>> GetKudosAsync(string activityId)
+        {
+            String getUrl = String.Format("{0}/{1}/kudos?access_token={2}", ActivityUrl, activityId, _authenticator.AuthToken);
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<List<Athlete>>.Unmarshal(json);
         }
 
         #endregion
@@ -125,31 +155,6 @@ namespace com.strava.api.Client
 
             //  Unmarshalling
             return Unmarshaller<List<Athlete>>.Unmarshal(json);
-        }
-
-        public async Task<Athlete> UpdateAthleteCityAsync(string city)
-        {
-            
-        }
-
-        public async Task<Athlete> UpdateAthleteCountryAsync(string country)
-        {
-
-        }
-
-        public async Task<Athlete> UpdateAthleteStateAsync(string state)
-        {
-
-        }
-
-        public async Task<Athlete> UpdateAthleteSexAsync(Gender gender)
-        {
-
-        }
-
-        public async Task<Athlete> UpdateAthleteWeightAsync(float weight)
-        {
-
         }
 
         #endregion
@@ -297,6 +302,8 @@ namespace com.strava.api.Client
             //  Unmarshalling
             return Unmarshaller<Leaderboard>.Unmarshal(json);
         }
+
+        #endregion
 
         #endregion
     }
