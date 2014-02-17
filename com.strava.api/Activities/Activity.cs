@@ -162,12 +162,9 @@ namespace com.strava.api.Activities
         public Map Map { get; set; }
 
         [JsonProperty("athlete")]
-        public Athlete Athlete { get; set; }
+        public AthleteSummary Athlete { get; set; }
 
         #endregion
         
-        //public IGear Gear { get; set; }
-        //public ActivityType ActivityType { get; set; }
-        //public ResourceState ResourceState { get; set; }
     }
 }

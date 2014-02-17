@@ -59,6 +59,7 @@
     <Compile Include="Api\Usage.cs" />
     <Compile Include="Api\UsageChangedEventArgs.cs" />
     <Compile Include="Athletes\Athlete.cs" />
+    <Compile Include="Athletes\AthleteSummary.cs" />
     <Compile Include="Authentication\AuthCodeReceivedEventArgs.cs" />
     <Compile Include="Authentication\AccessToken.cs" />
     <Compile Include="Authentication\IAuthentication.cs" />
@@ -68,6 +69,10 @@
     <Compile Include="Authentication\TokenReceivedEventArgs.cs" />
     <Compile Include="Authentication\WebAuthentication.cs" />
     <Compile Include="Client\StravaClient.cs" />
+    <Compile Include="Clubs\Club.cs" />
+    <Compile Include="Clubs\ClubSummary.cs" />
+    <Compile Include="Clubs\ClubType.cs" />
+    <Compile Include="Clubs\SportType.cs" />
     <Compile Include="Common\Marshaller.cs" />
     <Compile Include="Common\Unmarshaller.cs" />
     <Compile Include="Gear\BikeType.cs" />

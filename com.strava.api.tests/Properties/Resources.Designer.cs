@@ -88,6 +88,29 @@ namespace com.strava.api.tests.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die {
+        ///  &quot;id&quot;: 1,
+        ///  &quot;resource_state&quot;: 3,
+        ///  &quot;name&quot;: &quot;Team Strava Cycling&quot;,
+        ///  &quot;profile_medium&quot;: &quot;http://pics.com/clubs/1/medium.jpg&quot;,
+        ///  &quot;profile&quot;: &quot;http://pics.com/clubs/1/large.jpg&quot;,
+        ///  &quot;description&quot;: &quot;From the people who brought you strava.com&quot;,
+        ///  &quot;club_type&quot;: &quot;company&quot;,
+        ///  &quot;sport_type&quot;: &quot;cycling&quot;,
+        ///  &quot;city&quot;: &quot;San Francisco&quot;,
+        ///  &quot;state&quot;: &quot;California&quot;,
+        ///  &quot;country&quot;: &quot;United States&quot;,
+        ///  &quot;private&quot;: false,
+        ///  &quot;member_count&quot;: 71
+        ///} ähnelt.
+        /// </summary>
+        internal static string ClubJson {
+            get {
+                return ResourceManager.GetString("ClubJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die [
         ///
         ///    {
@@ -173,6 +196,18 @@ namespace com.strava.api.tests.Properties {
         internal static string PhotoJson {
             get {
                 return ResourceManager.GetString("PhotoJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die {
+        ///	&quot;private&quot;: &quot;Test&quot;,
+        ///	&quot;public&quot;: &quot;Unmarshall&quot;
+        ///} ähnelt.
+        /// </summary>
+        internal static string PrivateJson {
+            get {
+                return ResourceManager.GetString("PrivateJson", resourceCulture);
             }
         }
         

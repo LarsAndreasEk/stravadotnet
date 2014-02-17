@@ -23,18 +23,18 @@ namespace com.strava.api.client
 
         public static async void Test()
         {
-            StaticAuthentication auth = new StaticAuthentication("72e8fa9d4f63477adc76555de382a033b6aedf6d");
+            StaticAuthentication auth = new StaticAuthentication("6b0c8ccc24c472bdd38f8926fe3edd005fd7f4af");
 
             StravaClient client = new StravaClient(auth);
 
-            WebAuthentication web = new WebAuthentication();
-            web.AuthCodeReceived += delegate(object sender, AuthCodeReceivedEventArgs args) { Console.WriteLine("Auth Code: " + args.AuthCode); };
-            web.AccessTokenReceived += delegate(object sender, TokenReceivedEventArgs args) { Console.WriteLine("Access Token: " + args.Token); };
-            web.GetTokenAsync("605", "87a5085fb5ded25ebb08a72131c1b9c6b1a83c7a", Scope.Full);
+            //WebAuthentication web = new WebAuthentication();
+            //web.AuthCodeReceived += delegate(object sender, AuthCodeReceivedEventArgs args) { Console.WriteLine("Auth Code: " + args.AuthCode); };
+            //web.AccessTokenReceived += delegate(object sender, TokenReceivedEventArgs args) { Console.WriteLine("Access Token: " + args.Token); };
+            //web.GetTokenAsync("605", "87a5085fb5ded25ebb08a72131c1b9c6b1a83c7a", Scope.Full);
             
             #region Activity
-            //Activity a = await client.GetActivityAsync("109557593");
-            //Console.WriteLine(a.AthleteCount);
+            Activity a = await client.GetActivityAsync("109557593");
+            Console.WriteLine(a.MaxHeartrate);
             #endregion
 
             //Athlete

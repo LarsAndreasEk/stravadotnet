@@ -177,6 +177,23 @@
   ]
 }</value>
   </data>
+  <data name="ClubJson" xml:space="preserve">
+    <value>{
+  "id": 1,
+  "resource_state": 3,
+  "name": "Team Strava Cycling",
+  "profile_medium": "http://pics.com/clubs/1/medium.jpg",
+  "profile": "http://pics.com/clubs/1/large.jpg",
+  "description": "From the people who brought you strava.com",
+  "club_type": "company",
+  "sport_type": "cycling",
+  "city": "San Francisco",
+  "state": "California",
+  "country": "United States",
+  "private": false,
+  "member_count": 71
+}</value>
+  </data>
   <data name="CommentsJson" xml:space="preserve">
     <value>[
 
@@ -453,6 +470,12 @@
     37.839333333,
     -122.489833333
   ]
+}</value>
+  </data>
+  <data name="PrivateJson" xml:space="preserve">
+    <value>{
+	"private": "Test",
+	"public": "Unmarshall"
 }</value>
   </data>
   <data name="SegmentEffortJson" xml:space="preserve">
