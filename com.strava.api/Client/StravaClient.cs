@@ -33,6 +33,7 @@ namespace com.strava.api.Client
         private const String LeaderboardUrl = "https://www.strava.com/api/v3/segments";
 
         private const String ClubUrl = "https://www.strava.com/api/v3/clubs";
+        private const String ClubsUrl = "https://www.strava.com/api/v3/athlete/clubs";
 
         #endregion
 
@@ -318,6 +319,27 @@ namespace com.strava.api.Client
 
             // Unmarshalling
             return Unmarshaller<Club>.Unmarshal(json);
+        }
+
+        public async Task<List<ClubSummary>> GetClubsAsync()
+        {
+            String getUrl = String.Format("{0}?access_token={1}", ClubsUrl, _authenticator.AccessToken);
+
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            // Unmarshalling
+            return Unmarshaller<List<ClubSummary>>.Unmarshal(json);
+        }
+
+        public async Task<List<AthleteSummary>> GetClubMembersAsync(String clubId)
+        {
+            //https://www.strava.com/api/v3/clubs/1/members
+            String getUrl = String.Format("{0}/{1}/members?access_token={2}", ClubUrl, clubId, _authenticator.AccessToken);
+
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            // Unmarshalling
+            return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
         #endregion

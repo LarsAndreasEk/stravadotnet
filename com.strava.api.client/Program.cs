@@ -17,7 +17,6 @@ namespace com.strava.api.client
         public static void Main(String[] args)
         {
             Test();
-            Console.WriteLine("Beliebige Taste drücken...");
             Console.ReadLine();
         }
 
@@ -33,8 +32,8 @@ namespace com.strava.api.client
             //web.GetTokenAsync("605", "87a5085fb5ded25ebb08a72131c1b9c6b1a83c7a", Scope.Full);
             
             #region Activity
-            Activity a = await client.GetActivityAsync("109557593");
-            Console.WriteLine(a.MaxHeartrate);
+            //Activity a = await client.GetActivityAsync("109557593");
+            //Console.WriteLine(a.MaxHeartrate);
             #endregion
 
             //Athlete
@@ -100,20 +99,34 @@ namespace com.strava.api.client
 
             #region Club
 
-            Athlete athlete = await client.GetAthleteAsync();
+            //Athlete athlete = await client.GetAthleteAsync();
 
-            foreach (Club club in athlete.Clubs)
-            {
-                Console.WriteLine(club.Id);
-            }
+            //foreach (Club club in athlete.Clubs)
+            //{
+            //    Console.WriteLine(club.Id);
+            //}
 
-            Club c = await client.GetClubAsync("949");
-            Console.WriteLine(c.Name);
+            //Club c = await client.GetClubAsync("949");
+            //Console.WriteLine(c.Name);
 
             //Image image = await ImageLoader.LoadImage(new Uri(c.Profile));
             //Form form = new Form();
             //form.Controls.Add(new PictureBox(){Dock = DockStyle.Fill, Image = image, SizeMode = PictureBoxSizeMode.CenterImage});
             //form.ShowDialog();
+
+            Console.WriteLine("Clubs:");
+            //List<ClubSummary> clubs = await client.GetClubsAsync();
+
+            //foreach (var club in clubs)
+            //{
+            //    Console.WriteLine(club.Name);
+            //}
+
+            List<AthleteSummary> athletes = await client.GetClubMembersAsync("949");
+            foreach (AthleteSummary athlete in athletes)
+            {
+                Console.WriteLine(athlete.FirstName + " " + athlete.LastName);
+            }
 
             #endregion
         }
