@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using com.strava.api.Activities;
 using com.strava.api.Api;
 using com.strava.api.Athletes;
@@ -10,6 +7,7 @@ using com.strava.api.Auth;
 using com.strava.api.Authentication;
 using com.strava.api.Client;
 using com.strava.api.Clubs;
+using com.strava.api.Http;
 using com.strava.api.Segments;
 
 namespace com.strava.api.client
@@ -110,6 +108,11 @@ namespace com.strava.api.client
 
             Club c = await client.GetClubAsync("949");
             Console.WriteLine(c.Name);
+
+            //Image image = await ImageLoader.LoadImage(new Uri(c.Profile));
+            //Form form = new Form();
+            //form.Controls.Add(new PictureBox(){Dock = DockStyle.Fill, Image = image, SizeMode = PictureBoxSizeMode.CenterImage});
+            //form.ShowDialog();
 
             #endregion
         }
