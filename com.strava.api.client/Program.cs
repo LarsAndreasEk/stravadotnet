@@ -9,6 +9,7 @@ using com.strava.api.Athletes;
 using com.strava.api.Auth;
 using com.strava.api.Authentication;
 using com.strava.api.Client;
+using com.strava.api.Clubs;
 using com.strava.api.Segments;
 
 namespace com.strava.api.client
@@ -97,6 +98,20 @@ namespace com.strava.api.client
             //{
             //    Console.WriteLine(kudos.FirstName);
             //}
+
+            #region Club
+
+            Athlete athlete = await client.GetAthleteAsync();
+
+            foreach (Club club in athlete.Clubs)
+            {
+                Console.WriteLine(club.Id);
+            }
+
+            Club c = await client.GetClubAsync("949");
+            Console.WriteLine(c.Name);
+
+            #endregion
         }
     }
 }

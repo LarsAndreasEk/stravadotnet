@@ -5,6 +5,6 @@ namespace com.strava.api.Authentication
 {
     public interface IAuthentication
     {
-        String AuthToken { get; set; }
+        String AccessToken { get; set; }
     }
 }

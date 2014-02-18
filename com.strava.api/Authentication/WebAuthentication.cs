@@ -9,7 +9,7 @@ namespace com.strava.api.Authentication
         public event EventHandler<TokenReceivedEventArgs> AccessTokenReceived;
         public event EventHandler<AuthCodeReceivedEventArgs> AuthCodeReceived;
 
-        public string AuthToken { get; set; }
+        public string AccessToken { get; set; }
         public String AuthCode { get; set; }
 
         public void GetTokenAsync(String clientId, String clientSecret, Scope scope, int callbackPort = 1895)
@@ -23,7 +23,7 @@ namespace com.strava.api.Authentication
                 if (AccessTokenReceived != null)
                 {
                     AccessTokenReceived(this, args);
-                    AuthToken = args.Token;
+                    AccessToken = args.Token;
                 }
             };
 
@@ -32,7 +32,7 @@ namespace com.strava.api.Authentication
                 if (AccessTokenReceived != null)
                 {
                     AuthCodeReceived(this, args);
-                    AuthToken = args.AuthCode;
+                    AccessToken = args.AuthCode;
                 }
             };
 
