@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\Activity.cs" />
+    <Compile Include="Activities\ActivityMeta.cs" />
     <Compile Include="Activities\ActivityType.cs" />
     <Compile Include="Activities\AgeGroup.cs" />
     <Compile Include="Activities\Comment.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Api\Usage.cs" />
     <Compile Include="Api\UsageChangedEventArgs.cs" />
     <Compile Include="Athletes\Athlete.cs" />
+    <Compile Include="Athletes\AthleteMeta.cs" />
     <Compile Include="Athletes\AthleteSummary.cs" />
     <Compile Include="Authentication\AuthCodeReceivedEventArgs.cs" />
     <Compile Include="Authentication\AccessToken.cs" />

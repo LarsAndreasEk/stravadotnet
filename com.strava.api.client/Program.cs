@@ -17,6 +17,7 @@ namespace com.strava.api.client
         public static void Main(String[] args)
         {
             Test();
+            Console.WriteLine("Beliebige Taste drücken...");
             Console.ReadLine();
         }
 

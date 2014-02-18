@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Net.Http;
@@ -10,12 +11,24 @@ namespace com.strava.api.Http
     {
         public async static Task<Image> LoadImage(Uri uri)
         {
-            HttpClient client = new HttpClient();
-            Stream stream =  await client.GetStreamAsync(uri);
+            if (uri == null)
+            {
+                throw new ArgumentException("The uri object must not be null.");
+            }
 
-            Image image = new Bitmap(stream);
+            try
+            {
+                HttpClient client = new HttpClient();
+                Stream stream = await client.GetStreamAsync(uri);
+                Image image = new Bitmap(stream);
+                return image;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Couldn't load the image: {0}", ex.Message);
+            }
 
-            return image;
+            return null;
         }
     }
 }

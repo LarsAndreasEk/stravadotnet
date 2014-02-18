@@ -20,10 +20,10 @@ namespace com.strava.api.Segments
         public Segment Segment { get; set; }
 
         [JsonProperty("activity")]
-        public Activity Activity { get; set; }
+        public ActivityMeta Activity { get; set; }
 
         [JsonProperty("athlete")]
-        public Athlete Athlete { get; set; }
+        public AthleteMeta Athlete { get; set; }
 
         [JsonProperty("kom_rank")]
         public int? KingOfMountainRank { get; set; }

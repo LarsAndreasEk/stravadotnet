@@ -165,6 +165,5 @@ namespace com.strava.api.Activities
         public AthleteSummary Athlete { get; set; }
 
         #endregion
-        
     }
 }
