@@ -22,7 +22,8 @@ namespace com.strava.api.client
 
         public static async void Test()
         {
-            StaticAuthentication auth = new StaticAuthentication("6b0c8ccc24c472bdd38f8926fe3edd005fd7f4af");
+            // Use either the static authentication method or use the WebAuthentication method.
+            StaticAuthentication auth = new StaticAuthentication("<Insert Access token here");
 
             StravaClient client = new StravaClient(auth);
 
