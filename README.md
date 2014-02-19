@@ -2,6 +2,7 @@ stravadotnet
 ============
 
 Hopefully this small framework makes using the Strava API a little bit easier!
+Please keep in mind that this framework is in a pretty early stage and things are about to change.
 
 About this Readme
 ============
