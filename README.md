@@ -34,7 +34,27 @@ When using the WebAuthentication method in your application, you have to start t
 
 After you have received your token, you can save it to a file so you won't have to get a new token every time.
 
+Getting data from Strava
+============
 
+Getting data from Strava is pretty straightforward. All you have to do, is to create a *StravaClient* object and pass a valid IAuthenticator object.
+  
+    StaticAuthentication auth = new StaticAuthentication("token");
+    StravaClient client = new StravaClient(auth);
+  
+Now you can use the *client* object to make some calls to Strava.
+
+As of now, i only have implemented the async methods. "Regular" metods will follow.
+Most of the methods are overwritten. When you don't need to pass a parameter to the method, the data will be of the currently authorized athlete.
+
+    //Receive the currently authorized athlete
+    Athlete athlete = await client.GetAthleteAsync();
+  
+When you pass a parameter to the method, you can get data from another athlete.
+    
+    //Receive an other athlete
+    Athlete athlete = await client.GetAthleteAsync("1985994");
+    
 
 Feedback
 ============
