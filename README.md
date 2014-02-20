@@ -60,9 +60,10 @@ Most of the methods are overwritten. When you don't need to pass a parameter to 
   
 When you pass a parameter to the method, you can get data from another athlete.
     
+    ```C#
     //Receive an other athlete
     Athlete athlete = await client.GetAthleteAsync("1985994");
-    
+    ```
 
 Athletes
 ============
