@@ -42,10 +42,12 @@ General
 --------------
 
 Getting data from Strava is pretty straightforward. All you have to do, is to create a *StravaClient* object and pass a valid IAuthenticator object.
-  
+    
+    ```c#
     StaticAuthentication auth = new StaticAuthentication("<insert token here>");
     StravaClient client = new StravaClient(auth);
-  
+    ```
+    
 Now you can use the *client* object to make some calls to Strava.
 
 As of now, i only have implemented the async methods. "Regular" metods will follow.
