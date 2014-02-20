@@ -101,64 +101,64 @@ namespace com.strava.api.Client
             return Unmarshaller<Athlete>.Unmarshal(json);
         }
 
-        public async Task<Athlete> GetAthleteAsync(String athleteId)
+        public async Task<AthleteSummary> GetAthleteAsync(String athleteId)
         {
             String getUrl = String.Format("{0}/{1}?access_token={2}", AthleteUrl, athleteId, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
             //  Unmarshalling
-            return Unmarshaller<Athlete>.Unmarshal(json);
+            return Unmarshaller<AthleteSummary>.Unmarshal(json);
         }
         
-        public async Task<List<Athlete>> GetFriendsAsync()
+        public async Task<List<AthleteSummary>> GetFriendsAsync()
         {
             String getUrl = String.Format("{0}?access_token={1}", CurrentAthleteFriendsUrl, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
             //  Unmarshalling
-            return Unmarshaller<List<Athlete>>.Unmarshal(json);
+            return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
-        public async Task<List<Athlete>> GetFriendsAsync(string athleteId)
+        public async Task<List<AthleteSummary>> GetFriendsAsync(string athleteId)
         {
             String getUrl = String.Format("{0}/{1}/friends?access_token={2}", FriendsUrl, athleteId, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
             //  Unmarshalling
-            return Unmarshaller<List<Athlete>>.Unmarshal(json);
+            return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
-        public async Task<List<Athlete>> GetFollowersAsync()
+        public async Task<List<AthleteSummary>> GetFollowersAsync()
         {
             String getUrl = String.Format("{0}?access_token={1}", CurrentFollowerUrl, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
             //  Unmarshalling
-            return Unmarshaller<List<Athlete>>.Unmarshal(json);
+            return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
-        public async Task<List<Athlete>> GetFollowersAsync(String athleteId)
+        public async Task<List<AthleteSummary>> GetFollowersAsync(String athleteId)
         {
             String getUrl = String.Format("{0}/{1}/followers?access_token={2}", FollowerUrl, athleteId, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
             //  Unmarshalling
-            return Unmarshaller<List<Athlete>>.Unmarshal(json);
+            return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
-        public async Task<List<Athlete>> GetBothFollowingAsync(String athleteId)
+        public async Task<List<AthleteSummary>> GetBothFollowingAsync(String athleteId)
         {
             String getUrl = String.Format("{0}/{1}/both-following?access_token={2}", FollowerUrl, athleteId, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
             //  Unmarshalling
-            return Unmarshaller<List<Athlete>>.Unmarshal(json);
+            return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
         #endregion
