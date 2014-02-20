@@ -71,8 +71,7 @@ Athletes
 ============
 
 The *StravaClient* offers the following methods:
-| Method name | Description |
-| ----------- | ----------- |
+| Method | Description |
 | GetAthleteAsync() | Gets the currently authenticated athlete. |
 | GetAthleteAsync(String athleteId) | Gets the profile from any athlete. |
 | GetFriendsAsync() | Gets the friends of the currently authenticated athlete. |
