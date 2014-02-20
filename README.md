@@ -52,8 +52,8 @@ StravaClient client = new StravaClient(auth);
     
 Now you can use the *client* object to make some calls to Strava.
 
-As of now, i only have implemented the async methods. "Regular" methods will follow.
-Most of the methods are overwritten. When you don't need to pass a parameter to the method, the data will be of the currently authorized athlete.
+As of now, i only have implemented the async methods, regular methods will follow.
+Most of the methods are overwritten. When you don't need to pass a parameter to the method, the data will be of the currently authenticated athlete.
 
 ```C#
 //Receive the currently authorized athlete
@@ -112,6 +112,26 @@ List<Athlete> athlete = await client.GetFollowersAsync();
 
 Activities
 ============
+
+There are three types of activity objects:
+
+- Activity
+- ActivitySummary
+- ActivityMeta
+
+The *Activity* object contains all the information about an activity. An *Activity* object is only returned if you are the owner of the activity otherwise an *ActivitySummary* is returned.
+
+An *ActivityMeta* object only contains the activity id and is returned if you load other data like a segment effort. The *SegmentEffort* object only contains an *ActivityMeta* member with the activity id. But you can use this id to get a more detailed version of the activity.
+
+The *AcitivtySummary* and *ActivityMeta* classes were added to avoid some nasty NullPointerExceptions.
+
+
+| Method                                   | Return type | Description                                                |
+| :--------------------------------------- | :---------: | :--------------------------------------------------------: |
+| GetActivityAsync(string id) | Activity or ActivitySummary | Gets a detailed version of an activity if you are the owner of the activity. Otherwise an activity summary is returned. |
+| GetCommentsAsync(string activityId) | List&lt;Comment&gt; | Gets all the comments of the specified activity. |
+
+
 
 Gear
 ============
