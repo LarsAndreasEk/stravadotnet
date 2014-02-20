@@ -152,7 +152,7 @@ List<Comment> comments = await client.GetCommentsAsync("102162300");
 
 foreach (Comment comment in comments)
 {
-  Console.WriteLine(String.Format("{0} {1} says '{1}', comment.Athlete.FirstName, comment.Athlete.LastName, comment.Text));
+    Console.WriteLine(String.Format("{0} {1} says '{1}'", comment.Athlete.FirstName, comment.Athlete.LastName, comment.Text));
 }
 ```
 
