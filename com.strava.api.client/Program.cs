@@ -23,18 +23,18 @@ namespace com.strava.api.client
         public static async void Test()
         {
             // Use either the static authentication method or use the WebAuthentication method.
-            StaticAuthentication auth = new StaticAuthentication("<Insert Access token here");
+            StaticAuthentication auth = new StaticAuthentication("");
+
+            //WebAuthentication auth = new WebAuthentication();
+            //auth.AuthCodeReceived += delegate(object sender, AuthCodeReceivedEventArgs args) { Console.WriteLine("Auth Code: " + args.AuthCode); };
+            //auth.AccessTokenReceived += delegate(object sender, TokenReceivedEventArgs args) { Console.WriteLine("Access Token: " + args.Token); };
+            //auth.GetTokenAsync("<Client ID>", "<Client secret>", Scope.Full);
 
             StravaClient client = new StravaClient(auth);
-
-            //WebAuthentication web = new WebAuthentication();
-            //web.AuthCodeReceived += delegate(object sender, AuthCodeReceivedEventArgs args) { Console.WriteLine("Auth Code: " + args.AuthCode); };
-            //web.AccessTokenReceived += delegate(object sender, TokenReceivedEventArgs args) { Console.WriteLine("Access Token: " + args.Token); };
-            //web.GetTokenAsync("<Client ID>", "<Client Secret>", Scope.Full);
             
             #region Activity
-            //Activity a = await client.GetActivityAsync("109557593");
-            //Console.WriteLine(a.MaxHeartrate);
+            Activity a = await client.GetActivityAsync("109557593");
+            Console.WriteLine(a.MaxHeartrate);
             #endregion
 
             //Athlete
@@ -115,7 +115,7 @@ namespace com.strava.api.client
             //form.Controls.Add(new PictureBox(){Dock = DockStyle.Fill, Image = image, SizeMode = PictureBoxSizeMode.CenterImage});
             //form.ShowDialog();
 
-            Console.WriteLine("Clubs:");
+            //Console.WriteLine("Clubs:");
             //List<ClubSummary> clubs = await client.GetClubsAsync();
 
             //foreach (var club in clubs)
@@ -123,11 +123,11 @@ namespace com.strava.api.client
             //    Console.WriteLine(club.Name);
             //}
 
-            List<AthleteSummary> athletes = await client.GetClubMembersAsync("949");
-            foreach (AthleteSummary athlete in athletes)
-            {
-                Console.WriteLine(athlete.FirstName + " " + athlete.LastName);
-            }
+            //List<AthleteSummary> athletes = await client.GetClubMembersAsync("949");
+            //foreach (AthleteSummary athlete in athletes)
+            //{
+            //    Console.WriteLine(athlete.FirstName + " " + athlete.LastName);
+            //}
 
             #endregion
         }

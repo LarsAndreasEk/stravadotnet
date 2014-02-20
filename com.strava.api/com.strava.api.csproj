@@ -57,6 +57,7 @@
     <Compile Include="Api\UsageChangedEventArgs.cs" />
     <Compile Include="Athletes\Athlete.cs" />
     <Compile Include="Athletes\AthleteMeta.cs" />
+    <Compile Include="Athletes\AthleteParameter.cs" />
     <Compile Include="Athletes\AthleteSummary.cs" />
     <Compile Include="Authentication\AuthCodeReceivedEventArgs.cs" />
     <Compile Include="Authentication\AccessToken.cs" />
