@@ -72,15 +72,42 @@ Athletes
 
 The *StravaClient* offers the following methods:
 
-| Method                                   | Description                                                    |
-| ---------------------------------------- | -------------------------------------------------------------- |
-| GetAthleteAsync()                        | Gets the currently authenticated athlete.                      |
-| GetAthleteAsync(String athleteId)        | Gets the profile from any athlete.                             |
-| GetFriendsAsync()                        | Gets the friends of the currently authenticated athlete.       |
-| GetFriendsAsync(String athleteId)        | Gets the friends of any athlete.                               |
-| GetFollowersAsync()                      | Gets the followers from the currently authenticated athlete.   |
-| GetFollowersAsync(String athleteId)      | Gets the followers of any athlete.                             |
-| GetBothFollowingAsync(String atheleteId) | Gets the athletes that both you and any athlete are following. |
+| Method                                   | Return type | Description                                                |
+| ---------------------------------------- | ----------- | ---------------------------------------------------------- |
+| GetAthleteAsync()                        | Athlete     | Gets the currently authenticated athlete.                  |
+| GetAthleteAsync(String athleteId)        | Athlete     | Gets the profile from any athlete.                         |
+| GetFriendsAsync()                        | List<Athlete> | Gets the friends of the currently authenticated athlete. |
+| GetFriendsAsync(String athleteId)        | | Gets the friends of any athlete.                                     |
+| GetFollowersAsync()                      | | Gets the followers from the currently authenticated athlete.         |
+| GetFollowersAsync(String athleteId)      | | Gets the followers of any athlete.                                   |
+| GetBothFollowingAsync(String atheleteId) | | Gets the athletes that both you and any athlete are following.       |
+
+Examples
+--------------
+
+```C#
+StaticAuthentication auth = new StaticAuthentication("<token here>");
+StravaClient client = new StravaClient(auth);
+
+//Receive the currently authenticated athlete
+Athlete athlete = await client.GetAthleteAsync();
+```
+
+```C#
+StaticAuthentication auth = new StaticAuthentication("<token here>");
+StravaClient client = new StravaClient(auth);
+
+//Receive an other athlete
+Athlete athlete = await client.GetAthleteAsync("1985994");
+```
+
+```C#
+StaticAuthentication auth = new StaticAuthentication("<token here>");
+StravaClient client = new StravaClient(auth);
+
+//Get my followers
+List<Athlete> athlete = await client.GetFollowersAsync();
+```
 
 
 Activities
