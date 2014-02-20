@@ -130,6 +130,31 @@ The *AcitivtySummary* and *ActivityMeta* classes were added to avoid some nasty 
 | :--------------------------------------- | :---------: | :--------------------------------------------------------: |
 | GetActivityAsync(string id) | Activity or ActivitySummary | Gets a detailed version of an activity if you are the owner of the activity. Otherwise an activity summary is returned. |
 | GetCommentsAsync(string activityId) | List&lt;Comment&gt; | Gets all the comments of the specified activity. |
+| GetKudosAsync(string activityId) | List&lt;AthleteSummary&gt; | Gets a list of athletes that kudoed the specified activity |
+
+Examples
+--------------
+
+```C#
+StaticAuthentication auth = new StaticAuthentication("<token here>");
+StravaClient client = new StravaClient(auth);
+
+//Receive an activity
+Activity athlete = await client.GetActivityAsync("102162300");
+```
+
+```C#
+StaticAuthentication auth = new StaticAuthentication("<token here>");
+StravaClient client = new StravaClient(auth);
+
+//Receive all the comments
+List<Comment> comments = await client.GetCommentsAsync("102162300");
+
+foreach (Comment comment in comments)
+{
+  Console.WriteLine(String.Format("{0} {1} says '{1}', comment.Athlete.FirstName, comment.Athlete.LastName, comment.Text));
+}
+```
 
 
 
