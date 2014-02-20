@@ -73,7 +73,7 @@ Athletes
 The *StravaClient* offers the following methods:
 
 | Method                                   | Return type | Description                                                |
-| ---------------------------------------- | *---------* | *--------------------------------------------------------* |
+| :--------------------------------------- | :---------: | :--------------------------------------------------------: |
 | GetAthleteAsync()                        | Athlete     | Gets the currently authenticated athlete.                  |
 | GetAthleteAsync(String athleteId)        | Athlete     | Gets the profile from any athlete.                         |
 | GetFriendsAsync()                        | List&lt;Athlete&gt; | Gets the friends of the currently authenticated athlete. |
@@ -111,6 +111,21 @@ List<Athlete> athlete = await client.GetFollowersAsync();
 
 
 Activities
+============
+
+Gear
+============
+
+Clubs
+============
+
+Segments
+============
+
+Segment Efforts
+============
+
+Leaderboards
 ============
 
 Feedback
