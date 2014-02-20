@@ -37,7 +37,7 @@ When using the WebAuthentication method in your application, you have to start t
 
 After you have received your token, you can save it to a file so you won't have to get a new token every time.
 
-Getting data from Strava
+Using Strava.NET
 ============
 
 General
@@ -156,11 +156,17 @@ foreach (Comment comment in comments)
 }
 ```
 
-
-Gear
+Clubs
 ============
 
-Clubs
+| Method                                   | Return type | Description                                                |
+| :--------------------------------------- | :---------: | :--------------------------------------------------------: |
+| GetClubAsync(String clubId) | Club | Gets the club with the specified id. The club must either be public or you must be a member of the club to receive some data. |
+| GetClubsAsync() | List&lt;Club&gt; | Gets all the clubs of the currently authenticated athlete |
+| GetClubMembersAsync(String clubId) | List&lt;AthleteSummary&gt; | Gets all the members of the specified club. |
+
+
+Gear
 ============
 
 Segments
