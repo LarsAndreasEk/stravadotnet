@@ -43,7 +43,7 @@ General
 
 Getting data from Strava is pretty straightforward. All you have to do, is to create a *StravaClient* object and pass a valid IAuthenticator object.
     
-    ```c#
+    ```ruby
     StaticAuthentication auth = new StaticAuthentication("<insert token here>");
     StravaClient client = new StravaClient(auth);
     ```
