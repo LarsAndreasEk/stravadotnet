@@ -67,6 +67,20 @@ When you pass a parameter to the method, you can get data from another athlete.
 Athlete athlete = await client.GetAthleteAsync("1985994");
 ```
 
+Limits
+--------------
+The usage of the Strava API is limited. There are two different limits, a short- and a long-term limit.
+The long term limit is 30.000 request per day, the short term limit is 600 request per 15 minutes. Whenever a request is made and an response is received, the limits are processed and saved in the static properties of the *Limit* class.
+
+This class provides the following members:
+
+| Property                    | Description                                                |
+| :-------------------------- | :--------------------------------------------------------: |
+| Usage                       | The Usage data object has two properties, the short- and the long term usage. |
+
+The Limit class also provides events you can subscribe to.
+
+
 Athletes
 ============
 
