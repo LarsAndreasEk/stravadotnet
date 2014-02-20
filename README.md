@@ -3,7 +3,7 @@ Strava.NET
 
 Hopefully this small framework makes using the Strava API a little bit easier!
 Please keep in mind that this framework is in a pretty early stage and things are about to change.
-Kudos to Strava for letting people use data uploaded to Strava! stravadotnet uses the great Json.NET library from James Newton-King - such a great piece of code.
+Kudos to Strava for letting people use data uploaded to Strava! Strava.NET uses the great Json.NET library from James Newton-King - such a great piece of code.
 
 About this Readme
 ============
