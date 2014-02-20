@@ -1,9 +1,9 @@
-stravadotnet
+Strava.NET
 ============
 
 Hopefully this small framework makes using the Strava API a little bit easier!
 Please keep in mind that this framework is in a pretty early stage and things are about to change.
-Kudos to Strava for letting people use data uploaded to Strava!
+Kudos to Strava for letting people use data uploaded to Strava! stravadotnet uses the great Json.NET library from James Newton-King - such a great piece of code.
 
 About this Readme
 ============
@@ -52,7 +52,7 @@ StravaClient client = new StravaClient(auth);
     
 Now you can use the *client* object to make some calls to Strava.
 
-As of now, i only have implemented the async methods. "Regular" metods will follow.
+As of now, i only have implemented the async methods. "Regular" methods will follow.
 Most of the methods are overwritten. When you don't need to pass a parameter to the method, the data will be of the currently authorized athlete.
 
 ```C#
@@ -69,6 +69,24 @@ Athlete athlete = await client.GetAthleteAsync("1985994");
 
 Athletes
 ============
+
+The *StravaClient* offers the following methods:
+
+- GetAthleteAsync()
+  Gets the currently authenticated athlete.
+- GetAthleteAsync(String athleteId)
+  Gets the profile from any athlete.
+- GetFriendsAsync()
+  Gets the friends of the currently authenticated athlete.
+- GetFriendsAsync(String athleteId)
+  Gets the friends of any athlete.
+- GetFollowersAsync()
+  Gets the followers from the currently authenticated athlete.
+- GetFollowersAsync(String athleteId)
+  Gets the followers of any athlete.
+- GetBothFollowingAsync(String atheleteId)
+  Gets the athletes that both you and any athlete are following.
+
 
 Activities
 ============
