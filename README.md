@@ -73,14 +73,14 @@ Athletes
 The *StravaClient* offers the following methods:
 
 | Method                                   | Return type | Description                                                |
-| ---------------------------------------- | ----------- | ---------------------------------------------------------- |
+| ---------------------------------------- | *---------* | *--------------------------------------------------------* |
 | GetAthleteAsync()                        | Athlete     | Gets the currently authenticated athlete.                  |
 | GetAthleteAsync(String athleteId)        | Athlete     | Gets the profile from any athlete.                         |
-| GetFriendsAsync()                        | List &lt; Athlete &gt; | Gets the friends of the currently authenticated athlete. |
-| GetFriendsAsync(String athleteId)        | List &lt; Athlete &gt; | Gets the friends of any athlete.                                     |
-| GetFollowersAsync()                      | List &lt; Athlete &gt; | Gets the followers from the currently authenticated athlete.         |
-| GetFollowersAsync(String athleteId)      | List &lt; Athlete &gt; | Gets the followers of any athlete.                                   |
-| GetBothFollowingAsync(String atheleteId) | List &lt; Athlete &gt; | Gets the athletes that both you and any athlete are following.       |
+| GetFriendsAsync()                        | List&lt;Athlete&gt; | Gets the friends of the currently authenticated athlete. |
+| GetFriendsAsync(String athleteId)        | List&lt;Athlete&gt; | Gets the friends of any athlete.                   |
+| GetFollowersAsync()                      | List&lt;Athlete&gt; | Gets the followers from the currently authenticated athlete.         |
+| GetFollowersAsync(String athleteId)      | List&lt;Athlete&gt; | Gets the followers of any athlete.                 |
+| GetBothFollowingAsync(String atheleteId) | List&lt;Athlete&gt; | Gets the athletes that both you and any athlete are following.       |
 
 Examples
 --------------
