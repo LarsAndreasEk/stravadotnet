@@ -76,11 +76,11 @@ The *StravaClient* offers the following methods:
 | ---------------------------------------- | ----------- | ---------------------------------------------------------- |
 | GetAthleteAsync()                        | Athlete     | Gets the currently authenticated athlete.                  |
 | GetAthleteAsync(String athleteId)        | Athlete     | Gets the profile from any athlete.                         |
-| GetFriendsAsync()                        | List&ltAthlete&gt | Gets the friends of the currently authenticated athlete. |
-| GetFriendsAsync(String athleteId)        | | Gets the friends of any athlete.                                     |
-| GetFollowersAsync()                      | | Gets the followers from the currently authenticated athlete.         |
-| GetFollowersAsync(String athleteId)      | | Gets the followers of any athlete.                                   |
-| GetBothFollowingAsync(String atheleteId) | | Gets the athletes that both you and any athlete are following.       |
+| GetFriendsAsync()                        | List &ltAthlete &gt | Gets the friends of the currently authenticated athlete. |
+| GetFriendsAsync(String athleteId)        | List &ltAthlete &gt | Gets the friends of any athlete.                                     |
+| GetFollowersAsync()                      | List &ltAthlete &gt | Gets the followers from the currently authenticated athlete.         |
+| GetFollowersAsync(String athleteId)      | List &ltAthlete &gt | Gets the followers of any athlete.                                   |
+| GetBothFollowingAsync(String atheleteId) | List &ltAthlete &gt | Gets the athletes that both you and any athlete are following.       |
 
 Examples
 --------------
