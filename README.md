@@ -19,8 +19,10 @@ You can get an access token from Strava by using one of the following methods:
 
 - StaticAuthentication
   You can use this method if you already have an access token. You can either use the WebAuthentication class to get a access token from Strava or you can use your token, that you got when you registered your application.  
-
+    
+    ```C#
     StaticAuthentication auth = new StaticAuthentication("<insert token here>");
+    ```
 
 - WebAuthentication
   This procedure should be used, if you want to authorize your application for the first time. When an object is created and the *GetTokenAsync()* method is invoked, a browser window will open and you have to authorize the apllication. Once the button is clicked, Strava invokes a callback function. When you create a WebAuthentication object, a web server is started locally on your computer. Once the button is clicked, Strava invokes a callback function which is received by the callback server. You now have a working access token created specifically for your application. You can store this access token in a file on your hard disk, so you don't have to open a browser window every time. You should use some sort of cryptographic algorithm, to obfuscate the access token.
@@ -43,7 +45,7 @@ General
 
 Getting data from Strava is pretty straightforward. All you have to do, is to create a *StravaClient* object and pass a valid IAuthenticator object.
     
-    ```ruby
+    ```C#
     StaticAuthentication auth = new StaticAuthentication("<insert token here>");
     StravaClient client = new StravaClient(auth);
     ```
