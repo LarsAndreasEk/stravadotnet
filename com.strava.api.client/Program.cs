@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using com.strava.api.Activities;
 using com.strava.api.Api;
 using com.strava.api.Athletes;
@@ -33,8 +34,8 @@ namespace com.strava.api.client
             StravaClient client = new StravaClient(auth);
             
             #region Activity
-            Activity a = await client.GetActivityAsync("109557593");
-            Console.WriteLine(a.MaxHeartrate);
+            //Activity a = await client.GetActivityAsync("109557593");
+            //Console.WriteLine(a.MaxHeartrate);
             #endregion
 
             //Athlete
@@ -128,6 +129,17 @@ namespace com.strava.api.client
             //{
             //    Console.WriteLine(athlete.FirstName + " " + athlete.LastName);
             //}
+
+            #endregion
+
+            #region ActivityZones
+
+            List<ActivityZone> zones = await client.GetActivityZonesAsync("114701243");
+
+            foreach (var item in zones.First().Buckets)
+            {
+                Console.WriteLine(item.Maximum + " " + item.Minimum + " " + item.Time);
+            }
 
             #endregion
         }

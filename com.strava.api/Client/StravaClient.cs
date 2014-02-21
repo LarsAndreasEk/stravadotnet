@@ -87,6 +87,16 @@ namespace com.strava.api.Client
             return Unmarshaller<List<Athlete>>.Unmarshal(json);
         }
 
+        public async Task<List<ActivityZone>> GetActivityZonesAsync(String activityId)
+        {
+            String getUrl = String.Format("{0}/{1}/zones?access_token={2}", ActivityUrl, activityId, _authenticator.AccessToken);
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<List<ActivityZone>>.Unmarshal(json);
+        }
+
         #endregion
 
         #region Athlete
@@ -175,14 +185,14 @@ namespace com.strava.api.Client
             return Unmarshaller<List<SegmentEffort>>.Unmarshal(json);
         }
 
-        public async Task<List<Segment>> GetStarredSegmentsAsync()
+        public async Task<List<SegmentSummary>> GetStarredSegmentsAsync()
         {
             String getUrl = String.Format("{0}/?access_token={1}", StarredUrl, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
             //  Unmarshalling
-            return Unmarshaller<List<Segment>>.Unmarshal(json);
+            return Unmarshaller<List<SegmentSummary>>.Unmarshal(json);
         }
 
         public async Task<Leaderboard> GetFullSegmentLeaderboardAsync(string segmentId)

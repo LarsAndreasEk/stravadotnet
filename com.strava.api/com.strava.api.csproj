@@ -43,8 +43,10 @@
     <Compile Include="Activities\Activity.cs" />
     <Compile Include="Activities\ActivityMeta.cs" />
     <Compile Include="Activities\ActivityType.cs" />
+    <Compile Include="Activities\ActivityZone.cs" />
     <Compile Include="Activities\AgeGroup.cs" />
     <Compile Include="Activities\Comment.cs" />
+    <Compile Include="Activities\DistributionBucket.cs" />
     <Compile Include="Activities\Gender.cs" />
     <Compile Include="Activities\Leaderboard.cs" />
     <Compile Include="Activities\LeaderboardEntry.cs" />

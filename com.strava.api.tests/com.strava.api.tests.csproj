@@ -61,6 +61,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Unmarshalling\ActivityZonesUnmarshalling.cs" />
     <Compile Include="Unmarshalling\AthleteUnmarshalling.cs" />
     <Compile Include="Unmarshalling\ClubUnmarshalling.cs" />
     <Compile Include="Unmarshalling\CommentsUnmarshalling.cs" />

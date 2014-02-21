@@ -1,5 +1,4 @@
 ﻿using System;
-using com.strava.api.Activities;
 using Newtonsoft.Json;
 
 namespace com.strava.api.Segments

@@ -61,6 +61,34 @@ namespace com.strava.api.tests.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die [
+        ///  {
+        ///    &quot;score&quot;: 215,
+        ///    &quot;distribution_buckets&quot;: [
+        ///      { &quot;max&quot;: 115, &quot;min&quot;: 0,   &quot;time&quot;: 1735 },
+        ///      { &quot;max&quot;: 152, &quot;min&quot;: 115, &quot;time&quot;: 5966 },
+        ///      { &quot;max&quot;: 171, &quot;min&quot;: 152, &quot;time&quot;: 4077 },
+        ///      { &quot;max&quot;: 190, &quot;min&quot;: 171, &quot;time&quot;: 4238 },
+        ///      { &quot;max&quot;: -1,  &quot;min&quot;: 190, &quot;time&quot;: 36 }
+        ///    ],
+        ///    &quot;type&quot;: &quot;heartrate&quot;,
+        ///    &quot;resource_state&quot;: 3,
+        ///    &quot;sensor_based&quot;: true,
+        ///    &quot;points&quot;: 119,
+        ///    &quot;custom_zones&quot;: false,
+        ///    &quot;max&quot;: 196
+        ///  },
+        ///  {
+        ///    &quot;distribution_buckets&quot;: [
+        ///      { &quot;max&quot;: 0,   [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
+        /// </summary>
+        internal static string ActivityZonesJson {
+            get {
+                return ResourceManager.GetString("ActivityZonesJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die {
         ///  &quot;id&quot;: 227615,
         ///  &quot;resource_state&quot;: 3,
