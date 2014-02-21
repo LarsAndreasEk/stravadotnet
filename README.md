@@ -145,6 +145,7 @@ The *AcitivtySummary* and *ActivityMeta* classes were added to avoid some nasty 
 | GetActivityAsync(string id) | Activity or ActivitySummary | Gets a detailed version of an activity if you are the owner of the activity. Otherwise an activity summary is returned. |
 | GetCommentsAsync(string activityId) | List&lt;Comment&gt; | Gets all the comments of the specified activity. |
 | GetKudosAsync(string activityId) | List&lt;AthleteSummary&gt; | Gets a list of athletes that kudoed the specified activity |
+| GetActivityZonesAsync(String activityId) | List&lt;ActivityZone&gt; | Gets a list of ActivityZones for the specified activity. (**Premium Feature**)
 
 Examples
 --------------
@@ -203,8 +204,8 @@ You can filter the leaderboard by various parameters like gender or weight. Plea
 | :--------------------------------------- | :---------: | :--------------------------------------------------------: |
 | GetFullSegmentLeaderboardAsync(string segmentId) | Leaderboard | Returns the unfiltered leaderboard for the specified segment. |
 | GetSegmentLeaderboardAsync(string segmentId, Gender gender) | Leaderboard | Returns the leaderboard for the specified segment, filtered by gender. |
-| GetSegmentLeaderboardAsync(string segmentId, Gender gender, AgeGroup age) | Leaderboard | Returns the leaderboard for the specified segment, filtered by both gender and age group. (Premium feature) |
-| GetSegmentLeaderboardAsync(string segmentId, Gender gender, WeightClass weight) | Leaderboard | Returns the leaderboard for the specified segment, filtered by both gender and weight class. (Premium Feature) |
+| GetSegmentLeaderboardAsync(string segmentId, Gender gender, AgeGroup age) | Leaderboard | Returns the leaderboard for the specified segment, filtered by both gender and age group. (**Premium Feature**) |
+| GetSegmentLeaderboardAsync(string segmentId, Gender gender, WeightClass weight) | Leaderboard | Returns the leaderboard for the specified segment, filtered by both gender and weight class. (**Premium Feature**) |
 
 Feedback
 ============
