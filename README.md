@@ -186,11 +186,25 @@ Gear
 Segments
 ============
 
+| Method                                   | Return type | Description                                                |
+| :--------------------------------------- | :---------: | :--------------------------------------------------------: |
+| GetStarredSegmentsAsync() | List&lt;SegmentSummary&gt; | Returns a list of segments that the currently authenticated athlete has starred. |
+
+
 Segment Efforts
 ============
 
 Leaderboards
 ============
+
+You can filter the leaderboard by various parameters like gender or weight. Please keep in mind that you need a Strava premium account to use filtering.
+
+| Method                                   | Return type | Description                                                |
+| :--------------------------------------- | :---------: | :--------------------------------------------------------: |
+| GetFullSegmentLeaderboardAsync(string segmentId) | Leaderboard | Returns the unfiltered leaderboard for the specified segment. |
+| GetSegmentLeaderboardAsync(string segmentId, Gender gender) | Leaderboard | Returns the leaderboard for the specified segment, filtered by gender. |
+| GetSegmentLeaderboardAsync(string segmentId, Gender gender, AgeGroup age) | Leaderboard | Returns the leaderboard for the specified segment, filtered by both gender and age group. (Premium feature) |
+| GetSegmentLeaderboardAsync(string segmentId, Gender gender, WeightClass weight) | Leaderboard | Returns the leaderboard for the specified segment, filtered by both gender and weight class. (Premium Feature) |
 
 Feedback
 ============
