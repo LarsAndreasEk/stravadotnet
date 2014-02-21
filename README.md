@@ -186,6 +186,11 @@ Gear
 Segments
 ============
 
+| Method                                   | Return type | Description                                                |
+| :--------------------------------------- | :---------: | :--------------------------------------------------------: |
+| GetStarredSegmentsAsync() | List&lt;SegmentSummary&gt; | Returns a list of segments that the currently authenticated athlete has starred. |
+
+
 Segment Efforts
 ============
 
