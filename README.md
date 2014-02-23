@@ -151,6 +151,8 @@ The *AcitivtySummary* and *ActivityMeta* classes were added to avoid some nasty 
 | GetCommentsAsync(string activityId) | List&lt;Comment&gt; | Gets all the comments of the specified activity. |
 | GetKudosAsync(string activityId) | List&lt;AthleteSummary&gt; | Gets a list of athletes that kudoed the specified activity |
 | GetActivityZonesAsync(String activityId) | List&lt;ActivityZone&gt; | Gets a list of ActivityZones for the specified activity. (**Premium Feature**)
+| GetActivityBeforeAsync(String id, DateTime before) | List&lt;ActivitySummary&gt; | Gets a list of activities that were recorded before the specified date. |
+| GetActivityAfterAsync(String id, DateTime after) | List&lt;ActivitySummary&gt; | Gets a list of activities that were recorded after the specified date. |
 
 Examples
 --------------
