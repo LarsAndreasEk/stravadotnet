@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using com.strava.api.Activities;
+using com.strava.api.Api;
 using com.strava.api.Athletes;
 using com.strava.api.Authentication;
 using com.strava.api.Clubs;
@@ -16,24 +17,6 @@ namespace com.strava.api.Client
         #region Members
 
         private readonly IAuthentication _authenticator;
-
-        private const String ActivityUrl = "https://www.strava.com/api/v3/activities";
-
-        private const String CurrentAthleteUrl = "https://www.strava.com/api/v3/athlete";
-        private const String AthleteUrl = "https://www.strava.com/api/v3/athletes";
-
-        private const String CurrentAthleteFriendsUrl = "https://www.strava.com/api/v3/athlete/friends";
-        private const String FriendsUrl = "https://www.strava.com/api/v3/athletes";
-
-        private const String CurrentFollowerUrl = "https://www.strava.com/api/v3/athlete/followers";
-        private const String FollowerUrl = "https://www.strava.com/api/v3/athletes";
-
-        private const String StarredUrl = "https://www.strava.com/api/v3/segments/starred";
-
-        private const String LeaderboardUrl = "https://www.strava.com/api/v3/segments";
-
-        private const String ClubUrl = "https://www.strava.com/api/v3/clubs";
-        private const String ClubsUrl = "https://www.strava.com/api/v3/athlete/clubs";
 
         #endregion
 
@@ -59,7 +42,7 @@ namespace com.strava.api.Client
 
         public async Task<Activity> GetActivityAsync(string id)
         {
-            String getUrl = String.Format("{0}/{1}?access_token={2}", ActivityUrl, id, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Activity, id, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -69,7 +52,7 @@ namespace com.strava.api.Client
 
         public async Task<List<Comment>> GetCommentsAsync(string activityId)
         {
-            String getUrl = String.Format("{0}/{1}/comments?access_token={2}", ActivityUrl, activityId, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}/{1}/comments?access_token={2}", Endpoints.Activity, activityId, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -79,7 +62,7 @@ namespace com.strava.api.Client
 
         public async Task<List<Athlete>> GetKudosAsync(string activityId)
         {
-            String getUrl = String.Format("{0}/{1}/kudos?access_token={2}", ActivityUrl, activityId, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}/{1}/kudos?access_token={2}", Endpoints.Activity, activityId, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -89,7 +72,7 @@ namespace com.strava.api.Client
 
         public async Task<List<ActivityZone>> GetActivityZonesAsync(String activityId)
         {
-            String getUrl = String.Format("{0}/{1}/zones?access_token={2}", ActivityUrl, activityId, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}/{1}/zones?access_token={2}", Endpoints.Activity, activityId, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -103,7 +86,7 @@ namespace com.strava.api.Client
 
         public async Task<Athlete> GetAthleteAsync()
         {
-            String getUrl = String.Format("{0}?access_token={1}", CurrentAthleteUrl, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}?access_token={1}", Endpoints.Athlete, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -113,7 +96,7 @@ namespace com.strava.api.Client
 
         public async Task<AthleteSummary> GetAthleteAsync(String athleteId)
         {
-            String getUrl = String.Format("{0}/{1}?access_token={2}", AthleteUrl, athleteId, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Athlete, athleteId, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -123,7 +106,7 @@ namespace com.strava.api.Client
         
         public async Task<List<AthleteSummary>> GetFriendsAsync()
         {
-            String getUrl = String.Format("{0}?access_token={1}", CurrentAthleteFriendsUrl, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}?access_token={1}", Endpoints.Friends, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -133,7 +116,7 @@ namespace com.strava.api.Client
 
         public async Task<List<AthleteSummary>> GetFriendsAsync(string athleteId)
         {
-            String getUrl = String.Format("{0}/{1}/friends?access_token={2}", FriendsUrl, athleteId, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}/{1}/friends?access_token={2}", Endpoints.Friends, athleteId, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -143,7 +126,7 @@ namespace com.strava.api.Client
 
         public async Task<List<AthleteSummary>> GetFollowersAsync()
         {
-            String getUrl = String.Format("{0}?access_token={1}", CurrentFollowerUrl, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}?access_token={1}", Endpoints.Follower, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -153,7 +136,7 @@ namespace com.strava.api.Client
 
         public async Task<List<AthleteSummary>> GetFollowersAsync(String athleteId)
         {
-            String getUrl = String.Format("{0}/{1}/followers?access_token={2}", FollowerUrl, athleteId, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}/{1}/followers?access_token={2}", Endpoints.Followers, athleteId, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -163,7 +146,7 @@ namespace com.strava.api.Client
 
         public async Task<List<AthleteSummary>> GetBothFollowingAsync(String athleteId)
         {
-            String getUrl = String.Format("{0}/{1}/both-following?access_token={2}", FollowerUrl, athleteId, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}/{1}/both-following?access_token={2}", Endpoints.Followers, athleteId, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -177,7 +160,7 @@ namespace com.strava.api.Client
 
         public async Task<List<SegmentEffort>> GetRecordsAsync(string athleteId)
         {
-            String getUrl = String.Format("{0}/{1}/koms?access_token={2}", AthleteUrl, athleteId, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}/{1}/koms?access_token={2}", Endpoints.Athlete, athleteId, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -187,7 +170,7 @@ namespace com.strava.api.Client
 
         public async Task<List<SegmentSummary>> GetStarredSegmentsAsync()
         {
-            String getUrl = String.Format("{0}/?access_token={1}", StarredUrl, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}/?access_token={1}", Endpoints.Starred, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -197,7 +180,7 @@ namespace com.strava.api.Client
 
         public async Task<Leaderboard> GetFullSegmentLeaderboardAsync(string segmentId)
         {
-            String getUrl = String.Format("{0}/{1}/leaderboard?access_token={2}", LeaderboardUrl, segmentId, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}/{1}/leaderboard?access_token={2}", Endpoints.Leaderboard, segmentId, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -209,7 +192,7 @@ namespace com.strava.api.Client
         {
             String genderFilter = gender == Gender.Male ? "M" : "F";
             String getUrl = String.Format("{0}/{1}/leaderboard?gender={2}&access_token={3}",
-                LeaderboardUrl, 
+                Endpoints.Leaderboard, 
                 segmentId, 
                 genderFilter,
                 _authenticator.AccessToken
@@ -256,7 +239,7 @@ namespace com.strava.api.Client
             }
 
             String getUrl = String.Format("{0}/{1}/leaderboard?gender={2}&age_group={3}&filter=age_group&access_token={4}",
-                LeaderboardUrl,
+                Endpoints.Leaderboard,
                 segmentId,
                 genderFilter,
                 ageFilter,
@@ -304,7 +287,7 @@ namespace com.strava.api.Client
             }
 
             String getUrl = String.Format("{0}/{1}/leaderboard?gender={2}&weight_class={3}&filter=weight_class&access_token={4}",
-                LeaderboardUrl,
+                Endpoints.Leaderboard,
                 segmentId,
                 genderFilter,
                 weightClass,
@@ -323,7 +306,7 @@ namespace com.strava.api.Client
 
         public async Task<Club> GetClubAsync(String clubId)
         {
-            String getUrl = String.Format("{0}/{1}?access_token={2}", ClubUrl, clubId, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Club, clubId, _authenticator.AccessToken);
 
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -333,7 +316,7 @@ namespace com.strava.api.Client
 
         public async Task<List<ClubSummary>> GetClubsAsync()
         {
-            String getUrl = String.Format("{0}?access_token={1}", ClubsUrl, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}?access_token={1}", Endpoints.Clubs, _authenticator.AccessToken);
 
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -344,7 +327,7 @@ namespace com.strava.api.Client
         public async Task<List<AthleteSummary>> GetClubMembersAsync(String clubId)
         {
             //https://www.strava.com/api/v3/clubs/1/members
-            String getUrl = String.Format("{0}/{1}/members?access_token={2}", ClubUrl, clubId, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}/{1}/members?access_token={2}", Endpoints.Club, clubId, _authenticator.AccessToken);
 
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 

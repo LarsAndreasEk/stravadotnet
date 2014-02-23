@@ -54,6 +54,7 @@
     <Compile Include="Activities\Photo.cs" />
     <Compile Include="Activities\ResourceState.cs" />
     <Compile Include="Activities\WeightClass.cs" />
+    <Compile Include="Api\Endpoints.cs" />
     <Compile Include="Api\Limits.cs" />
     <Compile Include="Api\Usage.cs" />
     <Compile Include="Api\UsageChangedEventArgs.cs" />
