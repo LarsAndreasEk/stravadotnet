@@ -9,6 +9,7 @@ using com.strava.api.Clubs;
 using com.strava.api.Common;
 using com.strava.api.Http;
 using com.strava.api.Segments;
+using com.strava.api.Utilities;
 
 namespace com.strava.api.Client
 {
@@ -40,9 +41,9 @@ namespace com.strava.api.Client
 
         #region Activity
 
-        public async Task<Activity> GetActivityAsync(string id)
+        public async Task<Activity> GetActivityAsync(String id, bool includeEfforts)
         {
-            String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Activity, id, _authenticator.AccessToken);
+            String getUrl = String.Format("{0}/{1}?include_all_efforts={2}&access_token={3}", Endpoints.Activity, id, includeEfforts, _authenticator.AccessToken);
 
             string json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
@@ -50,7 +51,48 @@ namespace com.strava.api.Client
             return Unmarshaller<Activity>.Unmarshal(json);
         }
 
-        public async Task<List<Comment>> GetCommentsAsync(string activityId)
+        public async Task<List<ActivitySummary>> GetActivityBeforeAsync(String id, DateTime before)
+        {
+            //Calculate the UNIX epoch
+            long secondsBefore = DateConverter.GetSecondsSinceUnixEpoch(before);
+
+            String getUrl = String.Format("{0}/{1}?before={2}&access_token={3}",
+                Endpoints.Activities,
+                id,
+                secondsBefore,
+                _authenticator.AccessToken
+                );
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+        }
+
+        public async Task<List<ActivitySummary>> GetActivityAfterAsync(String id, DateTime after)
+        {
+            //Calculate the UNIX epoch
+            long secondsAfter = DateConverter.GetSecondsSinceUnixEpoch(after);
+
+            String getUrl = String.Format("{0}/{1}?after={2}&access_token={3}",
+                Endpoints.Activities,
+                id,
+                secondsAfter,
+                _authenticator.AccessToken
+                );
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+        }
+
+        //public async Task<List<Activity>> GetActivityAsync(String id, int page, int perPage)
+        //{
+
+        //}
+
+        public async Task<List<Comment>> GetCommentsAsync(String activityId)
         {
             String getUrl = String.Format("{0}/{1}/comments?access_token={2}", Endpoints.Activity, activityId, _authenticator.AccessToken);
 
@@ -60,7 +102,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<Comment>>.Unmarshal(json);
         }
 
-        public async Task<List<Athlete>> GetKudosAsync(string activityId)
+        public async Task<List<Athlete>> GetKudosAsync(String activityId)
         {
             String getUrl = String.Format("{0}/{1}/kudos?access_token={2}", Endpoints.Activity, activityId, _authenticator.AccessToken);
 
@@ -79,7 +121,7 @@ namespace com.strava.api.Client
             //  Unmarshalling
             return Unmarshaller<List<ActivityZone>>.Unmarshal(json);
         }
-
+        
         #endregion
 
         #region Athlete

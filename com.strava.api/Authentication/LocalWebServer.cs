@@ -60,7 +60,7 @@ namespace com.strava.api.Authentication
                     AuthCodeReceived(this, new AuthCodeReceivedEventArgs(code));
                 }
             }
-            
+
             // Save token to hard disk
             String path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "StravaApi");
             String file = Path.Combine(path, "AccessToken.auth");

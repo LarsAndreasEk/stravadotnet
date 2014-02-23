@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace com.strava.api.Activities
 {
-    public class Activity
+    public class ActivitySummary
     {
         [JsonProperty("id")]
         public String Id { get; set; }
@@ -114,9 +114,9 @@ namespace com.strava.api.Activities
 
         [JsonProperty("timezone")]
         public String TimeZone { get; set; }
-        
-        [JsonProperty("segment_efforts")]
-        public List<SegmentEffort> SegmentEfforts { get; set; }
+
+        #region Objects
+
 
         [JsonProperty("start_latlng")]
         public List<double> StartPoint { get; set; }
@@ -160,9 +160,8 @@ namespace com.strava.api.Activities
         public Map Map { get; set; }
 
         [JsonProperty("athlete")]
-        public AthleteSummary Athlete { get; set; }
+        public AthleteMeta Athlete { get; set; }
 
-        [JsonProperty("gear")]
-        public List<GearSummary> Gear { get; set; }
+        #endregion
     }
 }

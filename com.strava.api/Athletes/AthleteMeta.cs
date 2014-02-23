@@ -6,5 +6,8 @@ namespace com.strava.api.Athletes
     {
         [JsonProperty("id")]
         public long Id { get; set; }
+
+        [JsonProperty("resource_state")]
+        public int ResourceState { get; set; }
     }
 }
