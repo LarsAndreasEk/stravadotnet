@@ -127,52 +127,6 @@ namespace com.strava.api.Client
             await WebRequest.SendDeleteAsync(new Uri(deleteUrl));
         }
 
-        public async Task<Athlete> UpdateAthleteWeight(float weight)
-        {
-            String putUrl = String.Format("{0}?weight={1}&access_token={2}", Endpoints.Athlete, weight, _authenticator.AccessToken);
-
-            String json = await WebRequest.SendPutAsync(new Uri(putUrl));
-            
-            //  Unmarshalling
-            return Unmarshaller<Athlete>.Unmarshal(json);
-        }
-
-        public async Task<Athlete> UpdateAthlete(AthleteParameter parameter, String value)
-        {
-            String putUrl = String.Empty;
-
-            switch (parameter)
-            {
-                case AthleteParameter.City:
-                    putUrl = String.Format("{0}?city={1}&access_token={2}", Endpoints.Athlete, value, _authenticator.AccessToken);
-                    break;
-                case AthleteParameter.Country:
-                    putUrl = String.Format("{0}?country={1}&access_token={2}", Endpoints.Athlete, value, _authenticator.AccessToken);
-                    break;
-                case AthleteParameter.State:
-                    putUrl = String.Format("{0}?state={1}&access_token={2}", Endpoints.Athlete, value, _authenticator.AccessToken);
-                    break;
-                case AthleteParameter.Weight:
-                    putUrl = String.Format("{0}?weight={1}&access_token={2}", Endpoints.Athlete, value, _authenticator.AccessToken);
-                    break;
-            }
-            
-            String json = await WebRequest.SendPutAsync(new Uri(putUrl));
-
-            //  Unmarshalling
-            return Unmarshaller<Athlete>.Unmarshal(json);
-        }
-
-        public async Task<Athlete> UpdateAthleteSex(Gender gender)
-        {
-            String putUrl = String.Format("{0}?sex={1}&access_token={2}", Endpoints.Athlete, gender.ToString().Substring(0, 1), _authenticator.AccessToken);
-
-            String json = await WebRequest.SendPutAsync(new Uri(putUrl));
-
-            //  Unmarshalling
-            return Unmarshaller<Athlete>.Unmarshal(json);
-        }
-
         public async Task<List<Athlete>> GetKudosAsync(String activityId)
         {
             String getUrl = String.Format("{0}/{1}/kudos?access_token={2}", Endpoints.Activity, activityId, _authenticator.AccessToken);
@@ -265,6 +219,42 @@ namespace com.strava.api.Client
 
             //  Unmarshalling
             return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
+        }
+
+        public async Task<Athlete> UpdateAthlete(AthleteParameter parameter, String value)
+        {
+            String putUrl = String.Empty;
+
+            switch (parameter)
+            {
+                case AthleteParameter.City:
+                    putUrl = String.Format("{0}?city={1}&access_token={2}", Endpoints.Athlete, value, _authenticator.AccessToken);
+                    break;
+                case AthleteParameter.Country:
+                    putUrl = String.Format("{0}?country={1}&access_token={2}", Endpoints.Athlete, value, _authenticator.AccessToken);
+                    break;
+                case AthleteParameter.State:
+                    putUrl = String.Format("{0}?state={1}&access_token={2}", Endpoints.Athlete, value, _authenticator.AccessToken);
+                    break;
+                case AthleteParameter.Weight:
+                    putUrl = String.Format("{0}?weight={1}&access_token={2}", Endpoints.Athlete, value, _authenticator.AccessToken);
+                    break;
+            }
+
+            String json = await WebRequest.SendPutAsync(new Uri(putUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<Athlete>.Unmarshal(json);
+        }
+
+        public async Task<Athlete> UpdateAthleteSex(Gender gender)
+        {
+            String putUrl = String.Format("{0}?sex={1}&access_token={2}", Endpoints.Athlete, gender.ToString().Substring(0, 1), _authenticator.AccessToken);
+
+            String json = await WebRequest.SendPutAsync(new Uri(putUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<Athlete>.Unmarshal(json);
         }
 
         #endregion
