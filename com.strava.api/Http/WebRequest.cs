@@ -82,5 +82,26 @@ namespace com.strava.api.Http
 
             return String.Empty;
         }
+
+        public static async Task<String> SendDeleteAsync(Uri uri)
+        {
+            if (uri == null)
+            {
+                throw new ArgumentException("Parameter uri must not be null. Please commit a valid Uri object.");
+            }
+
+            using (var httpClient = new HttpClient())
+            {
+                HttpResponseMessage response = await httpClient.DeleteAsync(uri);
+
+                //Request was successful
+                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.NoContent)
+                {
+                    return await response.Content.ReadAsStringAsync();
+                }
+            }
+
+            return String.Empty;
+        }
     }
 }

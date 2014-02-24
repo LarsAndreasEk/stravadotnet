@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 using com.strava.api.Activities;
 using com.strava.api.Api;
@@ -10,6 +11,7 @@ using com.strava.api.Common;
 using com.strava.api.Http;
 using com.strava.api.Segments;
 using com.strava.api.Utilities;
+using Gender = com.strava.api.Athletes.Gender;
 
 namespace com.strava.api.Client
 {
@@ -87,10 +89,26 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
-        //public async Task<List<Activity>> GetActivityAsync(String id, int page, int perPage)
-        //{
+        public async Task<List<Activity>> GetActivityAsync(String id, int page, int perPage)
+        {
+            if (perPage > 200)
+            {
+                throw new ArgumentException("The 'perPage' parameter must not be greater than 200.");
+            }
 
-        //}
+            String getUrl = String.Format("{0}/{1}?per_page={2}&page={3}&access_token={4}",
+                Endpoints.Activities,
+                id,
+                perPage,
+                page,
+                _authenticator.AccessToken
+                );
+
+            string json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<List<Activity>>.Unmarshal(json);
+        }
 
         public async Task<List<Comment>> GetCommentsAsync(String activityId)
         {
@@ -100,6 +118,59 @@ namespace com.strava.api.Client
 
             //  Unmarshalling
             return Unmarshaller<List<Comment>>.Unmarshal(json);
+        }
+
+        public async void DeleteActivity(String activityId)
+        {
+            String deleteUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Activities, activityId, _authenticator.AccessToken);
+
+            await WebRequest.SendDeleteAsync(new Uri(deleteUrl));
+        }
+
+        public async Task<Athlete> UpdateAthleteWeight(float weight)
+        {
+            String putUrl = String.Format("{0}?weight={1}&access_token={2}", Endpoints.Athlete, weight, _authenticator.AccessToken);
+
+            String json = await WebRequest.SendPutAsync(new Uri(putUrl));
+            
+            //  Unmarshalling
+            return Unmarshaller<Athlete>.Unmarshal(json);
+        }
+
+        public async Task<Athlete> UpdateAthlete(AthleteParameter parameter, String value)
+        {
+            String putUrl = String.Empty;
+
+            switch (parameter)
+            {
+                case AthleteParameter.City:
+                    putUrl = String.Format("{0}?city={1}&access_token={2}", Endpoints.Athlete, value, _authenticator.AccessToken);
+                    break;
+                case AthleteParameter.Country:
+                    putUrl = String.Format("{0}?country={1}&access_token={2}", Endpoints.Athlete, value, _authenticator.AccessToken);
+                    break;
+                case AthleteParameter.State:
+                    putUrl = String.Format("{0}?state={1}&access_token={2}", Endpoints.Athlete, value, _authenticator.AccessToken);
+                    break;
+                case AthleteParameter.Weight:
+                    putUrl = String.Format("{0}?weight={1}&access_token={2}", Endpoints.Athlete, value, _authenticator.AccessToken);
+                    break;
+            }
+            
+            String json = await WebRequest.SendPutAsync(new Uri(putUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<Athlete>.Unmarshal(json);
+        }
+
+        public async Task<Athlete> UpdateAthleteSex(Gender gender)
+        {
+            String putUrl = String.Format("{0}?sex={1}&access_token={2}", Endpoints.Athlete, gender.ToString().Substring(0, 1), _authenticator.AccessToken);
+
+            String json = await WebRequest.SendPutAsync(new Uri(putUrl));
+
+            //  Unmarshalling
+            return Unmarshaller<Athlete>.Unmarshal(json);
         }
 
         public async Task<List<Athlete>> GetKudosAsync(String activityId)

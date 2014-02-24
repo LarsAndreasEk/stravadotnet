@@ -5,7 +5,6 @@
         City,
         State,
         Country,
-        Sex,
         Weight
     }
 }

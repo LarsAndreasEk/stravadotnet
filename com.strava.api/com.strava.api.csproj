@@ -63,6 +63,7 @@
     <Compile Include="Athletes\AthleteMeta.cs" />
     <Compile Include="Athletes\AthleteParameter.cs" />
     <Compile Include="Athletes\AthleteSummary.cs" />
+    <Compile Include="Athletes\Gender.cs" />
     <Compile Include="Authentication\AuthCodeReceivedEventArgs.cs" />
     <Compile Include="Authentication\AccessToken.cs" />
     <Compile Include="Authentication\IAuthentication.cs" />
