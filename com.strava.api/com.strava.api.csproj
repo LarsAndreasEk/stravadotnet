@@ -55,6 +55,7 @@
     <Compile Include="Activities\ResourceState.cs" />
     <Compile Include="Activities\WeightClass.cs" />
     <Compile Include="Api\Endpoints.cs" />
+    <Compile Include="Api\Limit.cs" />
     <Compile Include="Api\Limits.cs" />
     <Compile Include="Api\Usage.cs" />
     <Compile Include="Api\UsageChangedEventArgs.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Gear\Bike.cs" />
     <Compile Include="Gear\GearSummary.cs" />
     <Compile Include="Http\ImageLoader.cs" />
+    <Compile Include="Http\AsyncResponseReceivedEventArgs.cs" />
     <Compile Include="Http\ResponseReceivedEventArgs.cs" />
     <Compile Include="Http\WebRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

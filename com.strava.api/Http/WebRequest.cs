@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using com.strava.api.Api;
 
@@ -12,6 +11,7 @@ namespace com.strava.api.Http
 {
     public static class WebRequest
     {
+        public static event EventHandler<AsyncResponseReceivedEventArgs> AsyncResponseReceived;
         public static event EventHandler<ResponseReceivedEventArgs> ResponseReceived;
 
         public static async Task<String> SendGetAsync(Uri uri)
@@ -27,9 +27,9 @@ namespace com.strava.api.Http
 
                 if (response != null)
                 {
-                    if (ResponseReceived != null)
+                    if (AsyncResponseReceived != null)
                     {
-                        ResponseReceived(null, new ResponseReceivedEventArgs(response));
+                        AsyncResponseReceived(null, new AsyncResponseReceivedEventArgs(response));
                     }
 
                     //Request was successful
@@ -66,9 +66,9 @@ namespace com.strava.api.Http
 
                 if (response != null)
                 {
-                    if (ResponseReceived != null)
+                    if (AsyncResponseReceived != null)
                     {
-                        ResponseReceived(null, new ResponseReceivedEventArgs(response));
+                        AsyncResponseReceived(null, new AsyncResponseReceivedEventArgs(response));
                     }
 
                     //Request was successful
@@ -95,9 +95,9 @@ namespace com.strava.api.Http
 
                 if (response != null)
                 {
-                    if (ResponseReceived != null)
+                    if (AsyncResponseReceived != null)
                     {
-                        ResponseReceived(null, new ResponseReceivedEventArgs(response));
+                        AsyncResponseReceived(null, new AsyncResponseReceivedEventArgs(response));
                     }
 
                     //Request was successful
@@ -124,9 +124,9 @@ namespace com.strava.api.Http
 
                 if (response != null)
                 {
-                    if (ResponseReceived != null)
+                    if (AsyncResponseReceived != null)
                     {
-                        ResponseReceived(null, new ResponseReceivedEventArgs(response));
+                        AsyncResponseReceived(null, new AsyncResponseReceivedEventArgs(response));
                     }
 
                     //Request was successful
@@ -142,13 +142,18 @@ namespace com.strava.api.Http
 
         public static String SendGet(Uri uri)
         {
-            HttpWebRequest httpRequest = (HttpWebRequest)System.Net.WebRequest.Create(uri);
-
+            HttpWebRequest httpRequest = (HttpWebRequest) System.Net.WebRequest.Create(uri);
+            httpRequest.Method = "GET";
             HttpWebResponse httpResponse = (HttpWebResponse)httpRequest.GetResponse();
             Stream responseStream = httpResponse.GetResponseStream();
 
             if (responseStream != null)
             {
+                if (ResponseReceived != null)
+                {
+                    ResponseReceived(null, new ResponseReceivedEventArgs(httpResponse));
+                }
+
                 StreamReader reader = new StreamReader(responseStream);
                 String response = reader.ReadToEnd();
 
@@ -167,6 +172,11 @@ namespace com.strava.api.Http
 
             if (responseStream != null)
             {
+                if (ResponseReceived != null)
+                {
+                    ResponseReceived(null, new ResponseReceivedEventArgs(httpResponse));
+                }
+
                 StreamReader reader = new StreamReader(responseStream);
                 String response = reader.ReadToEnd();
 

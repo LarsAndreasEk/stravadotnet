@@ -7,10 +7,8 @@ namespace com.strava.api.Api
         public static event EventHandler<UsageChangedEventArgs> UsageChanged;
 
         private static Usage _usage;
-
-        public static int ShortTermLimit { get; set; }
-        public static int LongTermLimit { get; set; }
-
+        private static Limit _limit;
+        
         public static Usage Usage
         {
             get
@@ -32,6 +30,22 @@ namespace com.strava.api.Api
                 }
             }
         }
-        public static int LongTermUsage { get; set; }
+
+        public static Limit Limit
+        {
+            get
+            {
+                if (_limit == null)
+                {
+                    _limit = new Limit(0, 0);
+                }
+
+                return _limit;
+            }
+            set
+            {
+                _limit = value;
+            }
+        }
     }
 }
