@@ -1,5 +1,6 @@
 Strava.NET
 ============
+1.0.4
 
 Hopefully this small framework makes using the Strava API a little bit easier!
 Please keep in mind that this framework is in a pretty early stage and things are about to change.
@@ -9,13 +10,6 @@ You can get the framework by using NuGet:
 
     PM> Install-Package Strava.NET
   
-
-About this Readme
-============
-
-The last couple of weeks i focused on the framework itself, so i haven't had much time to write a Readme file.
-In the Program.cs file, you will find a few samples on how to use the framework.
-
 
 Getting an access token from Strava
 ============
@@ -100,6 +94,8 @@ The *StravaClient* offers the following methods:
 | GetFollowersAsync()                      | List&lt;Athlete&gt; | Gets the followers from the currently authenticated athlete.         |
 | GetFollowersAsync(String athleteId)      | List&lt;Athlete&gt; | Gets the followers of any athlete.                 |
 | GetBothFollowingAsync(String atheleteId) | List&lt;Athlete&gt; | Gets the athletes that both you and any athlete are following.       |
+| UpdateAthlete(AthleteParameter parameter, String value) | Athlete | Updates a specified parameter of the currently authenticated athlete. Requires **write** permissions. |
+| UpdateAthleteSex(Gender gender) | Athlete | Updates the sex of the currently authenticated athlete. Requires **write** permissions. |
 
 Examples
 --------------
@@ -153,6 +149,7 @@ The *AcitivtySummary* and *ActivityMeta* classes were added to avoid some nasty 
 | GetActivityZonesAsync(String activityId) | List&lt;ActivityZone&gt; | Gets a list of ActivityZones for the specified activity. (**Premium Feature**)
 | GetActivityBeforeAsync(String id, DateTime before) | List&lt;ActivitySummary&gt; | Gets a list of activities that were recorded before the specified date. |
 | GetActivityAfterAsync(String id, DateTime after) | List&lt;ActivitySummary&gt; | Gets a list of activities that were recorded after the specified date. |
+| DeleteActivity(String activityId) | void | Deletes the specified activity. Requires you to be the *owner* of the activity and **write** permissions. |
 
 Examples
 --------------
