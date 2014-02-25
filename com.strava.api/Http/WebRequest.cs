@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using com.strava.api.Api;
 
@@ -10,6 +12,8 @@ namespace com.strava.api.Http
 {
     public static class WebRequest
     {
+        public static event EventHandler<ResponseReceivedEventArgs> ResponseReceived;
+
         public static async Task<String> SendGetAsync(Uri uri)
         {
             if (uri == null)
@@ -21,20 +25,28 @@ namespace com.strava.api.Http
             {
                 HttpResponseMessage response = await httpClient.GetAsync(uri);
 
-                //Request was successful
-                if (response.StatusCode == HttpStatusCode.OK)
+                if (response != null)
                 {
-                    //Getting the Strava API usage data.
-                    KeyValuePair<String, IEnumerable<String>> usage = response.Headers.ToList().Find(x => x.Key.Equals("X-RateLimit-Usage"));
-
-                    if (usage.Value != null)
+                    if (ResponseReceived != null)
                     {
-                        //Setting the related Properties in the Limits-class.
-                        Limits.Usage = new Usage(Int32.Parse(usage.Value.ElementAt(0).Split(',')[0]),
-                            Int32.Parse(usage.Value.ElementAt(0).Split(',')[1]));
+                        ResponseReceived(null, new ResponseReceivedEventArgs(response));
                     }
 
-                    return await response.Content.ReadAsStringAsync();
+                    //Request was successful
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        //Getting the Strava API usage data.
+                        KeyValuePair<String, IEnumerable<String>> usage = response.Headers.ToList().Find(x => x.Key.Equals("X-RateLimit-Usage"));
+
+                        if (usage.Value != null)
+                        {
+                            //Setting the related Properties in the Limits-class.
+                            Limits.Usage = new Usage(Int32.Parse(usage.Value.ElementAt(0).Split(',')[0]),
+                                Int32.Parse(usage.Value.ElementAt(0).Split(',')[1]));
+                        }
+
+                        return await response.Content.ReadAsStringAsync();
+                    }
                 }
             }
 
@@ -52,10 +64,18 @@ namespace com.strava.api.Http
             {
                 HttpResponseMessage response = await httpClient.PostAsync(uri, null);
 
-                //Request was successful
-                if (response.StatusCode == HttpStatusCode.OK)
+                if (response != null)
                 {
-                    return await response.Content.ReadAsStringAsync();
+                    if (ResponseReceived != null)
+                    {
+                        ResponseReceived(null, new ResponseReceivedEventArgs(response));
+                    }
+
+                    //Request was successful
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        return await response.Content.ReadAsStringAsync();
+                    }
                 }
             }
 
@@ -73,10 +93,18 @@ namespace com.strava.api.Http
             {
                 HttpResponseMessage response = await httpClient.PutAsync(uri, null);
 
-                //Request was successful
-                if (response.StatusCode == HttpStatusCode.OK)
+                if (response != null)
                 {
-                    return await response.Content.ReadAsStringAsync();
+                    if (ResponseReceived != null)
+                    {
+                        ResponseReceived(null, new ResponseReceivedEventArgs(response));
+                    }
+
+                    //Request was successful
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        return await response.Content.ReadAsStringAsync();
+                    }
                 }
             }
 
@@ -94,11 +122,55 @@ namespace com.strava.api.Http
             {
                 HttpResponseMessage response = await httpClient.DeleteAsync(uri);
 
-                //Request was successful
-                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.NoContent)
+                if (response != null)
                 {
-                    return await response.Content.ReadAsStringAsync();
+                    if (ResponseReceived != null)
+                    {
+                        ResponseReceived(null, new ResponseReceivedEventArgs(response));
+                    }
+
+                    //Request was successful
+                    if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.NoContent)
+                    {
+                        return await response.Content.ReadAsStringAsync();
+                    }
                 }
+            }
+
+            return String.Empty;
+        }
+
+        public static String SendGet(Uri uri)
+        {
+            HttpWebRequest httpRequest = (HttpWebRequest)System.Net.WebRequest.Create(uri);
+
+            HttpWebResponse httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+            Stream responseStream = httpResponse.GetResponseStream();
+
+            if (responseStream != null)
+            {
+                StreamReader reader = new StreamReader(responseStream);
+                String response = reader.ReadToEnd();
+
+                return response;
+            }
+
+            return String.Empty;
+        }
+
+        public static String SendPut(Uri uri)
+        {
+            HttpWebRequest httpRequest = (HttpWebRequest)System.Net.WebRequest.Create(uri);
+            httpRequest.Method = "PUT";
+            HttpWebResponse httpResponse = (HttpWebResponse)httpRequest.GetResponse();
+            Stream responseStream = httpResponse.GetResponseStream();
+
+            if (responseStream != null)
+            {
+                StreamReader reader = new StreamReader(responseStream);
+                String response = reader.ReadToEnd();
+
+                return response;
             }
 
             return String.Empty;

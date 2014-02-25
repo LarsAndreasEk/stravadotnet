@@ -1,4 +1,4 @@
-﻿namespace com.strava.api.Auth
+﻿namespace com.strava.api.Authentication
 {
     public enum Scope
     {

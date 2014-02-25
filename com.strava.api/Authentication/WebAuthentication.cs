@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using com.strava.api.Auth;
 
 namespace com.strava.api.Authentication
 {

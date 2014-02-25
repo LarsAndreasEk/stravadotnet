@@ -48,7 +48,6 @@
     <Compile Include="Activities\AgeGroup.cs" />
     <Compile Include="Activities\Comment.cs" />
     <Compile Include="Activities\DistributionBucket.cs" />
-    <Compile Include="Activities\Gender.cs" />
     <Compile Include="Activities\Leaderboard.cs" />
     <Compile Include="Activities\LeaderboardEntry.cs" />
     <Compile Include="Activities\Map.cs" />
@@ -83,6 +82,7 @@
     <Compile Include="Gear\Bike.cs" />
     <Compile Include="Gear\GearSummary.cs" />
     <Compile Include="Http\ImageLoader.cs" />
+    <Compile Include="Http\ResponseReceivedEventArgs.cs" />
     <Compile Include="Http\WebRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Segments\SegmentEffort.cs" />
