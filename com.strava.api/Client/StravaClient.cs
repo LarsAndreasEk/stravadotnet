@@ -125,6 +125,77 @@ namespace com.strava.api.Client
 
             return Unmarshaller<List<ActivityZone>>.Unmarshal(json);
         }
+
+        public async Task<List<ActivitySummary>> GetActivitiesAsync(int page, int perPage)
+        {
+            String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.Activities, page, perPage, _authenticator.AccessToken);
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+        }
+
+        public async Task<List<ActivitySummary>> GetFollowersActivitiesAsync(int page, int perPage)
+        {
+            String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.ActivitiesFollowers, page, perPage, _authenticator.AccessToken);
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+        }
+
+        public async Task<List<ActivitySummary>> GetLatestFriendsActivitiesAsync(int count)
+        {
+            List<ActivitySummary> activities = new List<ActivitySummary>();
+            int page = 1;
+            bool hasEntries = true;
+
+            while (hasEntries)
+            {
+                List<ActivitySummary> request = await GetFollowersActivitiesAsync(page++, 20);
+
+                if (request.Count == 0)
+                {
+                    hasEntries = false;
+                }
+
+                foreach (ActivitySummary activity in request)
+                {
+                    if (activities.Count < count)
+                    {
+                        activities.Add(activity);
+                    }
+                    else
+                    {
+                        return activities;
+                    }
+                }
+            }
+
+            return activities;
+        }
+
+        public async Task<List<ActivitySummary>> GetAllActivitiesAsync()
+        {
+            List<ActivitySummary> activities = new List<ActivitySummary>();
+            int page = 1;
+            bool hasEntries = true;
+
+            while (hasEntries)
+            {
+                List<ActivitySummary> request = await GetActivitiesAsync(page++, 200);
+
+                if (request.Count == 0)
+                {
+                    hasEntries = false;
+                }
+
+                foreach (ActivitySummary activity in request)
+                {
+                    activities.Add(activity);
+                }
+            }
+
+            return activities;
+        }
         
         #endregion
 
@@ -367,6 +438,27 @@ namespace com.strava.api.Client
             return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
+        public async Task<List<ActivitySummary>> GetLatestClubActivitiesAsync(String clubId)
+        {
+            String getUrl = String.Format("{0}/{1}/activities?access_token={2}", Endpoints.Club, clubId, _authenticator.AccessToken);
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+        }
+
+        public async Task<List<ActivitySummary>> GetLatestClubActivitiesAsync(String clubId, int page, int perPage)
+        {
+            String getUrl = String.Format("{0}/{1}/activities?page={2}&per_page={3}&access_token={4}",
+                Endpoints.Club,
+                clubId,
+                page,
+                perPage,
+                _authenticator.AccessToken);
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+        }
+
         #endregion
 
         #endregion
@@ -459,6 +551,77 @@ namespace com.strava.api.Client
             String json = WebRequest.SendGet(new Uri(getUrl));
 
             return Unmarshaller<List<ActivityZone>>.Unmarshal(json);
+        }
+
+        public List<ActivitySummary> GetActivities(int page, int perPage)
+        {
+            String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.Activities, page, perPage, _authenticator.AccessToken);
+            String json = WebRequest.SendGet(new Uri(getUrl));
+
+            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+        }
+
+        public List<ActivitySummary> GetFollowersActivities(int page, int perPage)
+        {
+            String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.ActivitiesFollowers, page, perPage, _authenticator.AccessToken);
+            String json = WebRequest.SendGet(new Uri(getUrl));
+
+            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+        }
+
+        public List<ActivitySummary> GetAllActivities()
+        {
+            List<ActivitySummary> activities = new List<ActivitySummary>();
+            int page = 1;
+            bool hasEntries = true;
+
+            while (hasEntries)
+            {
+                List<ActivitySummary> request = GetActivities(page++, 200);
+
+                if (request.Count == 0)
+                {
+                    hasEntries = false;
+                }
+
+                foreach (ActivitySummary activity in request)
+                {
+                    activities.Add(activity);
+                }
+            }
+
+            return activities;
+        }
+
+        public List<ActivitySummary> GetLatestFriendsActivities(int count)
+        {
+            List<ActivitySummary> activities = new List<ActivitySummary>();
+            int page = 1;
+            bool hasEntries = true;
+
+            while (hasEntries)
+            {
+                List<ActivitySummary> request = GetFollowersActivities(page++, 20);
+
+                if (request.Count == 0)
+                {
+                    hasEntries = false;
+                }
+
+                foreach (ActivitySummary activity in request)
+                {
+                    if (activities.Count < count)
+                    {
+                        activities.Add(activity);
+                    }
+                    else
+                    {
+                        return activities;
+                    }
+                }
+            }
+
+            return activities;
         }
 
         #endregion
@@ -690,6 +853,27 @@ namespace com.strava.api.Client
             String json = WebRequest.SendGet(new Uri(getUrl));
 
             return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
+        }
+
+        public List<ActivitySummary> GetLatestClubActivities(String clubId)
+        {
+            String getUrl = String.Format("{0}/{1}/activities?access_token={2}", Endpoints.Club, clubId, _authenticator.AccessToken);
+            String json = WebRequest.SendGet(new Uri(getUrl));
+
+            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+        }
+
+        public List<ActivitySummary> GetLatestClubActivities(String clubId, int page, int perPage)
+        {
+            String getUrl = String.Format("{0}/{1}/activities?page={2}&per_page={3}&access_token={4}",
+                Endpoints.Club,
+                clubId,
+                page,
+                perPage,
+                _authenticator.AccessToken);
+            String json = WebRequest.SendGet(new Uri(getUrl));
+
+            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
         #endregion
