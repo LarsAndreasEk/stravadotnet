@@ -9,7 +9,13 @@ Kudos to Strava for letting people use data uploaded to Strava! Strava.NET uses 
 You can get the framework by using NuGet:
 
     PM> Install-Package Strava.NET
-  
+
+Feedback
+============
+
+If you have any feedback, bug reports or suggestions, feel free to send me an email.
+My mail address is strava (at) sascha-simon (dot) com.
+
 
 Getting an access token from Strava
 ============
@@ -210,9 +216,3 @@ You can filter the leaderboard by various parameters like gender or weight. Plea
 | GetSegmentLeaderboardAsync(string segmentId, Gender gender) | Leaderboard | Returns the leaderboard for the specified segment, filtered by gender. |
 | GetSegmentLeaderboardAsync(string segmentId, Gender gender, AgeGroup age) | Leaderboard | Returns the leaderboard for the specified segment, filtered by both gender and age group. (**Premium Feature**) |
 | GetSegmentLeaderboardAsync(string segmentId, Gender gender, WeightClass weight) | Leaderboard | Returns the leaderboard for the specified segment, filtered by both gender and weight class. (**Premium Feature**) |
-
-Feedback
-============
-
-If you have any feedback, bug reports or suggestions, feel free to send me an email.
-My mail address is bike (at) sascha-simon (dot) com.
