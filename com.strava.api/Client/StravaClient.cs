@@ -21,13 +21,19 @@ namespace com.strava.api.Client
         {
             if (authenticator != null)
             {
-                _authenticator = authenticator;    
+                _authenticator = authenticator;
             }
             else
             {
                 throw new ArgumentException("The IAuthentication object must not be null.");
             }
         }
+
+        #region Events
+
+        public event EventHandler<ActivityReceivedEventArgs> ActivityReceived; 
+
+        #endregion
 
         #region Async
 
@@ -191,10 +197,21 @@ namespace com.strava.api.Client
                 foreach (ActivitySummary activity in request)
                 {
                     activities.Add(activity);
+
+                    if (ActivityReceived != null)
+                    {
+                        ActivityReceived(null, new ActivityReceivedEventArgs(activity));
+                    }
                 }
             }
 
             return activities;
+        }
+
+        public async Task<int> GetTotalActivityCountAsync()
+        {
+            List<ActivitySummary> activities = await GetAllActivitiesAsync();
+            return activities.Count;
         }
         
         #endregion
@@ -461,6 +478,15 @@ namespace com.strava.api.Client
 
         #endregion
 
+        #region General
+
+        public async Task<Athlete> RefreshLimitAndUsageAsync()
+        {
+            return await GetAthleteAsync();
+        }
+
+        #endregion
+
         #endregion
 
         #region Sync
@@ -587,6 +613,11 @@ namespace com.strava.api.Client
                 foreach (ActivitySummary activity in request)
                 {
                     activities.Add(activity);
+
+                    if (ActivityReceived != null)
+                    {
+                        ActivityReceived(null, new ActivityReceivedEventArgs(activity));
+                    }
                 }
             }
 
@@ -622,6 +653,11 @@ namespace com.strava.api.Client
             }
 
             return activities;
+        }
+
+        public int GetTotalActivityCount()
+        {
+            return GetAllActivities().Count;
         }
 
         #endregion
@@ -874,6 +910,15 @@ namespace com.strava.api.Client
             String json = WebRequest.SendGet(new Uri(getUrl));
 
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+        }
+
+        #endregion
+
+        #region General
+
+        public Athlete RefreshLimitAndUsage()
+        {
+            return GetAthlete();
         }
 
         #endregion

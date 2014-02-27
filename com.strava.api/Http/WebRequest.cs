@@ -45,6 +45,16 @@ namespace com.strava.api.Http
                                 Int32.Parse(usage.Value.ElementAt(0).Split(',')[1]));
                         }
 
+                        //Getting the Strava API limits
+                        KeyValuePair<String, IEnumerable<String>> limit = response.Headers.ToList().Find(x => x.Key.Equals("X-RateLimit-Limit"));
+
+                        if (limit.Value != null)
+                        {
+                            //Setting the related Properties in the Limits-class.
+                            Limits.Limit = new Limit(Int32.Parse(limit.Value.ElementAt(0).Split(',')[0]),
+                                Int32.Parse(limit.Value.ElementAt(0).Split(',')[1]));
+                        }
+
                         return await response.Content.ReadAsStringAsync();
                     }
                 }
@@ -69,6 +79,26 @@ namespace com.strava.api.Http
                     if (AsyncResponseReceived != null)
                     {
                         AsyncResponseReceived(null, new AsyncResponseReceivedEventArgs(response));
+                    }
+
+                    //Getting the Strava API usage data.
+                    KeyValuePair<String, IEnumerable<String>> usage = response.Headers.ToList().Find(x => x.Key.Equals("X-RateLimit-Usage"));
+
+                    if (usage.Value != null)
+                    {
+                        //Setting the related Properties in the Limits-class.
+                        Limits.Usage = new Usage(Int32.Parse(usage.Value.ElementAt(0).Split(',')[0]),
+                            Int32.Parse(usage.Value.ElementAt(0).Split(',')[1]));
+                    }
+
+                    //Getting the Strava API limits
+                    KeyValuePair<String, IEnumerable<String>> limit = response.Headers.ToList().Find(x => x.Key.Equals("X-RateLimit-Limit"));
+
+                    if (limit.Value != null)
+                    {
+                        //Setting the related Properties in the Limits-class.
+                        Limits.Limit = new Limit(Int32.Parse(limit.Value.ElementAt(0).Split(',')[0]),
+                            Int32.Parse(limit.Value.ElementAt(0).Split(',')[1]));
                     }
 
                     //Request was successful
@@ -100,6 +130,26 @@ namespace com.strava.api.Http
                         AsyncResponseReceived(null, new AsyncResponseReceivedEventArgs(response));
                     }
 
+                    //Getting the Strava API usage data.
+                    KeyValuePair<String, IEnumerable<String>> usage = response.Headers.ToList().Find(x => x.Key.Equals("X-RateLimit-Usage"));
+
+                    if (usage.Value != null)
+                    {
+                        //Setting the related Properties in the Limits-class.
+                        Limits.Usage = new Usage(Int32.Parse(usage.Value.ElementAt(0).Split(',')[0]),
+                            Int32.Parse(usage.Value.ElementAt(0).Split(',')[1]));
+                    }
+
+                    //Getting the Strava API limits
+                    KeyValuePair<String, IEnumerable<String>> limit = response.Headers.ToList().Find(x => x.Key.Equals("X-RateLimit-Limit"));
+
+                    if (limit.Value != null)
+                    {
+                        //Setting the related Properties in the Limits-class.
+                        Limits.Limit = new Limit(Int32.Parse(limit.Value.ElementAt(0).Split(',')[0]),
+                            Int32.Parse(limit.Value.ElementAt(0).Split(',')[1]));
+                    }
+
                     //Request was successful
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
@@ -127,6 +177,26 @@ namespace com.strava.api.Http
                     if (AsyncResponseReceived != null)
                     {
                         AsyncResponseReceived(null, new AsyncResponseReceivedEventArgs(response));
+                    }
+
+                    //Getting the Strava API usage data.
+                    KeyValuePair<String, IEnumerable<String>> usage = response.Headers.ToList().Find(x => x.Key.Equals("X-RateLimit-Usage"));
+
+                    if (usage.Value != null)
+                    {
+                        //Setting the related Properties in the Limits-class.
+                        Limits.Usage = new Usage(Int32.Parse(usage.Value.ElementAt(0).Split(',')[0]),
+                            Int32.Parse(usage.Value.ElementAt(0).Split(',')[1]));
+                    }
+
+                    //Getting the Strava API limits
+                    KeyValuePair<String, IEnumerable<String>> limit = response.Headers.ToList().Find(x => x.Key.Equals("X-RateLimit-Limit"));
+
+                    if (limit.Value != null)
+                    {
+                        //Setting the related Properties in the Limits-class.
+                        Limits.Limit = new Limit(Int32.Parse(limit.Value.ElementAt(0).Split(',')[0]),
+                            Int32.Parse(limit.Value.ElementAt(0).Split(',')[1]));
                     }
 
                     //Request was successful
