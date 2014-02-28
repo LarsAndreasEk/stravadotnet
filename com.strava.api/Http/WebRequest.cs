@@ -224,6 +224,24 @@ namespace com.strava.api.Http
                     ResponseReceived(null, new ResponseReceivedEventArgs(httpResponse));
                 }
 
+                //Getting the Strava API usage data.
+                String usage = httpResponse.GetResponseHeader("X-RateLimit-Usage");
+
+                //Getting the Strava API limits
+                String limit = httpResponse.GetResponseHeader("X-RateLimit-Limit");
+
+                if (!String.IsNullOrEmpty(usage))
+                {
+                    //Setting the related Properties in the Limits-class.
+                    Limits.Usage = new Usage(Int32.Parse(usage.Split(',')[0]), Int32.Parse(usage.Split(',')[1]));
+                }
+
+                if (!String.IsNullOrEmpty(limit))
+                {
+                    //Setting the related Properties in the Limits-class.
+                    Limits.Limit = new Limit(Int32.Parse(limit.Split(',')[0]), Int32.Parse(limit.Split(',')[1]));
+                }
+
                 StreamReader reader = new StreamReader(responseStream);
                 String response = reader.ReadToEnd();
 
@@ -245,6 +263,24 @@ namespace com.strava.api.Http
                 if (ResponseReceived != null)
                 {
                     ResponseReceived(null, new ResponseReceivedEventArgs(httpResponse));
+                }
+
+                //Getting the Strava API usage data.
+                String usage = httpResponse.GetResponseHeader("X-RateLimit-Usage");
+
+                //Getting the Strava API limits
+                String limit = httpResponse.GetResponseHeader("X-RateLimit-Limit");
+
+                if (!String.IsNullOrEmpty(usage))
+                {
+                    //Setting the related Properties in the Limits-class.
+                    Limits.Usage = new Usage(Int32.Parse(usage.Split(',')[0]), Int32.Parse(usage.Split(',')[1]));
+                }
+
+                if (!String.IsNullOrEmpty(limit))
+                {
+                    //Setting the related Properties in the Limits-class.
+                    Limits.Limit = new Limit(Int32.Parse(limit.Split(',')[0]), Int32.Parse(limit.Split(',')[1]));
                 }
 
                 StreamReader reader = new StreamReader(responseStream);

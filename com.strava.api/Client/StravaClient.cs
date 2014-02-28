@@ -8,6 +8,7 @@ using com.strava.api.Authentication;
 using com.strava.api.Clubs;
 using com.strava.api.Common;
 using com.strava.api.Http;
+using com.strava.api.IO;
 using com.strava.api.Segments;
 using com.strava.api.Utilities;
 
@@ -478,6 +479,18 @@ namespace com.strava.api.Client
 
         #endregion
 
+        #region Gear
+
+        public async Task<Gear.Gear> GetGearAsync(String gearId)
+        {
+            String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Gear, gearId, _authenticator.AccessToken);
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            return Unmarshaller<Gear.Gear>.Unmarshal(json);
+        }
+
+        #endregion
+
         #region General
 
         public async Task<Athlete> RefreshLimitAndUsageAsync()
@@ -653,6 +666,22 @@ namespace com.strava.api.Client
             }
 
             return activities;
+        }
+
+        public void DownloadActivity(String activityId, String localPath, FileExtension extension)
+        {
+            if (String.IsNullOrEmpty(localPath))
+            {
+                throw new ArgumentException("The localPath must not be null or empty!");
+            }
+
+            String getUrl = String.Format("{0}/{1}/export_gpx", Endpoints.DownloadActivity, activityId);
+
+            Console.WriteLine(getUrl);
+
+            String response = WebRequest.SendGet(new Uri(getUrl));
+            
+            Console.WriteLine(response);
         }
 
         public int GetTotalActivityCount()
@@ -910,6 +939,18 @@ namespace com.strava.api.Client
             String json = WebRequest.SendGet(new Uri(getUrl));
 
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+        }
+
+        #endregion
+
+        #region Gear
+
+        public Gear.Gear GetGear(String gearId)
+        {
+            String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Gear, gearId, _authenticator.AccessToken);
+            String json = WebRequest.SendGet(new Uri(getUrl));
+
+            return Unmarshaller<Gear.Gear>.Unmarshal(json);
         }
 
         #endregion

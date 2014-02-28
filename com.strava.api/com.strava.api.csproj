@@ -81,12 +81,13 @@
     <Compile Include="Common\Marshaller.cs" />
     <Compile Include="Common\Unmarshaller.cs" />
     <Compile Include="Gear\BikeType.cs" />
-    <Compile Include="Gear\Bike.cs" />
+    <Compile Include="Gear\Gear.cs" />
     <Compile Include="Gear\GearSummary.cs" />
     <Compile Include="Http\ImageLoader.cs" />
     <Compile Include="Http\AsyncResponseReceivedEventArgs.cs" />
     <Compile Include="Http\ResponseReceivedEventArgs.cs" />
     <Compile Include="Http\WebRequest.cs" />
+    <Compile Include="IO\FileExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Segments\SegmentEffort.cs" />
     <Compile Include="Segments\Segment.cs" />

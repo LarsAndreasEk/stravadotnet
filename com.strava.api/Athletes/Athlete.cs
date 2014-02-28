@@ -78,7 +78,7 @@ namespace com.strava.api.Athletes
         public int? Ftp { get; set; }
 
         [JsonProperty("bikes")]
-        public List<Bike> Bikes { get; set; }
+        public List<Gear.Gear> Bikes { get; set; }
 
         [JsonProperty("clubs")]
         public List<Club> Clubs { get; set; }
