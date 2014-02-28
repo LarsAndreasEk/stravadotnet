@@ -675,10 +675,8 @@ namespace com.strava.api.Client
                 throw new ArgumentException("The localPath must not be null or empty!");
             }
 
-            String getUrl = String.Format("{0}/{1}/export_gpx", Endpoints.DownloadActivity, activityId);
 
-            Console.WriteLine(getUrl);
-
+            String getUrl = String.Format("{0}/{1}/export_{2}", Endpoints.DownloadActivity, activityId, extension.ToString().ToLower());
             String response = WebRequest.SendGet(new Uri(getUrl));
             
             Console.WriteLine(response);
