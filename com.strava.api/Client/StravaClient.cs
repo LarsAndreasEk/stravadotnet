@@ -1,5 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using com.strava.api.Activities;
 using com.strava.api.Api;
@@ -11,6 +17,7 @@ using com.strava.api.Http;
 using com.strava.api.IO;
 using com.strava.api.Segments;
 using com.strava.api.Utilities;
+using WebRequest = com.strava.api.Http.WebRequest;
 
 namespace com.strava.api.Client
 {
@@ -666,20 +673,6 @@ namespace com.strava.api.Client
             }
 
             return activities;
-        }
-
-        public void DownloadActivity(String activityId, String localPath, FileExtension extension)
-        {
-            if (String.IsNullOrEmpty(localPath))
-            {
-                throw new ArgumentException("The localPath must not be null or empty!");
-            }
-
-
-            String getUrl = String.Format("{0}/{1}/export_{2}", Endpoints.DownloadActivity, activityId, extension.ToString().ToLower());
-            String response = WebRequest.SendGet(new Uri(getUrl));
-            
-            Console.WriteLine(response);
         }
 
         public int GetTotalActivityCount()
