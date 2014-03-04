@@ -54,6 +54,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Client\ClientTest.cs" />
     <Compile Include="Http\GetRequestTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -65,12 +66,14 @@
     <Compile Include="Unmarshalling\AthleteUnmarshalling.cs" />
     <Compile Include="Unmarshalling\ClubUnmarshalling.cs" />
     <Compile Include="Unmarshalling\CommentsUnmarshalling.cs" />
+    <Compile Include="General\FlagsTest.cs" />
     <Compile Include="Unmarshalling\GearUnmarshalling.cs" />
     <Compile Include="Unmarshalling\GeneralUnmarshalling.cs" />
     <Compile Include="Unmarshalling\LeaderboardUnmarshalling.cs" />
     <Compile Include="Unmarshalling\PhotoUnmarshalling.cs" />
     <Compile Include="Unmarshalling\SegmentEffortUnmarshalling.cs" />
     <Compile Include="Unmarshalling\SegmentUnmarshalling.cs" />
+    <Compile Include="Unmarshalling\StreamUnmarshalling.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\com.strava.api\com.strava.api.csproj">

@@ -299,5 +299,29 @@ namespace com.strava.api.tests.Properties {
                 return ResourceManager.GetString("SegmentJson", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die {
+        ///  &quot;type&quot;: &quot;latlng&quot;,
+        ///  &quot;data&quot;: [
+        ///    [ 38.603734, -122.864112 ],
+        ///    [ 38.608798, -122.867714 ],
+        ///    [ 38.604691, -122.88178  ],
+        ///    [ 38.611249, -122.890977 ],
+        ///    [ 38.634357, -122.874144 ],
+        ///    [ 38.62268,  -122.872756 ],
+        ///    [ 38.611205, -122.870848 ],
+        ///    [ 38.603579, -122.863891 ]
+        ///  ],
+        ///  &quot;series_type&quot;: &quot;distance&quot;,
+        ///  &quot;original_size&quot;: 512,
+        ///  &quot;resolution&quot;: &quot;low&quot;
+        ///} ähnelt.
+        /// </summary>
+        internal static string StreamJson {
+            get {
+                return ResourceManager.GetString("StreamJson", resourceCulture);
+            }
+        }
     }
 }

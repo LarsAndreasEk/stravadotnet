@@ -54,7 +54,6 @@
     <Compile Include="Activities\Map.cs" />
     <Compile Include="Activities\Photo.cs" />
     <Compile Include="Activities\ResourceState.cs" />
-    <Compile Include="Activities\UploadStatus.cs" />
     <Compile Include="Activities\WeightClass.cs" />
     <Compile Include="Api\Endpoints.cs" />
     <Compile Include="Api\Limit.cs" />
@@ -94,6 +93,8 @@
     <Compile Include="Segments\SegmentEffort.cs" />
     <Compile Include="Segments\Segment.cs" />
     <Compile Include="Segments\SegmentSummary.cs" />
+    <Compile Include="Streams\Stream.cs" />
+    <Compile Include="Streams\StreamType.cs" />
     <Compile Include="Utilities\DateConverter.cs" />
   </ItemGroup>
   <ItemGroup>

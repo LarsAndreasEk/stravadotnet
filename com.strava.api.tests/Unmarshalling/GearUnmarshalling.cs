@@ -1,5 +1,6 @@
 ﻿using System;
 using com.strava.api.Common;
+using com.strava.api.Gear;
 using com.strava.api.tests.Properties;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -56,7 +57,7 @@ namespace com.strava.api.tests.Unmarshalling
         public void TestBikeUnmarshallingFrameType()
         {
             Gear.Gear bike = Unmarshaller<Gear.Gear>.Unmarshal(_json);
-            Assert.IsTrue(bike.FrameType.Equals("3"));
+            Assert.IsTrue(bike.FrameType == BikeType.Road);
         }
 
         [TestMethod]

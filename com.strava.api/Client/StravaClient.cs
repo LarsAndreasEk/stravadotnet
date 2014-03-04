@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using com.strava.api.Activities;
 using com.strava.api.Api;
@@ -16,7 +16,9 @@ using com.strava.api.Common;
 using com.strava.api.Http;
 using com.strava.api.IO;
 using com.strava.api.Segments;
+using com.strava.api.Streams;
 using com.strava.api.Utilities;
+using Stream = System.IO.Stream;
 using WebRequest = com.strava.api.Http.WebRequest;
 
 namespace com.strava.api.Client
@@ -156,7 +158,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
-        public async Task<List<ActivitySummary>> GetLatestFriendsActivitiesAsync(int count)
+        public async Task<List<ActivitySummary>> GetFriendsActivitiesAsync(int count)
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
             int page = 1;
@@ -507,6 +509,37 @@ namespace com.strava.api.Client
 
         #endregion
 
+        #region Streams
+
+        public async Task<List<Streams.Stream>> GetActivityStreamAsync(String activityId, StreamType typeFlags)
+        {
+            //typeFlags must not contain the latlng flag because another object is needed to serialize this stream.
+            if (typeFlags.HasFlag(StreamType.LatLng))
+            {
+                throw new ArgumentException("The StreamType.LatLng flag must not be set to true. Please use GetLatLngStreamAsync or GetLatLngStream instead.");
+            }
+
+            StringBuilder types = new StringBuilder();
+
+            foreach (StreamType type in (StreamType[]) Enum.GetValues(typeof (StreamType)))
+            {
+                if (typeFlags.HasFlag(type))
+                {
+                    types.Append(type.ToString().ToLower());
+                    types.Append(",");
+                }
+            }
+
+            types.Remove(types.ToString().Length - 1, 1);
+
+            String getUrl = String.Format("{0}/{1}/streams/{2}?access_token={3}", Endpoints.Activity, activityId, types, _authenticator.AccessToken);
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            return Unmarshaller<List<Streams.Stream>>.Unmarshal(json);
+        }
+
+        #endregion
+
         #endregion
 
         #region Sync
@@ -644,7 +677,7 @@ namespace com.strava.api.Client
             return activities;
         }
 
-        public List<ActivitySummary> GetLatestFriendsActivities(int count)
+        public List<ActivitySummary> GetFriendsActivities(int count)
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
             int page = 1;
@@ -951,6 +984,37 @@ namespace com.strava.api.Client
         public Athlete RefreshLimitAndUsage()
         {
             return GetAthlete();
+        }
+
+        #endregion
+
+        #region Streams
+
+        public List<Streams.Stream> GetActivityStream(String activityId, StreamType typeFlags)
+        {
+            //typeFlags must not contain the latlng flag because another object is needed to serialize this stream.
+            if (typeFlags.HasFlag(StreamType.LatLng))
+            {
+                throw new ArgumentException("The StreamType.LatLng flag must not be set to true. Please use GetLatLngStreamAsync or GetLatLngStream instead.");
+            }
+
+            StringBuilder types = new StringBuilder();
+
+            foreach (StreamType type in (StreamType[])Enum.GetValues(typeof(StreamType)))
+            {
+                if (typeFlags.HasFlag(type))
+                {
+                    types.Append(type.ToString().ToLower());
+                    types.Append(",");
+                }
+            }
+
+            types.Remove(types.ToString().Length - 1, 1);
+
+            String getUrl = String.Format("{0}/{1}/streams/{2}?access_token={3}", Endpoints.Activity, activityId, types, _authenticator.AccessToken);
+            String json = WebRequest.SendGet(new Uri(getUrl));
+
+            return Unmarshaller<List<Streams.Stream>>.Unmarshal(json);
         }
 
         #endregion
