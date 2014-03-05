@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace com.strava.api.Streams
 {
-    public class DataStream
+    public class ActivityStream
     {
         [JsonProperty("type")]
         private String Type { get; set; }

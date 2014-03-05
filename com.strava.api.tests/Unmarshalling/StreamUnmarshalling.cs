@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using com.strava.api.Client;
 using com.strava.api.Common;
 using com.strava.api.Streams;
 using com.strava.api.tests.Properties;
@@ -16,42 +14,42 @@ namespace com.strava.api.tests.Unmarshalling
         [TestMethod]
         public void TestStreamUnmarshalling()
         {
-            DataStream stream = Unmarshaller<DataStream>.Unmarshal(_json);
+            ActivityStream stream = Unmarshaller<ActivityStream>.Unmarshal(_json);
             Assert.IsNotNull(stream);
         }
 
         [TestMethod]
         public void TestStreamType()
         {
-            DataStream stream = Unmarshaller<DataStream>.Unmarshal(_json);
+            ActivityStream stream = Unmarshaller<ActivityStream>.Unmarshal(_json);
             Assert.AreEqual(stream.StreamType, StreamType.LatLng);
         }
 
         [TestMethod]
         public void TestSeriesType()
         {
-            DataStream stream = Unmarshaller<DataStream>.Unmarshal(_json);
+            ActivityStream stream = Unmarshaller<ActivityStream>.Unmarshal(_json);
             Assert.AreEqual(stream.SeriesType, "distance");
         }
 
         [TestMethod]
         public void TestOriginalSize()
         {
-            DataStream stream = Unmarshaller<DataStream>.Unmarshal(_json);
+            ActivityStream stream = Unmarshaller<ActivityStream>.Unmarshal(_json);
             Assert.AreEqual(stream.OriginalSize, 512);
         }
 
         [TestMethod]
         public void TestDataCount()
         {
-            DataStream stream = Unmarshaller<DataStream>.Unmarshal(_json);
+            ActivityStream stream = Unmarshaller<ActivityStream>.Unmarshal(_json);
             Assert.AreEqual(stream.Data.Count, 8);
         }
 
         [TestMethod]
         public void TestResolution()
         {
-            DataStream stream = Unmarshaller<DataStream>.Unmarshal(_json);
+            ActivityStream stream = Unmarshaller<ActivityStream>.Unmarshal(_json);
             Assert.AreEqual(stream.Resolution, "low");
         }
     }

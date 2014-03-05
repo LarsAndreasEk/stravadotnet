@@ -16,6 +16,7 @@ namespace com.strava.api.Api
         public const String Followers = "https://www.strava.com/api/v3/athletes";
         public const String Gear = "https://www.strava.com/api/v3/gear";
         public const String Leaderboard = "https://www.strava.com/api/v3/segments";
+        public const String Segments = "https://www.strava.com/api/v3/segments";
         public const String Starred = "https://www.strava.com/api/v3/segments/starred";
     }
 }

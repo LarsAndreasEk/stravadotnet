@@ -511,7 +511,7 @@ namespace com.strava.api.Client
 
         #region Streams
 
-        public async Task<List<DataStream>> GetActivityStreamAsync(String activityId, StreamType typeFlags)
+        public async Task<List<ActivityStream>> GetActivityStreamAsync(String activityId, StreamType typeFlags)
         {
             StringBuilder types = new StringBuilder();
 
@@ -529,7 +529,30 @@ namespace com.strava.api.Client
             String getUrl = String.Format("{0}/{1}/streams/{2}?access_token={3}", Endpoints.Activity, activityId, types, _authenticator.AccessToken);
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
-            return Unmarshaller<List<Streams.DataStream>>.Unmarshal(json);
+            return Unmarshaller<List<Streams.ActivityStream>>.Unmarshal(json);
+        }
+
+        public async Task<List<SegmentStream>> GetSegmentStreamAsync(String segmentId, SegmentStreamType typeFlags)
+        {
+            // Only distance, altitude and latlng stream types are available.
+
+            StringBuilder types = new StringBuilder();
+
+            foreach (SegmentStreamType type in (StreamType[])Enum.GetValues(typeof(SegmentStreamType)))
+            {
+                if (typeFlags.HasFlag(type))
+                {
+                    types.Append(type.ToString().ToLower());
+                    types.Append(",");
+                }
+            }
+
+            types.Remove(types.ToString().Length - 1, 1);
+
+            String getUrl = String.Format("{0}/{1}/streams/{2}?access_token={3}", Endpoints.Segments, segmentId, types, _authenticator.AccessToken);
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            return Unmarshaller<List<SegmentStream>>.Unmarshal(json);
         }
 
         #endregion
@@ -984,7 +1007,7 @@ namespace com.strava.api.Client
 
         #region Streams
 
-        public List<DataStream> GetActivityStream(String activityId, StreamType typeFlags)
+        public List<ActivityStream> GetActivityStream(String activityId, StreamType typeFlags)
         {
             StringBuilder types = new StringBuilder();
 
@@ -1002,7 +1025,30 @@ namespace com.strava.api.Client
             String getUrl = String.Format("{0}/{1}/streams/{2}?access_token={3}", Endpoints.Activity, activityId, types, _authenticator.AccessToken);
             String json = WebRequest.SendGet(new Uri(getUrl));
 
-            return Unmarshaller<List<DataStream>>.Unmarshal(json);
+            return Unmarshaller<List<ActivityStream>>.Unmarshal(json);
+        }
+
+        public List<SegmentStream> GetSegmentStream(String segmentId, SegmentStreamType typeFlags)
+        {
+            // Only distance, altitude and latlng stream types are available.
+
+            StringBuilder types = new StringBuilder();
+
+            foreach (SegmentStreamType type in (StreamType[])Enum.GetValues(typeof(SegmentStreamType)))
+            {
+                if (typeFlags.HasFlag(type))
+                {
+                    types.Append(type.ToString().ToLower());
+                    types.Append(",");
+                }
+            }
+
+            types.Remove(types.ToString().Length - 1, 1);
+
+            String getUrl = String.Format("{0}/{1}/streams/{2}?access_token={3}", Endpoints.Segments, segmentId, types, _authenticator.AccessToken);
+            String json = WebRequest.SendGet(new Uri(getUrl));
+
+            return Unmarshaller<List<SegmentStream>>.Unmarshal(json);
         }
 
         #endregion
