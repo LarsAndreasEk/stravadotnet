@@ -28,10 +28,10 @@ namespace com.strava.api.Authentication
 
             server.AuthCodeReceived += delegate(object sender, AuthCodeReceivedEventArgs args)
             {
-                if (AccessTokenReceived != null)
+                if (AuthCodeReceived != null)
                 {
                     AuthCodeReceived(this, args);
-                    AccessToken = args.AuthCode;
+                    AuthCode = args.AuthCode;
                 }
             };
 

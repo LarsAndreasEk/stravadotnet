@@ -57,15 +57,45 @@ namespace com.strava.api.Client
             return Unmarshaller<Activity>.Unmarshal(json);
         }
 
-        public async Task<List<ActivitySummary>> GetActivityBeforeAsync(String id, DateTime before)
+        public async Task<List<ActivitySummary>> GetActivitiesBeforeAsync(DateTime before)
+        {
+            List<ActivitySummary> activities = new List<ActivitySummary>();
+            int page = 1;
+            bool hasEntries = true;
+
+            while (hasEntries)
+            {
+                List<ActivitySummary> request = await GetActivitiesBeforeAsync(before, page++, 200);
+
+                if (request.Count == 0)
+                {
+                    hasEntries = false;
+                }
+
+                foreach (ActivitySummary activity in request)
+                {
+                    activities.Add(activity);
+
+                    if (ActivityReceived != null)
+                    {
+                        ActivityReceived(null, new ActivityReceivedEventArgs(activity));
+                    }
+                }
+            }
+
+            return activities;
+        }
+
+        public async Task<List<ActivitySummary>> GetActivitiesBeforeAsync(DateTime before, int page, int perPage)
         {
             //Calculate the UNIX epoch
             long secondsBefore = DateConverter.GetSecondsSinceUnixEpoch(before);
 
-            String getUrl = String.Format("{0}/{1}?before={2}&access_token={3}",
+            String getUrl = String.Format("{0}?before={1}&page={2}&per_page={3}&access_token={4}",
                 Endpoints.Activities,
-                id,
                 secondsBefore,
+                page,
+                perPage,
                 _authenticator.AccessToken
                 );
 
@@ -74,41 +104,51 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
-        public async Task<List<ActivitySummary>> GetActivityAfterAsync(String id, DateTime after)
+        public async Task<List<ActivitySummary>> GetActivitiesAfterAsync(DateTime after)
+        {
+            List<ActivitySummary> activities = new List<ActivitySummary>();
+            int page = 1;
+            bool hasEntries = true;
+
+            while (hasEntries)
+            {
+                List<ActivitySummary> request = await GetActivitiesAfterAsync(after, page++, 200);
+
+                if (request.Count == 0)
+                {
+                    hasEntries = false;
+                }
+
+                foreach (ActivitySummary activity in request)
+                {
+                    activities.Add(activity);
+
+                    if (ActivityReceived != null)
+                    {
+                        ActivityReceived(null, new ActivityReceivedEventArgs(activity));
+                    }
+                }
+            }
+
+            return activities;
+        }
+
+        public async Task<List<ActivitySummary>> GetActivitiesAfterAsync(DateTime after, int page, int perPage)
         {
             //Calculate the UNIX epoch
             long secondsAfter = DateConverter.GetSecondsSinceUnixEpoch(after);
 
-            String getUrl = String.Format("{0}/{1}?after={2}&access_token={3}",
+            String getUrl = String.Format("{0}?after={1}&page={2}&per_page={3}&access_token={4}",
                 Endpoints.Activities,
-                id,
                 secondsAfter,
+                page,
+                perPage,
                 _authenticator.AccessToken
                 );
 
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
-        }
-
-        public async Task<List<Activity>> GetActivityAsync(String id, int page, int perPage)
-        {
-            if (perPage > 200)
-            {
-                throw new ArgumentException("The 'perPage' parameter must not be greater than 200.");
-            }
-
-            String getUrl = String.Format("{0}/{1}?per_page={2}&page={3}&access_token={4}",
-                Endpoints.Activities,
-                id,
-                perPage,
-                page,
-                _authenticator.AccessToken
-                );
-
-            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
-
-            return Unmarshaller<List<Activity>>.Unmarshal(json);
         }
 
         public async Task<List<Comment>> GetCommentsAsync(String activityId)
@@ -571,15 +611,45 @@ namespace com.strava.api.Client
             return Unmarshaller<Activity>.Unmarshal(json);
         }
 
-        public List<ActivitySummary> GetActivityBefore(String id, DateTime before)
+        public List<ActivitySummary> GetActivitiesBefore(DateTime before)
+        {
+            List<ActivitySummary> activities = new List<ActivitySummary>();
+            int page = 1;
+            bool hasEntries = true;
+
+            while (hasEntries)
+            {
+                List<ActivitySummary> request = GetActivitiesBefore(before, page++, 200);
+
+                if (request.Count == 0)
+                {
+                    hasEntries = false;
+                }
+
+                foreach (ActivitySummary activity in request)
+                {
+                    activities.Add(activity);
+
+                    if (ActivityReceived != null)
+                    {
+                        ActivityReceived(null, new ActivityReceivedEventArgs(activity));
+                    }
+                }
+            }
+
+            return activities;
+        }
+
+        public List<ActivitySummary> GetActivitiesBefore(DateTime before, int page, int perPage)
         {
             //Calculate the UNIX epoch
             long secondsBefore = DateConverter.GetSecondsSinceUnixEpoch(before);
 
-            String getUrl = String.Format("{0}/{1}?before={2}&access_token={3}",
+            String getUrl = String.Format("{0}?before={1}&page={2}&per_page={3}&access_token={4}",
                 Endpoints.Activities,
-                id,
                 secondsBefore,
+                page,
+                perPage,
                 _authenticator.AccessToken
                 );
 
@@ -588,41 +658,51 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
-        public List<ActivitySummary> GetActivityAfter(String id, DateTime after)
+        public List<ActivitySummary> GetActivitiesAfter(DateTime after)
+        {
+            List<ActivitySummary> activities = new List<ActivitySummary>();
+            int page = 1;
+            bool hasEntries = true;
+
+            while (hasEntries)
+            {
+                List<ActivitySummary> request = GetActivitiesAfter(after, page++, 200);
+
+                if (request.Count == 0)
+                {
+                    hasEntries = false;
+                }
+
+                foreach (ActivitySummary activity in request)
+                {
+                    activities.Add(activity);
+
+                    if (ActivityReceived != null)
+                    {
+                        ActivityReceived(null, new ActivityReceivedEventArgs(activity));
+                    }
+                }
+            }
+
+            return activities;
+        }
+
+        public List<ActivitySummary> GetActivitiesAfter(DateTime after, int page, int perPage)
         {
             //Calculate the UNIX epoch
             long secondsAfter = DateConverter.GetSecondsSinceUnixEpoch(after);
 
-            String getUrl = String.Format("{0}/{1}?after={2}&access_token={3}",
+            String getUrl = String.Format("{0}?after={1}&page={2}&per_page={3}&access_token={4}",
                 Endpoints.Activities,
-                id,
                 secondsAfter,
+                page,
+                perPage,
                 _authenticator.AccessToken
                 );
 
             String json = WebRequest.SendGet(new Uri(getUrl));
 
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
-        }
-
-        public List<Activity> GetActivity(String id, int page, int perPage)
-        {
-            if (perPage > 200)
-            {
-                throw new ArgumentException("The 'perPage' parameter must not be greater than 200.");
-            }
-
-            String getUrl = String.Format("{0}/{1}?per_page={2}&page={3}&access_token={4}",
-                Endpoints.Activities,
-                id,
-                perPage,
-                page,
-                _authenticator.AccessToken
-                );
-
-            String json = WebRequest.SendGet(new Uri(getUrl));
-
-            return Unmarshaller<List<Activity>>.Unmarshal(json);
         }
 
         public List<Comment> GetComments(String activityId)
