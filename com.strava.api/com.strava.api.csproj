@@ -93,7 +93,7 @@
     <Compile Include="Segments\SegmentEffort.cs" />
     <Compile Include="Segments\Segment.cs" />
     <Compile Include="Segments\SegmentSummary.cs" />
-    <Compile Include="Streams\Stream.cs" />
+    <Compile Include="Streams\DataStream.cs" />
     <Compile Include="Streams\StreamType.cs" />
     <Compile Include="Utilities\DateConverter.cs" />
   </ItemGroup>

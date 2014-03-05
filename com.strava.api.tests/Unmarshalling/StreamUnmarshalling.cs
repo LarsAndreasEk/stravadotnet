@@ -16,42 +16,42 @@ namespace com.strava.api.tests.Unmarshalling
         [TestMethod]
         public void TestStreamUnmarshalling()
         {
-            Stream stream = Unmarshaller<Stream>.Unmarshal(_json);
+            DataStream stream = Unmarshaller<DataStream>.Unmarshal(_json);
             Assert.IsNotNull(stream);
         }
 
         [TestMethod]
         public void TestStreamType()
         {
-            Stream stream = Unmarshaller<Stream>.Unmarshal(_json);
+            DataStream stream = Unmarshaller<DataStream>.Unmarshal(_json);
             Assert.AreEqual(stream.StreamType, StreamType.LatLng);
         }
 
         [TestMethod]
         public void TestSeriesType()
         {
-            Stream stream = Unmarshaller<Stream>.Unmarshal(_json);
+            DataStream stream = Unmarshaller<DataStream>.Unmarshal(_json);
             Assert.AreEqual(stream.SeriesType, "distance");
         }
 
         [TestMethod]
         public void TestOriginalSize()
         {
-            Stream stream = Unmarshaller<Stream>.Unmarshal(_json);
+            DataStream stream = Unmarshaller<DataStream>.Unmarshal(_json);
             Assert.AreEqual(stream.OriginalSize, 512);
         }
 
         [TestMethod]
         public void TestDataCount()
         {
-            Stream stream = Unmarshaller<Stream>.Unmarshal(_json);
+            DataStream stream = Unmarshaller<DataStream>.Unmarshal(_json);
             Assert.AreEqual(stream.Data.Count, 8);
         }
 
         [TestMethod]
         public void TestResolution()
         {
-            Stream stream = Unmarshaller<Stream>.Unmarshal(_json);
+            DataStream stream = Unmarshaller<DataStream>.Unmarshal(_json);
             Assert.AreEqual(stream.Resolution, "low");
         }
     }
