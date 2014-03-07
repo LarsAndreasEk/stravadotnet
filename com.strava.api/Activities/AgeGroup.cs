@@ -20,14 +20,14 @@
         /// <summary>
         /// 45-54
         /// </summary>
-        Five,
+        Four,
         /// <summary>
         /// 55-64
         /// </summary>
-        Six,
+        Five,
         /// <summary>
         /// 65+
         /// </summary>
-        Seven
+        Six
     }
 }

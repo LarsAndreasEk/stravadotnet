@@ -54,7 +54,7 @@ namespace com.strava.api.Client
 
             types.Remove(types.ToString().Length - 1, 1);
 
-            String getUrl = String.Format("{0}/{1}/streams/{2}?access_token={3}", Endpoints.Segments, segmentId, types, Authentication.AccessToken);
+            String getUrl = String.Format("{0}/{1}/streams/{2}?access_token={3}", Endpoints.Leaderboard, segmentId, types, Authentication.AccessToken);
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
             return Unmarshaller<List<SegmentStream>>.Unmarshal(json);
@@ -102,7 +102,7 @@ namespace com.strava.api.Client
 
             types.Remove(types.ToString().Length - 1, 1);
 
-            String getUrl = String.Format("{0}/{1}/streams/{2}?access_token={3}", Endpoints.Segments, segmentId, types, Authentication.AccessToken);
+            String getUrl = String.Format("{0}/{1}/streams/{2}?access_token={3}", Endpoints.Leaderboard, segmentId, types, Authentication.AccessToken);
             String json = WebRequest.SendGet(new Uri(getUrl));
 
             return Unmarshaller<List<SegmentStream>>.Unmarshal(json);

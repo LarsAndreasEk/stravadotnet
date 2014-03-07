@@ -61,22 +61,22 @@ namespace com.strava.api.Client
 
             switch (age)
             {
-                case AgeGroup.TwentyFourAndYounger:
+                case AgeGroup.One:
                     ageFilter = "0_24";
                     break;
-                case AgeGroup.TwentyFiveToThirtyFour:
+                case AgeGroup.Two:
                     ageFilter = "25_34";
                     break;
-                case AgeGroup.ThirtyFiveToFourtyFour:
+                case AgeGroup.Three:
                     ageFilter = "35_44";
                     break;
-                case AgeGroup.FourtyFiveToFiftyFour:
+                case AgeGroup.Four:
                     ageFilter = "45_54";
                     break;
-                case AgeGroup.FiftyFiveToSixtyFour:
+                case AgeGroup.Five:
                     ageFilter = "55_64";
                     break;
-                case AgeGroup.SixtyFiveAndOver:
+                case AgeGroup.Six:
                     ageFilter = "65_plus";
                     break;
             }
@@ -181,22 +181,22 @@ namespace com.strava.api.Client
 
             switch (age)
             {
-                case AgeGroup.TwentyFourAndYounger:
+                case AgeGroup.One:
                     ageFilter = "0_24";
                     break;
-                case AgeGroup.TwentyFiveToThirtyFour:
+                case AgeGroup.Two:
                     ageFilter = "25_34";
                     break;
-                case AgeGroup.ThirtyFiveToFourtyFour:
+                case AgeGroup.Three:
                     ageFilter = "35_44";
                     break;
-                case AgeGroup.FourtyFiveToFiftyFour:
+                case AgeGroup.Four:
                     ageFilter = "45_54";
                     break;
-                case AgeGroup.FiftyFiveToSixtyFour:
+                case AgeGroup.Five:
                     ageFilter = "55_64";
                     break;
-                case AgeGroup.SixtyFiveAndOver:
+                case AgeGroup.Six:
                     ageFilter = "65_plus";
                     break;
             }

@@ -8,7 +8,7 @@ namespace com.strava.api.Api
     public static class Endpoints
     {
         /// <summary>
-        /// Url to the Activity Endpoint used for the currently authenticated athlete.
+        /// Url to the Activity endpoint used for the currently authenticated athlete.
         /// </summary>
         public const String Activity = "https://www.strava.com/api/v3/activities";
         /// <summary>
@@ -17,27 +17,44 @@ namespace com.strava.api.Api
         public const String Activities = "https://www.strava.com/api/v3/athlete/activities";
         public const String ActivitiesFollowers = "https://www.strava.com/api/v3/activities/following";
         /// <summary>
-        /// Url to the Athlete Endpoint used for the currently authenticated athlete.
+        /// Url to the Athlete endpoint used for the currently authenticated athlete.
         /// </summary>
         public const String Athlete = "https://www.strava.com/api/v3/athlete";
         /// <summary>
-        /// Url to the Athlete Endpoint used for other athletes than the currently authenticated one.
+        /// Url to the Athlete endpoint used for other athletes than the currently authenticated one.
         /// </summary>
         public const String Athletes = "https://www.strava.com/api/v3/athletes";
         /// <summary>
-        /// Url to the Club Endpoint used for other athletes than the currently authenticated one.
+        /// Url to the Club endpoint used for other athletes than the currently authenticated one.
         /// </summary>
         public const String Club = "https://www.strava.com/api/v3/clubs";
         /// <summary>
-        /// Url to the Club Endpoint used for the currently authenticated athlete.
+        /// Url to the Club endpoint used for the currently authenticated athlete.
         /// </summary>
         public const String Clubs = "https://www.strava.com/api/v3/athlete/clubs";
+        /// <summary>
+        /// Url to the endpoint used for receiving the friends of the currentlx authenticated user.
+        /// </summary>
         public const String Friends = "https://www.strava.com/api/v3/athlete/friends";
+        /// <summary>
+        /// Url to the endpoint used for receiving the followers of the currently authenticated athlete.
+        /// </summary>
         public const String Follower = "https://www.strava.com/api/v3/athlete/followers";
+        /// <summary>
+        /// Url to the endpoint used for receiving the followers of athletes other than the currently authenticated one.
+        /// </summary>
         public const String Followers = "https://www.strava.com/api/v3/athletes";
+        /// <summary>
+        /// Url to the endpoint used for receiving gear.
+        /// </summary>
         public const String Gear = "https://www.strava.com/api/v3/gear";
+        /// <summary>
+        /// Url to the endpoint used for receiving segment information.
+        /// </summary>
         public const String Leaderboard = "https://www.strava.com/api/v3/segments";
-        public const String Segments = "https://www.strava.com/api/v3/segments";
+        /// <summary>
+        /// Url to the endpoint used for receiving starred segments.
+        /// </summary>
         public const String Starred = "https://www.strava.com/api/v3/segments/starred";
     }
 }
