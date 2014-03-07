@@ -2,13 +2,22 @@
 
 namespace com.strava.api.Api
 {
+    /// <summary>
+    /// This class contains information about the Strava API limits and how much requests are consumed by your application.
+    /// </summary>
     public static class Limits
     {
+        /// <summary>
+        /// UsageChanged is raised whenever a web request is sent to the Strava servers and a response is received.
+        /// </summary>
         public static event EventHandler<UsageChangedEventArgs> UsageChanged;
 
         private static Usage _usage;
         private static Limit _limit;
         
+        /// <summary>
+        /// The short- and long-term usage of your application.
+        /// </summary>
         public static Usage Usage
         {
             get
@@ -31,6 +40,9 @@ namespace com.strava.api.Api
             }
         }
 
+        /// <summary>
+        /// The short- and long-term limit of your application.
+        /// </summary>
         public static Limit Limit
         {
             get

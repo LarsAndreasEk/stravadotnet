@@ -16,10 +16,46 @@ using WebRequest = com.strava.api.Http.WebRequest;
 
 namespace com.strava.api.Client
 {
+    /// <summary>
+    /// The StravaClient is used to receive data from Strava. The client offers various subclients, which you can use to
+    /// receive the data. 
+    /// <list type="bullet">
+    /// <listheader>
+    ///    <term>Currently the following Strava API resources are supported:</term>
+    /// </listheader>
+    /// <item>
+    ///     <term>Activities</term>
+    /// </item>
+    /// <item>
+    ///     <term>Athletes</term>
+    /// </item>
+    /// <item>
+    ///     <term>Clubs</term>
+    /// </item>
+    /// <item>
+    ///     <term>Gear</term>
+    /// </item>
+    /// <item>
+    ///     <term>Segments</term>
+    /// </item>
+    /// <item>
+    ///     <term>Segment Efforts</term>
+    /// </item>
+    /// <item>
+    ///     <term>Streams</term>
+    /// </item>
+    /// </list>
+    /// </summary>
     public class StravaClient
     {
         private readonly IAuthentication _authenticator;
 
+        /// <summary>
+        /// Initializes a new instance of the StravaClient class.
+        /// </summary>
+        /// <param name="authenticator">The IAuthentication object that holds a valid Access Token.</param>
+        /// <seealso cref="WebAuthentication"/>
+        /// <seealso cref="StaticAuthentication"/>
         public StravaClient(IAuthentication authenticator)
         {
             if (authenticator != null)

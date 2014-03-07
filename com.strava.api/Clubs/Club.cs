@@ -3,29 +3,26 @@ using Newtonsoft.Json;
 
 namespace com.strava.api.Clubs
 {
-    public class Club
+    /// <summary>
+    /// This class represents a Strava Club.
+    /// </summary>
+    public class Club : ClubSummary
     {
-        [JsonProperty("id")]
-        public long Id { get; set; }
-
-        [JsonProperty("resource_state")]
-        public int ResourceState { get; set; }
-
-        [JsonProperty("name")]
-        public String Name { get; set; }
-
-        [JsonProperty("profile_medium")]
-        public String ProfileMedium { get; set; }
-
-        [JsonProperty("profile")]
-        public String Profile { get; set; }
-
+        /// <summary>
+        /// The club's description.
+        /// </summary>
         [JsonProperty("description")]
         public String Description { get; set; }
 
+        /// <summary>
+        /// The club's type.
+        /// </summary>
         [JsonProperty("club_type")]
         private String _clubType { get; set; }
 
+        /// <summary>
+        /// The club's type.
+        /// </summary>
         public ClubType ClubType
         {
             get
@@ -43,9 +40,15 @@ namespace com.strava.api.Clubs
             }
         }
 
+        /// <summary>
+        /// The sports type of the club.
+        /// </summary>
         [JsonProperty("sport_type")]
         private String _sportType { get; set; }
 
+        /// <summary>
+        /// The sports type of the club.
+        /// </summary>
         public SportType SportType
         {
             get
@@ -61,18 +64,33 @@ namespace com.strava.api.Clubs
             }
         }
 
+        /// <summary>
+        /// the club's city.
+        /// </summary>
         [JsonProperty("city")]
         public String City { get; set; }
 
+        /// <summary>
+        /// The club's state.
+        /// </summary>
         [JsonProperty("state")]
         public String State { get; set; }
 
+        /// <summary>
+        /// The club's country.
+        /// </summary>
         [JsonProperty("country")]
         public String Country { get; set; }
 
+        /// <summary>
+        /// True if the club is a private club.
+        /// </summary>
         [JsonProperty("private")]
         public Boolean IsPrivate { get; set; }
 
+        /// <summary>
+        /// The club's member count.
+        /// </summary>
         [JsonProperty("member_count")]
         public int MemberCount { get; set; }
     }
