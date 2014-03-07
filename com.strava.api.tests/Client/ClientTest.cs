@@ -15,7 +15,7 @@ namespace com.strava.api.tests.Client
         {
             DummyAuthenticator dummy = new DummyAuthenticator();
             StravaClient client = new StravaClient(dummy);
-            await client.GetActivityStreamAsync(String.Empty, StreamType.LatLng);
+            await client.Streams.GetActivityStreamAsync(String.Empty, StreamType.LatLng);
         }
     }
 

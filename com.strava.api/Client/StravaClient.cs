@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using com.strava.api.Activities;
@@ -13,12 +9,9 @@ using com.strava.api.Athletes;
 using com.strava.api.Authentication;
 using com.strava.api.Clubs;
 using com.strava.api.Common;
-using com.strava.api.Http;
-using com.strava.api.IO;
 using com.strava.api.Segments;
 using com.strava.api.Streams;
 using com.strava.api.Utilities;
-using Stream = System.IO.Stream;
 using WebRequest = com.strava.api.Http.WebRequest;
 
 namespace com.strava.api.Client
@@ -32,12 +25,30 @@ namespace com.strava.api.Client
             if (authenticator != null)
             {
                 _authenticator = authenticator;
+
+                Activities = new ActivityClient(authenticator);
+                Athletes = new AthleteClient(authenticator);
+                Clubs = new ClubClient(authenticator);
+                Gear = new GearClient(authenticator);
+                Segments = new SegmentClient(authenticator);
+                Streams = new StreamClient(authenticator);
             }
             else
             {
                 throw new ArgumentException("The IAuthentication object must not be null.");
             }
         }
+
+        #region Clients
+
+        public ActivityClient Activities { get; set; }
+        public AthleteClient Athletes { get; set; }
+        public ClubClient Clubs { get; set; }
+        public GearClient Gear { get; set; }
+        public SegmentClient Segments { get; set; }
+        public StreamClient Streams { get; set; }
+
+        #endregion
 
         #region Events
 
@@ -49,6 +60,7 @@ namespace com.strava.api.Client
 
         #region Activity
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<Activity> GetActivityAsync(String id, bool includeEfforts)
         {
             String getUrl = String.Format("{0}/{1}?include_all_efforts={2}&access_token={3}", Endpoints.Activity, id, includeEfforts, _authenticator.AccessToken);
@@ -57,6 +69,7 @@ namespace com.strava.api.Client
             return Unmarshaller<Activity>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<ActivitySummary>> GetActivitiesBeforeAsync(DateTime before)
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
@@ -86,6 +99,7 @@ namespace com.strava.api.Client
             return activities;
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<ActivitySummary>> GetActivitiesBeforeAsync(DateTime before, int page, int perPage)
         {
             //Calculate the UNIX epoch
@@ -104,6 +118,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<ActivitySummary>> GetActivitiesAfterAsync(DateTime after)
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
@@ -133,6 +148,7 @@ namespace com.strava.api.Client
             return activities;
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<ActivitySummary>> GetActivitiesAfterAsync(DateTime after, int page, int perPage)
         {
             //Calculate the UNIX epoch
@@ -151,6 +167,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<Comment>> GetCommentsAsync(String activityId)
         {
             String getUrl = String.Format("{0}/{1}/comments?access_token={2}", Endpoints.Activity, activityId, _authenticator.AccessToken);
@@ -159,6 +176,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<Comment>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async void DeleteActivity(String activityId)
         {
             String deleteUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Activities, activityId, _authenticator.AccessToken);
@@ -166,6 +184,7 @@ namespace com.strava.api.Client
             await WebRequest.SendDeleteAsync(new Uri(deleteUrl));
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<Athlete>> GetKudosAsync(String activityId)
         {
             String getUrl = String.Format("{0}/{1}/kudos?access_token={2}", Endpoints.Activity, activityId, _authenticator.AccessToken);
@@ -174,6 +193,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<Athlete>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<ActivityZone>> GetActivityZonesAsync(String activityId)
         {
             String getUrl = String.Format("{0}/{1}/zones?access_token={2}", Endpoints.Activity, activityId, _authenticator.AccessToken);
@@ -182,6 +202,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivityZone>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<ActivitySummary>> GetActivitiesAsync(int page, int perPage)
         {
             String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.Activities, page, perPage, _authenticator.AccessToken);
@@ -190,6 +211,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<ActivitySummary>> GetFollowersActivitiesAsync(int page, int perPage)
         {
             String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.ActivitiesFollowers, page, perPage, _authenticator.AccessToken);
@@ -198,6 +220,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<ActivitySummary>> GetFriendsActivitiesAsync(int count)
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
@@ -229,6 +252,7 @@ namespace com.strava.api.Client
             return activities;
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<ActivitySummary>> GetAllActivitiesAsync()
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
@@ -258,6 +282,7 @@ namespace com.strava.api.Client
             return activities;
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<int> GetTotalActivityCountAsync()
         {
             List<ActivitySummary> activities = await GetAllActivitiesAsync();
@@ -268,6 +293,7 @@ namespace com.strava.api.Client
 
         #region Athlete
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<Athlete> GetAthleteAsync()
         {
             String getUrl = String.Format("{0}?access_token={1}", Endpoints.Athlete, _authenticator.AccessToken);
@@ -276,6 +302,7 @@ namespace com.strava.api.Client
             return Unmarshaller<Athlete>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<AthleteSummary> GetAthleteAsync(String athleteId)
         {
             String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Athlete, athleteId, _authenticator.AccessToken);
@@ -283,7 +310,8 @@ namespace com.strava.api.Client
 
             return Unmarshaller<AthleteSummary>.Unmarshal(json);
         }
-        
+
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<AthleteSummary>> GetFriendsAsync()
         {
             String getUrl = String.Format("{0}?access_token={1}", Endpoints.Friends, _authenticator.AccessToken);
@@ -292,6 +320,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<AthleteSummary>> GetFriendsAsync(String athleteId)
         {
             String getUrl = String.Format("{0}/{1}/friends?access_token={2}", Endpoints.Friends, athleteId, _authenticator.AccessToken);
@@ -300,6 +329,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<AthleteSummary>> GetFollowersAsync()
         {
             String getUrl = String.Format("{0}?access_token={1}", Endpoints.Follower, _authenticator.AccessToken);
@@ -308,6 +338,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<AthleteSummary>> GetFollowersAsync(String athleteId)
         {
             String getUrl = String.Format("{0}/{1}/followers?access_token={2}", Endpoints.Followers, athleteId, _authenticator.AccessToken);
@@ -316,6 +347,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<AthleteSummary>> GetBothFollowingAsync(String athleteId)
         {
             String getUrl = String.Format("{0}/{1}/both-following?access_token={2}", Endpoints.Followers, athleteId, _authenticator.AccessToken);
@@ -324,6 +356,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<Athlete> UpdateAthleteAsync(AthleteParameter parameter, String value)
         {
             String putUrl = String.Empty;
@@ -349,6 +382,7 @@ namespace com.strava.api.Client
             return Unmarshaller<Athlete>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<Athlete> UpdateAthleteSex(Gender gender)
         {
             String putUrl = String.Format("{0}?sex={1}&access_token={2}", Endpoints.Athlete, gender.ToString().Substring(0, 1), _authenticator.AccessToken);
@@ -361,6 +395,7 @@ namespace com.strava.api.Client
 
         #region Segments
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<SegmentEffort>> GetRecordsAsync(String athleteId)
         {
             String getUrl = String.Format("{0}/{1}/koms?access_token={2}", Endpoints.Athlete, athleteId, _authenticator.AccessToken);
@@ -369,6 +404,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<SegmentEffort>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<SegmentSummary>> GetStarredSegmentsAsync()
         {
             String getUrl = String.Format("{0}/?access_token={1}", Endpoints.Starred, _authenticator.AccessToken);
@@ -377,6 +413,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<SegmentSummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<Leaderboard> GetFullSegmentLeaderboardAsync(String segmentId)
         {
             String getUrl = String.Format("{0}/{1}/leaderboard?filter=overall&access_token={2}", Endpoints.Leaderboard, segmentId, _authenticator.AccessToken);
@@ -385,6 +422,7 @@ namespace com.strava.api.Client
             return Unmarshaller<Leaderboard>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<Leaderboard> GetSegmentLeaderboardAsync(String segmentId, Gender gender)
         {
             String getUrl = String.Format("{0}/{1}/leaderboard?gender={2}&access_token={3}",
@@ -399,6 +437,7 @@ namespace com.strava.api.Client
             return Unmarshaller<Leaderboard>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<Leaderboard> GetSegmentLeaderboardAsync(String segmentId, Gender gender, AgeGroup age)
         {
             String ageFilter = String.Empty;
@@ -438,6 +477,7 @@ namespace com.strava.api.Client
             return Unmarshaller<Leaderboard>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<Leaderboard> GetSegmentLeaderboardAsync(String segmentId, Gender gender, WeightClass weight)
         {
             String weightClass = String.Empty;
@@ -481,6 +521,7 @@ namespace com.strava.api.Client
 
         #region Clubs
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<Club> GetClubAsync(String clubId)
         {
             String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Club, clubId, _authenticator.AccessToken);
@@ -489,6 +530,7 @@ namespace com.strava.api.Client
             return Unmarshaller<Club>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<ClubSummary>> GetClubsAsync()
         {
             String getUrl = String.Format("{0}?access_token={1}", Endpoints.Clubs, _authenticator.AccessToken);
@@ -497,6 +539,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ClubSummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<AthleteSummary>> GetClubMembersAsync(String clubId)
         {
             String getUrl = String.Format("{0}/{1}/members?access_token={2}", Endpoints.Club, clubId, _authenticator.AccessToken);
@@ -505,6 +548,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<ActivitySummary>> GetLatestClubActivitiesAsync(String clubId)
         {
             String getUrl = String.Format("{0}/{1}/activities?access_token={2}", Endpoints.Club, clubId, _authenticator.AccessToken);
@@ -513,6 +557,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<ActivitySummary>> GetLatestClubActivitiesAsync(String clubId, int page, int perPage)
         {
             String getUrl = String.Format("{0}/{1}/activities?page={2}&per_page={3}&access_token={4}",
@@ -530,6 +575,7 @@ namespace com.strava.api.Client
 
         #region Gear
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<Gear.Gear> GetGearAsync(String gearId)
         {
             String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Gear, gearId, _authenticator.AccessToken);
@@ -540,17 +586,15 @@ namespace com.strava.api.Client
 
         #endregion
 
-        #region General
-
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<Athlete> RefreshLimitAndUsageAsync()
         {
             return await GetAthleteAsync();
         }
 
-        #endregion
-
         #region Streams
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<ActivityStream>> GetActivityStreamAsync(String activityId, StreamType typeFlags)
         {
             StringBuilder types = new StringBuilder();
@@ -572,6 +616,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<Streams.ActivityStream>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public async Task<List<SegmentStream>> GetSegmentStreamAsync(String segmentId, SegmentStreamType typeFlags)
         {
             // Only distance, altitude and latlng stream types are available.
@@ -603,6 +648,7 @@ namespace com.strava.api.Client
 
         #region Activity
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public Activity GetActivity(String id, bool includeEfforts)
         {
             String getUrl = String.Format("{0}/{1}?include_all_efforts={2}&access_token={3}", Endpoints.Activity, id, includeEfforts, _authenticator.AccessToken);
@@ -611,6 +657,7 @@ namespace com.strava.api.Client
             return Unmarshaller<Activity>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<ActivitySummary> GetActivitiesBefore(DateTime before)
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
@@ -640,6 +687,7 @@ namespace com.strava.api.Client
             return activities;
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<ActivitySummary> GetActivitiesBefore(DateTime before, int page, int perPage)
         {
             //Calculate the UNIX epoch
@@ -658,6 +706,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<ActivitySummary> GetActivitiesAfter(DateTime after)
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
@@ -687,6 +736,7 @@ namespace com.strava.api.Client
             return activities;
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<ActivitySummary> GetActivitiesAfter(DateTime after, int page, int perPage)
         {
             //Calculate the UNIX epoch
@@ -705,6 +755,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<Comment> GetComments(String activityId)
         {
             String getUrl = String.Format("{0}/{1}/comments?access_token={2}", Endpoints.Activity, activityId, _authenticator.AccessToken);
@@ -713,6 +764,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<Comment>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<Athlete> GetKudos(String activityId)
         {
             String getUrl = String.Format("{0}/{1}/kudos?access_token={2}", Endpoints.Activity, activityId, _authenticator.AccessToken);
@@ -721,6 +773,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<Athlete>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<ActivityZone> GetActivityZones(String activityId)
         {
             String getUrl = String.Format("{0}/{1}/zones?access_token={2}", Endpoints.Activity, activityId, _authenticator.AccessToken);
@@ -729,6 +782,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivityZone>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<ActivitySummary> GetActivities(int page, int perPage)
         {
             String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.Activities, page, perPage, _authenticator.AccessToken);
@@ -737,6 +791,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<ActivitySummary> GetFollowersActivities(int page, int perPage)
         {
             String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.ActivitiesFollowers, page, perPage, _authenticator.AccessToken);
@@ -745,6 +800,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<ActivitySummary> GetAllActivities()
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
@@ -774,6 +830,7 @@ namespace com.strava.api.Client
             return activities;
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<ActivitySummary> GetFriendsActivities(int count)
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
@@ -805,6 +862,7 @@ namespace com.strava.api.Client
             return activities;
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public int GetTotalActivityCount()
         {
             return GetAllActivities().Count;
@@ -814,6 +872,7 @@ namespace com.strava.api.Client
 
         #region Athlete
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public Athlete GetAthlete()
         {
             String getUrl = String.Format("{0}?access_token={1}", Endpoints.Athlete, _authenticator.AccessToken);
@@ -822,6 +881,7 @@ namespace com.strava.api.Client
             return Unmarshaller<Athlete>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public AthleteSummary GetAthlete(String athleteId)
         {
             String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Athlete, athleteId, _authenticator.AccessToken);
@@ -830,6 +890,7 @@ namespace com.strava.api.Client
             return Unmarshaller<AthleteSummary>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<AthleteSummary> GetFriends()
         {
             String getUrl = String.Format("{0}?access_token={1}", Endpoints.Friends, _authenticator.AccessToken);
@@ -837,6 +898,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<AthleteSummary> GetFriends(String athleteId)
         {
             String getUrl = String.Format("{0}/{1}/friends?access_token={2}", Endpoints.Friends, athleteId, _authenticator.AccessToken);
@@ -845,6 +907,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<AthleteSummary> GetFollowers()
         {
             String getUrl = String.Format("{0}?access_token={1}", Endpoints.Follower, _authenticator.AccessToken);
@@ -852,6 +915,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<AthleteSummary> GetFollowers(String athleteId)
         {
             String getUrl = String.Format("{0}/{1}/followers?access_token={2}", Endpoints.Followers, athleteId, _authenticator.AccessToken);
@@ -860,6 +924,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<AthleteSummary> GetBothFollowing(String athleteId)
         {
             String getUrl = String.Format("{0}/{1}/both-following?access_token={2}", Endpoints.Followers, athleteId, _authenticator.AccessToken);
@@ -868,6 +933,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public Athlete UpdateAthlete(AthleteParameter parameter, String value)
         {
             String putUrl = String.Empty;
@@ -897,6 +963,7 @@ namespace com.strava.api.Client
 
         #region Segments
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<SegmentEffort> GetRecords(String athleteId)
         {
             String getUrl = String.Format("{0}/{1}/koms?access_token={2}", Endpoints.Athlete, athleteId, _authenticator.AccessToken);
@@ -905,6 +972,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<SegmentEffort>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<SegmentSummary> GetStarredSegments()
         {
             String getUrl = String.Format("{0}/?access_token={1}", Endpoints.Starred, _authenticator.AccessToken);
@@ -913,6 +981,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<SegmentSummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public Leaderboard GetFullSegmentLeaderboard(String segmentId)
         {
             String getUrl = String.Format("{0}/{1}/leaderboard?filter=overall&access_token={2}", Endpoints.Leaderboard, segmentId, _authenticator.AccessToken);
@@ -921,6 +990,7 @@ namespace com.strava.api.Client
             return Unmarshaller<Leaderboard>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public Leaderboard GetSegmentLeaderboard(String segmentId, Gender gender)
         {
             String getUrl = String.Format("{0}/{1}/leaderboard?gender={2}&access_token={3}",
@@ -935,6 +1005,7 @@ namespace com.strava.api.Client
             return Unmarshaller<Leaderboard>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public Leaderboard GetSegmentLeaderboard(String segmentId, Gender gender, AgeGroup age)
         {
             String ageFilter = String.Empty;
@@ -974,6 +1045,7 @@ namespace com.strava.api.Client
             return Unmarshaller<Leaderboard>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public Leaderboard GetSegmentLeaderboard(String segmentId, Gender gender, WeightClass weight)
         {
             String weightClass = String.Empty;
@@ -1017,6 +1089,7 @@ namespace com.strava.api.Client
 
         #region Clubs
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public Club GetClub(String clubId)
         {
             String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Club, clubId, _authenticator.AccessToken);
@@ -1025,6 +1098,7 @@ namespace com.strava.api.Client
             return Unmarshaller<Club>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<ClubSummary> GetClubs()
         {
             String getUrl = String.Format("{0}?access_token={1}", Endpoints.Clubs, _authenticator.AccessToken);
@@ -1033,6 +1107,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ClubSummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<AthleteSummary> GetClubMembers(String clubId)
         {
             String getUrl = String.Format("{0}/{1}/members?access_token={2}", Endpoints.Club, clubId, _authenticator.AccessToken);
@@ -1041,6 +1116,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<AthleteSummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<ActivitySummary> GetLatestClubActivities(String clubId)
         {
             String getUrl = String.Format("{0}/{1}/activities?access_token={2}", Endpoints.Club, clubId, _authenticator.AccessToken);
@@ -1049,6 +1125,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<ActivitySummary> GetLatestClubActivities(String clubId, int page, int perPage)
         {
             String getUrl = String.Format("{0}/{1}/activities?page={2}&per_page={3}&access_token={4}",
@@ -1066,6 +1143,7 @@ namespace com.strava.api.Client
 
         #region Gear
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public Gear.Gear GetGear(String gearId)
         {
             String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Gear, gearId, _authenticator.AccessToken);
@@ -1076,17 +1154,15 @@ namespace com.strava.api.Client
 
         #endregion
 
-        #region General
-
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public Athlete RefreshLimitAndUsage()
         {
             return GetAthlete();
         }
 
-        #endregion
-
         #region Streams
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<ActivityStream> GetActivityStream(String activityId, StreamType typeFlags)
         {
             StringBuilder types = new StringBuilder();
@@ -1108,6 +1184,7 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivityStream>>.Unmarshal(json);
         }
 
+        [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
         public List<SegmentStream> GetSegmentStream(String segmentId, SegmentStreamType typeFlags)
         {
             // Only distance, altitude and latlng stream types are available.
@@ -1134,5 +1211,10 @@ namespace com.strava.api.Client
         #endregion
 
         #endregion
+
+        public override string ToString()
+        {
+            return String.Format("StravaClient Version {0}", Assembly.GetExecutingAssembly().GetName().Version);
+        }
     }
 }

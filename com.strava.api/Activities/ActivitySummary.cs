@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using com.strava.api.Athletes;
-using com.strava.api.Gear;
-using com.strava.api.Segments;
 using Newtonsoft.Json;
 
 namespace com.strava.api.Activities
 {
-    public class ActivitySummary
+    public class ActivitySummary : ActivityMeta
     {
-        [JsonProperty("id")]
-        public String Id { get; set; }
-
         [JsonProperty("name")]
         public String Name { get; set; }
 
@@ -115,9 +110,6 @@ namespace com.strava.api.Activities
         [JsonProperty("timezone")]
         public String TimeZone { get; set; }
 
-        #region Objects
-
-
         [JsonProperty("start_latlng")]
         public List<double> StartPoint { get; set; }
 
@@ -161,7 +153,5 @@ namespace com.strava.api.Activities
 
         [JsonProperty("athlete")]
         public AthleteMeta Athlete { get; set; }
-
-        #endregion
     }
 }

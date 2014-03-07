@@ -73,7 +73,14 @@
     <Compile Include="Authentication\Scope.cs" />
     <Compile Include="Authentication\TokenReceivedEventArgs.cs" />
     <Compile Include="Authentication\WebAuthentication.cs" />
+    <Compile Include="Client\ActivityClient.cs" />
+    <Compile Include="Client\AthleteClient.cs" />
+    <Compile Include="Client\BaseClient.cs" />
+    <Compile Include="Client\ClubClient.cs" />
+    <Compile Include="Client\GearClient.cs" />
+    <Compile Include="Client\SegmentClient.cs" />
     <Compile Include="Client\StravaClient.cs" />
+    <Compile Include="Client\StreamClient.cs" />
     <Compile Include="Clubs\Club.cs" />
     <Compile Include="Clubs\ClubSummary.cs" />
     <Compile Include="Clubs\ClubType.cs" />

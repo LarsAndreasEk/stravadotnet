@@ -1,85 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
 using com.strava.api.Clubs;
-using com.strava.api.Gear;
 using Newtonsoft.Json;
 
 namespace com.strava.api.Athletes
 {
-    public class Athlete
+    public class Athlete : AthleteSummary
     {
-        [JsonProperty("id")]
-        public int Id { get; set; }
-
-        [JsonProperty("resource_state")]
-        public int ResourceState { get; set; }
-
-        [JsonProperty("firstname")]
-        public String FirstName { get; set; }
-
-        [JsonProperty("lastname")]
-        public String LastName { get; set; }
-
-        [JsonProperty("profile_medium")]
-        public String ProfileMedium { get; set; }
-
-        [JsonProperty("profile")]
-        public String Profile { get; set; }
-
-        [JsonProperty("city")]
-        public String City { get; set; }
-
-        [JsonProperty("state")]
-        public String State { get; set; }
-
-        [JsonProperty("country")]
-        public String Country { get; set; }
-
-        [JsonProperty("sex")]
-        public String Sex { get; set; }
-
-        [JsonProperty("friend")]
-        public String Friend { get; set; }
-
-        [JsonProperty("follower")]
-        public String Follower { get; set; }
-
-        [JsonProperty("premium")]
-        public String Premium { get; set; }
-
-        [JsonProperty("created_at")]
-        public String CreatedAt { get; set; }
-
-        [JsonProperty("updated_at")]
-        public String UpdatedAt { get; set; }
-
-        [JsonProperty("approve_followers")]
-        public Boolean ApproveFollowers { get; set; }
-
+        /// <summary>
+        /// The count of the athlete's followers.
+        /// </summary>
         [JsonProperty("follower_count")]
         public int FollowerCount { get; set; }
 
+        /// <summary>
+        /// The count of the athlete's friends.
+        /// </summary>
         [JsonProperty("friend_count")]
         public int FriendCount { get; set; }
 
+        /// <summary>
+        /// The count of the athlete's friends that both this athlete and the currently authenticated athlete are following.
+        /// </summary>
         [JsonProperty("mutual_friend_count")]
         public int MutualFriendCount { get; set; }
 
+        /// <summary>
+        /// The date preference. ISO 8601 time string.
+        /// </summary>
         [JsonProperty("date_preference")]
         public String DatePreference { get; set; }
 
+        /// <summary>
+        /// Either 'feet' or 'meters'
+        /// </summary>
         [JsonProperty("measurement_preference")]
         public String MeasurementPreference { get; set; }
 
+        /// <summary>
+        /// The email address.
+        /// </summary>
         [JsonProperty("email")]
         public String Email { get; set; }
 
+        /// <summary>
+        /// The functional threshold power.
+        /// </summary>
         [JsonProperty("ftp")]
         public int? Ftp { get; set; }
 
+        /// <summary>
+        /// A list of the athlete's bikes.
+        /// </summary>
         [JsonProperty("bikes")]
         public List<Gear.Gear> Bikes { get; set; }
 
+        /// <summary>
+        /// A list of the athlete's clubs.
+        /// </summary>
         [JsonProperty("clubs")]
         public List<Club> Clubs { get; set; }
     }
