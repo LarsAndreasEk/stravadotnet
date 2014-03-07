@@ -1,6 +1,7 @@
 Strava.NET
 ============
-Current version: 1.6.0 (03/05/2014)
+Current version: 1.6.0 (03/07/2014)
+
 [Changelog](http://www.sascha-simon.com/changelog.html)
 
 Hopefully this small framework makes using the Strava API a little bit easier!
