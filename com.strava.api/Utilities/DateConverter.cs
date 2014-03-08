@@ -2,6 +2,9 @@
 
 namespace com.strava.api.Utilities
 {
+    /// <summary>
+    /// This class is used to convert dates.
+    /// </summary>
     public static class DateConverter
     {
         /// <summary>

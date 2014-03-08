@@ -2,6 +2,9 @@
 
 namespace com.strava.api.Activities
 {
+    /// <summary>
+    /// Represents an athlete. Only holds basic information.
+    /// </summary>
     public class ActivityMeta
     {
         /// <summary>

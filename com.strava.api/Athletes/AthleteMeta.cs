@@ -2,6 +2,9 @@
 
 namespace com.strava.api.Athletes
 {
+    /// <summary>
+    /// This class represents an athlete.
+    /// </summary>
     public class AthleteMeta
     {
         /// <summary>
