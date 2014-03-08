@@ -16,7 +16,11 @@ namespace com.strava.api.Client
         public ClubClient(IAuthentication auth) : base(auth) { }
 
         #region Async
-
+        /// <summary>
+        /// Gets the club which the specified id.
+        /// </summary>
+        /// <param name="clubId">The id of the club.</param>
+        /// <returns>The Club object containing detailed information about the club.</returns>
         public async Task<Club> GetClubAsync(String clubId)
         {
             String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Club, clubId, Authentication.AccessToken);
