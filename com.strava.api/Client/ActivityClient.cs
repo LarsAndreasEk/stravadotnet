@@ -37,7 +37,7 @@ namespace com.strava.api.Client
         /// Gets a single activity from Strava asynchronously.
         /// </summary>
         /// <param name="id">The Strava activity id.</param>
-        /// <param name="includeEfforts">Indicates whether efforts are included in the result or not.</param>
+        /// <param name="includeEfforts">Used to include all segment efforts in the result.</param>
         /// <returns>The activity with the specified id.</returns>
         public async Task<Activity> GetActivityAsync(String id, bool includeEfforts)
         {
@@ -81,6 +81,13 @@ namespace com.strava.api.Client
             return activities;
         }
 
+        /// <summary>
+        /// Gets all the activities recorded before the specified date from Strava asynchronously.
+        /// </summary>
+        /// <param name="before">The date.</param>
+        /// <param name="page">The page of the list of activities.</param>
+        /// <param name="perPage">The amount of activities per page.</param>
+        /// <returns>A list of activities recorded before the specified date.</returns>
         public async Task<List<ActivitySummary>> GetActivitiesBeforeAsync(DateTime before, int page, int perPage)
         {
             //Calculate the UNIX epoch
@@ -133,6 +140,13 @@ namespace com.strava.api.Client
             return activities;
         }
 
+        /// <summary>
+        /// Gets all the activities recorded after the specified date from Strava asynchronously.
+        /// </summary>
+        /// <param name="after">The date.</param>
+        /// <param name="page">The page of the list of activities.</param>
+        /// <param name="perPage">The amount of activities per page.</param>
+        /// <returns>A list of activities recorded after the specified date.</returns>
         public async Task<List<ActivitySummary>> GetActivitiesAfterAsync(DateTime after, int page, int perPage)
         {
             //Calculate the UNIX epoch
@@ -151,6 +165,11 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Gets all the comments of an activity asynchronously.
+        /// </summary>
+        /// <param name="activityId">The Strava Id of the activity.</param>
+        /// <returns>A list of comments.</returns>
         public async Task<List<Comment>> GetCommentsAsync(String activityId)
         {
             String getUrl = String.Format("{0}/{1}/comments?access_token={2}", Endpoints.Activity, activityId, Authentication.AccessToken);
@@ -170,6 +189,11 @@ namespace com.strava.api.Client
             await WebRequest.SendDeleteAsync(new Uri(deleteUrl));
         }
 
+        /// <summary>
+        /// Gets a list of athletes that kudoed the specified activity asynchronously.
+        /// </summary>
+        /// <param name="activityId">The Strava Id of the activity.</param>
+        /// <returns>A list of athletes that kudoed the specified activity.</returns>
         public async Task<List<Athlete>> GetKudosAsync(String activityId)
         {
             String getUrl = String.Format("{0}/{1}/kudos?access_token={2}", Endpoints.Activity, activityId, Authentication.AccessToken);
@@ -186,6 +210,12 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivityZone>>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Gets all the activities asynchronously. Pagination is supported.
+        /// </summary>
+        /// <param name="page">The page of activities.</param>
+        /// <param name="perPage">The amount of activities that are loaded per page.</param>
+        /// <returns>A list of activities.</returns>
         public async Task<List<ActivitySummary>> GetActivitiesAsync(int page, int perPage)
         {
             String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.Activities, page, perPage, Authentication.AccessToken);
@@ -262,6 +292,10 @@ namespace com.strava.api.Client
             return activities;
         }
 
+        /// <summary>
+        /// Gets the total activity count of the currently authenticated athlete asynchronously.
+        /// </summary>
+        /// <returns>The total number of activities.</returns>
         public async Task<int> GetTotalActivityCountAsync()
         {
             List<ActivitySummary> activities = await GetAllActivitiesAsync();
@@ -320,6 +354,13 @@ namespace com.strava.api.Client
             return activities;
         }
 
+        /// <summary>
+        /// Gets all the activities recorded before the specified date from Strava.
+        /// </summary>
+        /// <param name="before">The date.</param>
+        /// <param name="page">The page of the list of activities.</param>
+        /// <param name="perPage">The amount of activities per page.</param>
+        /// <returns>A list of activities recorded before the specified date.</returns>
         public List<ActivitySummary> GetActivitiesBefore(DateTime before, int page, int perPage)
         {
             //Calculate the UNIX epoch
@@ -372,6 +413,13 @@ namespace com.strava.api.Client
             return activities;
         }
 
+        /// <summary>
+        /// Gets all the activities recorded after the specified date from Strava.
+        /// </summary>
+        /// <param name="after">The date.</param>
+        /// <param name="page">The page of the list of activities.</param>
+        /// <param name="perPage">The amount of activities per page.</param>
+        /// <returns>A list of activities recorded after the specified date.</returns>
         public List<ActivitySummary> GetActivitiesAfter(DateTime after, int page, int perPage)
         {
             //Calculate the UNIX epoch
@@ -390,6 +438,11 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Gets all the comments of an activity.
+        /// </summary>
+        /// <param name="activityId">The Strava Id of the activity.</param>
+        /// <returns>A list of comments.</returns>
         public List<Comment> GetComments(String activityId)
         {
             String getUrl = String.Format("{0}/{1}/comments?access_token={2}", Endpoints.Activity, activityId, Authentication.AccessToken);
@@ -398,6 +451,11 @@ namespace com.strava.api.Client
             return Unmarshaller<List<Comment>>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Gets a list of athletes that kudoed the specified activity.
+        /// </summary>
+        /// <param name="activityId">The Strava Id of the activity.</param>
+        /// <returns>A list of athletes that kudoed the specified activity.</returns>
         public List<Athlete> GetKudos(String activityId)
         {
             String getUrl = String.Format("{0}/{1}/kudos?access_token={2}", Endpoints.Activity, activityId, Authentication.AccessToken);
@@ -414,6 +472,12 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivityZone>>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Gets all the activities. Pagination is supported.
+        /// </summary>
+        /// <param name="page">The page of activities.</param>
+        /// <param name="perPage">The amount of activities that are loaded per page.</param>
+        /// <returns>A list of activities.</returns>
         public List<ActivitySummary> GetActivities(int page, int perPage)
         {
             String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.Activities, page, perPage, Authentication.AccessToken);
@@ -498,7 +562,7 @@ namespace com.strava.api.Client
         /// <summary>
         /// Gets the total activity count of the currently authenticated athlete.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The number of activities.</returns>
         public int GetTotalActivityCount()
         {
             return GetAllActivities().Count;
