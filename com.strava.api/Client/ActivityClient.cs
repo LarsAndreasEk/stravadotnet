@@ -11,18 +11,34 @@ using com.strava.api.Utilities;
 
 namespace com.strava.api.Client
 {
+    /// <summary>
+    /// Used to get activity data from Strava.
+    /// </summary>
     public class ActivityClient : BaseClient
     {
-        public ActivityClient(IAuthentication authentication) : base(authentication) { }
+        /// <summary>
+        /// Initializes a new instance of the ActivityClient class.
+        /// </summary>
+        /// <param name="auth">A IAuthenticator object that contains a valid Strava access token.</param>
+        public ActivityClient(IAuthentication auth) : base(auth) { }
 
         #region Events
 
+        /// <summary>
+        /// ActivityReceived is raised whenever an activity is received from Strava.
+        /// </summary>
         public event EventHandler<ActivityReceivedEventArgs> ActivityReceived;
 
         #endregion
 
         #region Async
 
+        /// <summary>
+        /// Gets a single activity from Strava asynchronously.
+        /// </summary>
+        /// <param name="id">The Strava activity id.</param>
+        /// <param name="includeEfforts">Indicates whether efforts are included in the result or not.</param>
+        /// <returns>The activity with the specified id.</returns>
         public async Task<Activity> GetActivityAsync(String id, bool includeEfforts)
         {
             String getUrl = String.Format("{0}/{1}?include_all_efforts={2}&access_token={3}", Endpoints.Activity, id, includeEfforts, Authentication.AccessToken);
@@ -31,6 +47,11 @@ namespace com.strava.api.Client
             return Unmarshaller<Activity>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Gets all the activities recorded before the specified date from Strava asynchronously.
+        /// </summary>
+        /// <param name="before">The date.</param>
+        /// <returns>A list of activities recorded before the specified date.</returns>
         public async Task<List<ActivitySummary>> GetActivitiesBeforeAsync(DateTime before)
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
@@ -78,6 +99,11 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Gets all the activities recorded after the specified date from Strava asynchronously.
+        /// </summary>
+        /// <param name="after">The date.</param>
+        /// <returns>A list of activities recorded after the specified date.</returns>
         public async Task<List<ActivitySummary>> GetActivitiesAfterAsync(DateTime after)
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
@@ -133,6 +159,10 @@ namespace com.strava.api.Client
             return Unmarshaller<List<Comment>>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Deletes an activity on Strava.
+        /// </summary>
+        /// <param name="activityId">The Strava Id of the activity to delete.</param>
         public async void DeleteActivity(String activityId)
         {
             String deleteUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Activities, activityId, Authentication.AccessToken);
@@ -242,6 +272,12 @@ namespace com.strava.api.Client
 
         #region Sync
 
+        /// <summary>
+        /// Gets a single activity from Strava.
+        /// </summary>
+        /// <param name="id">The Strava activity id.</param>
+        /// <param name="includeEfforts">Indicates whether efforts are included in the result or not.</param>
+        /// <returns>The activity with the specified id.</returns>
         public Activity GetActivity(String id, bool includeEfforts)
         {
             String getUrl = String.Format("{0}/{1}?include_all_efforts={2}&access_token={3}", Endpoints.Activity, id, includeEfforts, Authentication.AccessToken);
@@ -250,6 +286,11 @@ namespace com.strava.api.Client
             return Unmarshaller<Activity>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Gets all the activities recorded before the specified date from Strava.
+        /// </summary>
+        /// <param name="before">The date.</param>
+        /// <returns>A list of activities recorded before the specified date.</returns>
         public List<ActivitySummary> GetActivitiesBefore(DateTime before)
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
@@ -297,6 +338,11 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Gets all the activities recorded after the specified date from Strava.
+        /// </summary>
+        /// <param name="after">The date.</param>
+        /// <returns>A list of activities recorded after the specified date.</returns>
         public List<ActivitySummary> GetActivitiesAfter(DateTime after)
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
