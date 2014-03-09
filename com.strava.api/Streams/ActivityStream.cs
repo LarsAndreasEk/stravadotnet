@@ -4,10 +4,28 @@ using Newtonsoft.Json;
 
 namespace com.strava.api.Streams
 {
+    /// <summary>
+    /// Streams represent the raw data of the uploaded file. External applications may only access this information for 
+    /// activities owned by the authenticated athlete.
+    ///
+    /// While there are a large number of stream types, they may not exist for all activities. If a 
+    /// stream type does not exist for the activity, it will be ignored.
+    /// 
+    /// All streams for a given activity will be the same length and the values at a given index 
+    /// correspond to the same time. For example, the time from the time stream can be correlated 
+    /// to the lat/lng or watts streams.
+    /// </summary>
     public class ActivityStream
     {
+        /// <summary>
+        /// The type of stream.
+        /// </summary>
         [JsonProperty("type")]
         private String Type { get; set; }
+
+        /// <summary>
+        /// The type of stream.
+        /// </summary>
         public StreamType StreamType
         {
             get
@@ -57,15 +75,28 @@ namespace com.strava.api.Streams
             }
         }
 
+        /// <summary>
+        /// Array of stream values.
+        /// </summary>
         [JsonProperty("data")] 
         public List<object> Data { get; set; }
 
+        /// <summary>
+        /// Series type used for down sampling. Will be present even if not used.
+        /// </summary>
         [JsonProperty("series_type")]
         public String SeriesType { get; set; }
 
+        /// <summary>
+        /// Complete stream length.
+        /// </summary>
         [JsonProperty("original_size")]
         public int OriginalSize { get; set; }
         
+        /// <summary>
+        /// Relevant only if using resolution either ‘time’ or ‘distance’. Default is ‘distance’.
+        /// Used to index the streams if the stream is being reduced.
+        /// </summary>
         [JsonProperty("resolution")]
         public string Resolution { get; set; }
     }
