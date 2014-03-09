@@ -15,22 +15,42 @@ namespace com.strava.api.Authentication
     /// </summary>
     public class LocalWebServer
     {
+        /// <summary>
+        /// AuthCodeReceived is raised whenever an auth code is received from the Strava servers.
+        /// </summary>
         public event EventHandler<AuthCodeReceivedEventArgs> AuthCodeReceived;
+
+        /// <summary>
+        /// AccessTokenReceived is raised whenever an access token is received from the Strava servers.
+        /// </summary>
         public event EventHandler<TokenReceivedEventArgs> AccessTokenReceived;
 
+        /// <summary>
+        /// The Client Id provided by Strava upon registering your application.
+        /// </summary>
         public String ClientId { get; set; }
-        public String ClientSecret { get; set; }
-        public String Code { get; set; }
 
+        /// <summary>
+        /// The Client secret provided by Strava upon registering your application.
+        /// </summary>
+        public String ClientSecret { get; set; }
+        
         private HttpListener _httpListener = new HttpListener();
         private HttpListenerContext _context;
 
+        /// <summary>
+        /// Initializes a new instance of the LocalWebServer class.
+        /// </summary>
+        /// <param name="prefix">The server prefix.</param>
         public LocalWebServer(String prefix)
         {
             _httpListener = new HttpListener();
             _httpListener.Prefixes.Add(prefix);
         }
 
+        /// <summary>
+        /// Starts the local web server.
+        /// </summary>
         public void Start()
         {
             _httpListener.Start();
@@ -38,11 +58,17 @@ namespace com.strava.api.Authentication
             new Thread(ProcessRequest).Start();
         }
 
+        /// <summary>
+        /// Stops the local web server.
+        /// </summary>
         public void Stop()
         {
             _httpListener.Stop();
         }
 
+        /// <summary>
+        /// Processes a request.
+        /// </summary>
         public async void ProcessRequest()
         {
             _context = _httpListener.GetContext();

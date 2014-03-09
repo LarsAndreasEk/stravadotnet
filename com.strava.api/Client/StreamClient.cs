@@ -11,7 +11,9 @@ using com.strava.api.Streams;
 namespace com.strava.api.Client
 {
     /// <summary>
-    /// This client is used to load stream data.
+    /// Streams is the Strava term for the raw data associated with an activity. 
+    /// All streams for a given activity or segment effort will be the same length and the values at 
+    /// a given index correspond to the same time.
     /// </summary>
     public class StreamClient : BaseClient
     {

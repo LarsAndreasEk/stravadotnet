@@ -62,6 +62,9 @@ namespace com.strava.api.Activities
         [JsonProperty("start_date")]
         public String StartDate { get; set; }
 
+        /// <summary>
+        /// Local start date.
+        /// </summary>
         [JsonProperty("start_date_local")]
         public String StartDateLocal { get; set; }
 

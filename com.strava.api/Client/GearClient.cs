@@ -20,6 +20,11 @@ namespace com.strava.api.Client
 
         #region Async
 
+        /// <summary>
+        /// Retrieves gear with the specified id asynchronously from the Strava servers.
+        /// </summary>
+        /// <param name="gearId">The Strava id of the gear.</param>
+        /// <returns>The gear object.</returns>
         public async Task<Gear.Gear> GetGearAsync(String gearId)
         {
             String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Gear, gearId, Authentication.AccessToken);
@@ -32,6 +37,11 @@ namespace com.strava.api.Client
 
         #region Sync
 
+        /// <summary>
+        /// Retrieves gear with the specified id from the Strava servers.
+        /// </summary>
+        /// <param name="gearId">The Strava id of the gear.</param>
+        /// <returns>The gear object.</returns>
         public Gear.Gear GetGear(String gearId)
         {
             String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Gear, gearId, Authentication.AccessToken);

@@ -77,11 +77,34 @@ namespace com.strava.api.Client
 
         #region Clients
 
+        /// <summary>
+        /// Predefined ActivityClient.
+        /// </summary>
         public ActivityClient Activities { get; set; }
+
+        /// <summary>
+        /// Predefined AthleteClient.
+        /// </summary>
         public AthleteClient Athletes { get; set; }
+
+        /// <summary>
+        /// Predefined ClubClient.
+        /// </summary>
         public ClubClient Clubs { get; set; }
+
+        /// <summary>
+        /// Predefined GearClient.
+        /// </summary>
         public GearClient Gear { get; set; }
+
+        /// <summary>
+        /// Predefined SegmentClient.
+        /// </summary>
         public SegmentClient Segments { get; set; }
+
+        /// <summary>
+        /// Predefined StreamClient.
+        /// </summary>
         public StreamClient Streams { get; set; }
 
         #endregion

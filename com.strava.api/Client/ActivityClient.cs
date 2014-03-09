@@ -202,6 +202,11 @@ namespace com.strava.api.Client
             return Unmarshaller<List<Athlete>>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Retrieves the zones of an activity asynchronously.
+        /// </summary>
+        /// <param name="activityId">The Strava activity Id.</param>
+        /// <returns>A list of activity zones of an activity.</returns>
         public async Task<List<ActivityZone>> GetActivityZonesAsync(String activityId)
         {
             String getUrl = String.Format("{0}/{1}/zones?access_token={2}", Endpoints.Activity, activityId, Authentication.AccessToken);
@@ -224,6 +229,12 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Gets the latest activities of the currently authenticated athletes followers asynchronously.
+        /// </summary>
+        /// <param name="page">The page of activities.</param>
+        /// <param name="perPage">The amount of activities per page.</param>
+        /// <returns>A list of activities from your followers.</returns>
         public async Task<List<ActivitySummary>> GetFollowersActivitiesAsync(int page, int perPage)
         {
             String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.ActivitiesFollowers, page, perPage, Authentication.AccessToken);
@@ -232,6 +243,11 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Gets the latest activities of the currently authenticated athletes friends asynchronously.
+        /// </summary>
+        /// <param name="count">Specifies how many activities should be loaded.</param>
+        /// <returns>A list of activities from your friends.</returns>
         public async Task<List<ActivitySummary>> GetFriendsActivitiesAsync(int count)
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
@@ -263,6 +279,10 @@ namespace com.strava.api.Client
             return activities;
         }
 
+        /// <summary>
+        /// Retrieves all the currently authenticated athletes' activities asynchronously.
+        /// </summary>
+        /// <returns>All the activities of the currently authenticated athlete.</returns>
         public async Task<List<ActivitySummary>> GetAllActivitiesAsync()
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
@@ -464,6 +484,11 @@ namespace com.strava.api.Client
             return Unmarshaller<List<Athlete>>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Retrieves the zones of an activity.
+        /// </summary>
+        /// <param name="activityId">The Strava activity Id.</param>
+        /// <returns>A list of activity zones of an activity.</returns>
         public List<ActivityZone> GetActivityZones(String activityId)
         {
             String getUrl = String.Format("{0}/{1}/zones?access_token={2}", Endpoints.Activity, activityId, Authentication.AccessToken);
@@ -486,6 +511,12 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Gets the latest activities of the currently authenticated athletes followers.
+        /// </summary>
+        /// <param name="page">The page of activities.</param>
+        /// <param name="perPage">The amount of activities per page.</param>
+        /// <returns>A list of activities from your followers.</returns>
         public List<ActivitySummary> GetFollowersActivities(int page, int perPage)
         {
             String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.ActivitiesFollowers, page, perPage, Authentication.AccessToken);
@@ -494,6 +525,10 @@ namespace com.strava.api.Client
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Retrieves all the currently authenticated athletes' activities.
+        /// </summary>
+        /// <returns>All the activities of the currently authenticated athlete.</returns>
         public List<ActivitySummary> GetAllActivities()
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
