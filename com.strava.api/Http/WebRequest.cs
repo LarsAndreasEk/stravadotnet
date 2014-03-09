@@ -10,11 +10,26 @@ using com.strava.api.Api;
 
 namespace com.strava.api.Http
 {
+    /// <summary>
+    /// Class to create web requests and receive a response from the server.
+    /// </summary>
     public static class WebRequest
     {
+        /// <summary>
+        /// AsyncResponseReceived is raised when an asynchronous response is received from the server.
+        /// </summary>
         public static event EventHandler<AsyncResponseReceivedEventArgs> AsyncResponseReceived;
+
+        /// <summary>
+        /// ResponseReceived is raised when a response is received from the server.
+        /// </summary>
         public static event EventHandler<ResponseReceivedEventArgs> ResponseReceived;
 
+        /// <summary>
+        /// Sends a GET request to the server asynchronously.
+        /// </summary>
+        /// <param name="uri">The Uri where the request will be sent.</param>
+        /// <returns>The server's response.</returns>
         public static async Task<String> SendGetAsync(Uri uri)
         {
             if (uri == null)
@@ -64,6 +79,11 @@ namespace com.strava.api.Http
             return String.Empty;
         }
 
+        /// <summary>
+        /// Sends a POST request to the server asynchronously.
+        /// </summary>
+        /// <param name="uri">The Uri where the request will be sent.</param>
+        /// <returns>The server's response.</returns>
         public static async Task<String> SendPostAsync(Uri uri)
         {
             if (uri == null)
@@ -113,6 +133,11 @@ namespace com.strava.api.Http
             return String.Empty;
         }
 
+        /// <summary>
+        /// Sends a PUT request to the server asynchronously.
+        /// </summary>
+        /// <param name="uri">The Uri where the request will be sent.</param>
+        /// <returns>The server's response.</returns>
         public static async Task<String> SendPutAsync(Uri uri)
         {
             if (uri == null)
@@ -162,6 +187,11 @@ namespace com.strava.api.Http
             return String.Empty;
         }
 
+        /// <summary>
+        /// Sends a DELETE request to the server asynchronously.
+        /// </summary>
+        /// <param name="uri">The Uri where the request will be sent.</param>
+        /// <returns>The server's response.</returns>
         public static async Task<String> SendDeleteAsync(Uri uri)
         {
             if (uri == null)
@@ -211,6 +241,11 @@ namespace com.strava.api.Http
             return String.Empty;
         }
 
+        /// <summary>
+        /// Sends a GET request to the server.
+        /// </summary>
+        /// <param name="uri">The Uri where the request will be sent.</param>
+        /// <returns>The server's response.</returns>
         public static String SendGet(Uri uri)
         {
             HttpWebRequest httpRequest = (HttpWebRequest) System.Net.WebRequest.Create(uri);
@@ -252,6 +287,11 @@ namespace com.strava.api.Http
             return String.Empty;
         }
 
+        /// <summary>
+        /// Sends a PUT request to the server.
+        /// </summary>
+        /// <param name="uri">The Uri where the request will be sent.</param>
+        /// <returns>The server's response.</returns>
         public static String SendPut(Uri uri)
         {
             HttpWebRequest httpRequest = (HttpWebRequest)System.Net.WebRequest.Create(uri);
