@@ -15,6 +15,9 @@ namespace com.strava.api.Api
         /// Url to the Activity endpoint used for other athletes than the currently authenticated one.
         /// </summary>
         public const String Activities = "https://www.strava.com/api/v3/athlete/activities";
+        /// <summary>
+        /// Url to the Followers endpoint.
+        /// </summary>
         public const String ActivitiesFollowers = "https://www.strava.com/api/v3/activities/following";
         /// <summary>
         /// Url to the Athlete endpoint used for the currently authenticated athlete.

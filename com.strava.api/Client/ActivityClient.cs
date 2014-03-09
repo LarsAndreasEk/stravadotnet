@@ -413,6 +413,11 @@ namespace com.strava.api.Client
             return activities;
         }
 
+        /// <summary>
+        /// Gets the latest activities of the currently authenticated athletes friends.
+        /// </summary>
+        /// <param name="count">Specifies how many activities should be loaded.</param>
+        /// <returns>A list of activities from your friends.</returns>
         public List<ActivitySummary> GetFriendsActivities(int count)
         {
             List<ActivitySummary> activities = new List<ActivitySummary>();
@@ -444,6 +449,10 @@ namespace com.strava.api.Client
             return activities;
         }
 
+        /// <summary>
+        /// Gets the total activity count of the currently authenticated athlete.
+        /// </summary>
+        /// <returns></returns>
         public int GetTotalActivityCount()
         {
             return GetAllActivities().Count;

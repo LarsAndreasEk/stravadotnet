@@ -3,6 +3,9 @@ using Newtonsoft.Json;
 
 namespace com.strava.api.Athletes
 {
+    /// <summary>
+    /// Athletes are Strava users, Strava users are athletes. This is a less detailed version of an athlete.
+    /// </summary>
     public class AthleteSummary : AthleteMeta
     {
         /// <summary>
