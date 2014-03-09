@@ -86,7 +86,6 @@
     <Compile Include="Clubs\ClubSummary.cs" />
     <Compile Include="Clubs\ClubType.cs" />
     <Compile Include="Clubs\SportType.cs" />
-    <Compile Include="Common\Marshaller.cs" />
     <Compile Include="Common\Unmarshaller.cs" />
     <Compile Include="Gear\BikeType.cs" />
     <Compile Include="Gear\Gear.cs" />

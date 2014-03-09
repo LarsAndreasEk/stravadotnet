@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using com.strava.api.Athletes;
+﻿using System.Collections.Generic;
 using com.strava.api.Gear;
 using com.strava.api.Segments;
 using Newtonsoft.Json;
 
 namespace com.strava.api.Activities
 {
+    /// <summary>
+    /// Represents a Strava activity.
+    /// </summary>
     public class Activity : ActivitySummary
     {
         /// <summary>

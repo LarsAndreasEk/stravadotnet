@@ -7,8 +7,16 @@ using System.Threading.Tasks;
 
 namespace com.strava.api.Http
 {
+    /// <summary>
+    /// This class can be used to download a picture.
+    /// </summary>
     public class ImageLoader
     {
+        /// <summary>
+        /// DOwnloads a picture from the specified url.
+        /// </summary>
+        /// <param name="uri">The url of the image.</param>
+        /// <returns>The downloaded image.</returns>
         public async static Task<Image> LoadImage(Uri uri)
         {
             if (uri == null)

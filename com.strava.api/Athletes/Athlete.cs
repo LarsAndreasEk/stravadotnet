@@ -5,6 +5,9 @@ using Newtonsoft.Json;
 
 namespace com.strava.api.Athletes
 {
+    /// <summary>
+    /// Represents a Strava athlete.
+    /// </summary>
     public class Athlete : AthleteSummary
     {
         /// <summary>

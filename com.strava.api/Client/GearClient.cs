@@ -7,8 +7,15 @@ using com.strava.api.Http;
 
 namespace com.strava.api.Client
 {
+    /// <summary>
+    /// Used to receive information about gear.
+    /// </summary>
     public class GearClient : BaseClient
     {
+        /// <summary>
+        /// Initializes a new instance of the GearClient class.
+        /// </summary>
+        /// <param name="auth"></param>
         public GearClient(IAuthentication auth) : base(auth) { }
 
         #region Async

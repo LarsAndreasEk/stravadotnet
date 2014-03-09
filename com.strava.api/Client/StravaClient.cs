@@ -1248,6 +1248,10 @@ namespace com.strava.api.Client
 
         #endregion
 
+        /// <summary>
+        /// Returns the framework version of the StravaClient.
+        /// </summary>
+        /// <returns>The version number of the StravaClient.</returns>
         public override string ToString()
         {
             return String.Format("StravaClient Version {0}", Assembly.GetExecutingAssembly().GetName().Version);

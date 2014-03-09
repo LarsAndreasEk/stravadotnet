@@ -9,8 +9,15 @@ using com.strava.api.Http;
 
 namespace com.strava.api.Client
 {
+    /// <summary>
+    /// Used to receive information about an athlete from Strava.
+    /// </summary>
     public class AthleteClient : BaseClient
     {
+        /// <summary>
+        /// Initializes a new instance of the AthleteClient class.
+        /// </summary>
+        /// <param name="auth">The IAuthentication object containing a valid access token.</param>
         public AthleteClient(IAuthentication auth) : base(auth) { }
 
         #region Async

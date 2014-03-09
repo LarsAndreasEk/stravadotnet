@@ -5,8 +5,14 @@ using Newtonsoft.Json;
 
 namespace com.strava.api.Segments
 {
+    /// <summary>
+    /// Represents a Strava segment effort.
+    /// </summary>
     public class SegmentEffort
     {
+        /// <summary>
+        /// The segment effort's id.
+        /// </summary>
         [JsonProperty("id")]
         public long Id { get; set; }
 
