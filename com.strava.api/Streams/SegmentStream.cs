@@ -4,10 +4,18 @@ using Newtonsoft.Json;
 
 namespace com.strava.api.Streams
 {
+    /// <summary>
+    /// Represents a Strava segment stream.
+    /// </summary>
     public class SegmentStream
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [JsonProperty("type")]
         private String Type { get; set; }
+
+
         public StreamType StreamType
         {
             get

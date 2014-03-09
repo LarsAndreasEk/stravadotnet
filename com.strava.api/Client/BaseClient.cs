@@ -8,6 +8,9 @@ namespace com.strava.api.Client
     /// </summary>
     public class BaseClient
     {
+        /// <summary>
+        /// IAuthentication object used for authentication.
+        /// </summary>
         protected IAuthentication Authentication;
 
         /// <summary>

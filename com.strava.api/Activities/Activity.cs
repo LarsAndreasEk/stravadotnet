@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace com.strava.api.Activities
 {
     /// <summary>
-    /// Represents a Strava activity.
+    /// Activities are the base object for Strava runs, rides, swims etc.
     /// </summary>
     public class Activity : ActivitySummary
     {
