@@ -54,10 +54,49 @@ namespace com.strava.api.Client
         /// Gets the full and unfiltered leaderboard of a Strava segment asynchronously.
         /// </summary>
         /// <param name="segmentId">The Strava segment Id.</param>
-        /// <returns>The full and unfiltered leaderboard.</returns>
+        /// <returns>The full and unfiltered leaderboard></returns>
         public async Task<Leaderboard> GetFullSegmentLeaderboardAsync(String segmentId)
         {
-            String getUrl = String.Format("{0}/{1}/leaderboard?filter=overall&access_token={2}", Endpoints.Leaderboard, segmentId, Authentication.AccessToken);
+            int page = 1;
+
+            //Create one dummy request to get the number of entries.
+            Leaderboard request = await GetLeaderboardAsync(segmentId, 1, 1);
+            int totalAthletes = request.EntryCount;
+
+            Leaderboard leaderboard = new Leaderboard
+            {
+                EffortCount = request.EffortCount,
+                EntryCount = request.EntryCount
+            };
+
+            while ((page - 1) * 200 < totalAthletes)
+            {
+                Leaderboard l = await GetLeaderboardAsync(segmentId, page++, 200);
+                
+                foreach (LeaderboardEntry entry in l.Entries)
+                {
+                    leaderboard.Entries.Add(entry);
+                }
+            }
+
+            return leaderboard;
+        }
+
+        /// <summary>
+        /// Gets the leaderboard of a Strava segment.
+        /// </summary>
+        /// <param name="segmentId">The Strava segment id.</param>
+        /// <param name="page">The page.</param>
+        /// <param name="perPage">Defines how many entries will be loaded per page.</param>
+        /// <returns>The segment leaderboard</returns>
+        public async Task<Leaderboard> GetLeaderboardAsync(String segmentId, int page, int perPage)
+        {
+            String getUrl = String.Format("{0}/{1}/leaderboard?filter=overall&page={2}&per_page={3}&access_token={4}", 
+                Endpoints.Leaderboard, 
+                segmentId,
+                page,
+                perPage,
+                Authentication.AccessToken);
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
             return Unmarshaller<Leaderboard>.Unmarshal(json);
@@ -214,7 +253,46 @@ namespace com.strava.api.Client
         /// <returns>The full and unfiltered leaderboard.</returns>
         public Leaderboard GetFullSegmentLeaderboard(String segmentId)
         {
-            String getUrl = String.Format("{0}/{1}/leaderboard?filter=overall&access_token={2}", Endpoints.Leaderboard, segmentId, Authentication.AccessToken);
+            int page = 1;
+
+            //Create one dummy request to get the number of entries.
+            Leaderboard request = GetLeaderboard(segmentId, 1, 1);
+            int totalAthletes = request.EntryCount;
+
+            Leaderboard leaderboard = new Leaderboard
+            {
+                EffortCount = request.EffortCount,
+                EntryCount = request.EntryCount
+            };
+
+            while ((page - 1) * 200 < totalAthletes)
+            {
+                Leaderboard l = GetLeaderboard(segmentId, page++, 200);
+
+                foreach (LeaderboardEntry entry in l.Entries)
+                {
+                    leaderboard.Entries.Add(entry);
+                }
+            }
+
+            return leaderboard;
+        }
+
+        /// <summary>
+        /// Gets the leaderboard of a Strava segment.
+        /// </summary>
+        /// <param name="segmentId">The Strava segment id.</param>
+        /// <param name="page">The page.</param>
+        /// <param name="perPage">Defines how many entries will be loaded per page.</param>
+        /// <returns>The segment leaderboard</returns>
+        public Leaderboard GetLeaderboard(String segmentId, int page, int perPage)
+        {
+            String getUrl = String.Format("{0}/{1}/leaderboard?filter=overall&page={2}&per_page={3}&access_token={4}",
+                Endpoints.Leaderboard,
+                segmentId,
+                page,
+                perPage,
+                Authentication.AccessToken);
             String json = WebRequest.SendGet(new Uri(getUrl));
 
             return Unmarshaller<Leaderboard>.Unmarshal(json);

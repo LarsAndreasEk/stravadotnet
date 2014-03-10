@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using com.strava.api.Common;
 using Newtonsoft.Json;
 
 namespace com.strava.api.Activities
@@ -25,5 +27,13 @@ namespace com.strava.api.Activities
         /// </summary>
         [JsonProperty("entries")]
         public List<LeaderboardEntry> Entries { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the Leaderboard class.
+        /// </summary>
+        public Leaderboard()
+        {
+            Entries = new List<LeaderboardEntry>();
+        }
     }
 }

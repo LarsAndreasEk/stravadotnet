@@ -91,5 +91,27 @@ namespace com.strava.api.Activities
         /// </summary>
         [JsonProperty("athlete_profile")]
         public String AthleteProfile { get; set; }
+
+        /// <summary>
+        /// Returns the total seconds in a more convenient TimeSpan object.
+        /// </summary>
+        public TimeSpan Time
+        {
+            get
+            {
+                return TimeSpan.FromSeconds(ElapsedTime);
+            }
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0}:\t{1}:{2}:{3}\t{4}",
+                Rank,
+                Time.Hours.ToString("D2"),
+                Time.Minutes.ToString("D2"),
+                Time.Seconds.ToString("D2"),
+                AthleteName
+                );
+        }
     }
 }
