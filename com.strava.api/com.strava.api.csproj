@@ -104,6 +104,7 @@
     <Compile Include="Streams\ActivityStream.cs" />
     <Compile Include="Streams\SegmentStream.cs" />
     <Compile Include="Streams\SegmentStreamType.cs" />
+    <Compile Include="Streams\StreamResolution.cs" />
     <Compile Include="Streams\StreamType.cs" />
     <Compile Include="Utilities\DateConverter.cs" />
   </ItemGroup>

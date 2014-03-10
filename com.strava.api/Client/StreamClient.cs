@@ -30,8 +30,9 @@ namespace com.strava.api.Client
         /// </summary>
         /// <param name="activityId">The Strava activity id.</param>
         /// <param name="typeFlags">Specifies the type of stream.</param>
+        /// <param name="resolution">Specifies the resolution of the stream.</param>
         /// <returns>The stream data.</returns>
-        public async Task<List<ActivityStream>> GetActivityStreamAsync(String activityId, StreamType typeFlags)
+        public async Task<List<ActivityStream>> GetActivityStreamAsync(String activityId, StreamType typeFlags, StreamResolution resolution = StreamResolution.All)
         {
             StringBuilder types = new StringBuilder();
 
@@ -46,10 +47,17 @@ namespace com.strava.api.Client
 
             types.Remove(types.ToString().Length - 1, 1);
 
-            String getUrl = String.Format("{0}/{1}/streams/{2}?access_token={3}", Endpoints.Activity, activityId, types, Authentication.AccessToken);
+            String getUrl = String.Format("{0}/{1}/streams/{2}?{3}&access_token={4}",
+                Endpoints.Activity,
+                activityId,
+                types,
+                resolution != StreamResolution.All ? "resolution=" + resolution.ToString().ToLower() : "",
+                Authentication.AccessToken
+                );
+
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
-            return Unmarshaller<List<Streams.ActivityStream>>.Unmarshal(json);
+            return Unmarshaller<List<ActivityStream>>.Unmarshal(json);
         }
 
         /// <summary>
@@ -57,8 +65,9 @@ namespace com.strava.api.Client
         /// </summary>
         /// <param name="segmentId">The Strava segment id.</param>
         /// <param name="typeFlags">Specifies the type of stream.</param>
+        /// <param name="resolution">Specifies the resolution of the stream.</param>
         /// <returns>The stream data.</returns>
-        public async Task<List<SegmentStream>> GetSegmentStreamAsync(String segmentId, SegmentStreamType typeFlags)
+        public async Task<List<SegmentStream>> GetSegmentStreamAsync(String segmentId, SegmentStreamType typeFlags, StreamResolution resolution = StreamResolution.All)
         {
             // Only distance, altitude and latlng stream types are available.
 
@@ -75,7 +84,14 @@ namespace com.strava.api.Client
 
             types.Remove(types.ToString().Length - 1, 1);
 
-            String getUrl = String.Format("{0}/{1}/streams/{2}?access_token={3}", Endpoints.Leaderboard, segmentId, types, Authentication.AccessToken);
+            String getUrl = String.Format("{0}/{1}/streams/{2}?{3}&access_token={4}",
+                Endpoints.Leaderboard,
+                segmentId,
+                types,
+                resolution != StreamResolution.All ? "resolution=" + resolution.ToString().ToLower() : "",
+                Authentication.AccessToken
+                );
+
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
             return Unmarshaller<List<SegmentStream>>.Unmarshal(json);
@@ -90,8 +106,9 @@ namespace com.strava.api.Client
         /// </summary>
         /// <param name="activityId">The Strava activity id.</param>
         /// <param name="typeFlags">Specifies the type of stream.</param>
+        /// <param name="resolution">Specifies the resolution of the stream.</param>
         /// <returns>The stream data.</returns>
-        public List<ActivityStream> GetActivityStream(String activityId, StreamType typeFlags)
+        public List<ActivityStream> GetActivityStream(String activityId, StreamType typeFlags, StreamResolution resolution = StreamResolution.All)
         {
             StringBuilder types = new StringBuilder();
 
@@ -106,7 +123,14 @@ namespace com.strava.api.Client
 
             types.Remove(types.ToString().Length - 1, 1);
 
-            String getUrl = String.Format("{0}/{1}/streams/{2}?access_token={3}", Endpoints.Activity, activityId, types, Authentication.AccessToken);
+            String getUrl = String.Format("{0}/{1}/streams/{2}?{3}&access_token={4}",
+                Endpoints.Activity,
+                activityId,
+                types,
+                resolution != StreamResolution.All ? "resolution=" + resolution.ToString().ToLower() : "",
+                Authentication.AccessToken
+                );
+
             String json = WebRequest.SendGet(new Uri(getUrl));
 
             return Unmarshaller<List<ActivityStream>>.Unmarshal(json);
@@ -117,8 +141,9 @@ namespace com.strava.api.Client
         /// </summary>
         /// <param name="segmentId">The Strava segment id.</param>
         /// <param name="typeFlags">Specifies the type of stream.</param>
+        /// <param name="resolution">Specifies the resolution of the stream.</param>
         /// <returns>The stream data.</returns>
-        public List<SegmentStream> GetSegmentStream(String segmentId, SegmentStreamType typeFlags)
+        public List<SegmentStream> GetSegmentStream(String segmentId, SegmentStreamType typeFlags, StreamResolution resolution = StreamResolution.All)
         {
             // Only distance, altitude and latlng stream types are available.
 
@@ -135,7 +160,14 @@ namespace com.strava.api.Client
 
             types.Remove(types.ToString().Length - 1, 1);
 
-            String getUrl = String.Format("{0}/{1}/streams/{2}?access_token={3}", Endpoints.Leaderboard, segmentId, types, Authentication.AccessToken);
+            String getUrl = String.Format("{0}/{1}/streams/{2}?{3}&access_token={4}",
+                Endpoints.Leaderboard,
+                segmentId,
+                types,
+                resolution != StreamResolution.All ? "resolution=" + resolution.ToString().ToLower() : "",
+                Authentication.AccessToken
+                );
+
             String json = WebRequest.SendGet(new Uri(getUrl));
 
             return Unmarshaller<List<SegmentStream>>.Unmarshal(json);
