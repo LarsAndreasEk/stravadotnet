@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using com.strava.api.Activities;
 using com.strava.api.Api;
@@ -388,6 +386,76 @@ namespace com.strava.api.Client
             return Unmarshaller<Activity>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Gets the currently authenticated athletes progress for the current week.
+        /// </summary>
+        /// <returns>The weekly progress.</returns>
+        public async Task<WeeklyProgress> GetWeeklyProgressAsync()
+        {
+            WeeklyProgress progress = new WeeklyProgress();
+            DateTime now = DateTime.Now;
+            int days = 0;
+
+            // What day is it today?
+            switch (now.DayOfWeek)
+            {
+                case DayOfWeek.Monday:
+                    days = 1;
+                    break;
+                case DayOfWeek.Tuesday:
+                    days = 2;
+                    break;
+                case DayOfWeek.Wednesday:
+                    days = 3;
+                    break;
+                case DayOfWeek.Thursday:
+                    days = 4;
+                    break;
+                case DayOfWeek.Friday:
+                    days = 5;
+                    break;
+                case DayOfWeek.Saturday:
+                    days = 6;
+                    break;
+                case DayOfWeek.Sunday:
+                    days = 7;
+                    break;
+            }
+
+            // Calculate the date
+            DateTime date = DateTime.Now - new TimeSpan(days, 0, 0, 0);
+
+            List<ActivitySummary> activities = await GetActivitiesAfterAsync(date);
+
+            float rideDistance = 0F;
+            float runDistance = 0f;
+            
+            foreach (ActivitySummary activity in activities)
+            {
+                if (activity.Type.Equals("Ride"))
+                {
+                    progress.AddRide(activity);
+                    rideDistance += activity.Distance;
+                }
+                else if (activity.Type.Equals("Run"))
+                {
+                    progress.AddRun(activity);
+                    runDistance += activity.Distance;
+                }
+                else
+                {
+                    progress.AddActivity(activity);
+                }
+
+                progress.AddTime(TimeSpan.FromSeconds(activity.MovingTime));
+            }
+
+            progress.RideDistance = rideDistance;
+            progress.RunDistance = runDistance;
+
+            return progress;
+        }
+
         #endregion
 
         #region Sync
@@ -731,6 +799,76 @@ namespace com.strava.api.Client
             String json = WebRequest.SendPut(new Uri(putUrl));
 
             return Unmarshaller<Activity>.Unmarshal(json);
+        }
+
+        /// <summary>
+        /// Gets the currently authenticated athletes progress for the current week.
+        /// </summary>
+        /// <returns>The weekly progress.</returns>
+        public WeeklyProgress GetWeeklyProgress()
+        {
+            WeeklyProgress progress = new WeeklyProgress();
+            DateTime now = DateTime.Now;
+            int days = 0;
+
+            // What day is it today?
+            switch (now.DayOfWeek)
+            {
+                case DayOfWeek.Monday:
+                    days = 1;
+                    break;
+                case DayOfWeek.Tuesday:
+                    days = 2;
+                    break;
+                case DayOfWeek.Wednesday:
+                    days = 3;
+                    break;
+                case DayOfWeek.Thursday:
+                    days = 4;
+                    break;
+                case DayOfWeek.Friday:
+                    days = 5;
+                    break;
+                case DayOfWeek.Saturday:
+                    days = 6;
+                    break;
+                case DayOfWeek.Sunday:
+                    days = 7;
+                    break;
+            }
+
+            // Calculate the date
+            DateTime date = DateTime.Now - new TimeSpan(days, 0, 0, 0);
+
+            List<ActivitySummary> activities = GetActivitiesAfter(date);
+
+            float rideDistance = 0F;
+            float runDistance = 0f;
+
+            foreach (ActivitySummary activity in activities)
+            {
+                if (activity.Type.Equals("Ride"))
+                {
+                    progress.AddRide(activity);
+                    rideDistance += activity.Distance;
+                }
+                else if (activity.Type.Equals("Run"))
+                {
+                    progress.AddRun(activity);
+                    runDistance += activity.Distance;
+                }
+                else
+                {
+                    progress.AddActivity(activity);
+                }
+
+                progress.AddTime(TimeSpan.FromSeconds(activity.MovingTime));
+            }
+
+            progress.RideDistance = rideDistance;
+            progress.RunDistance = runDistance;
+
+            return progress;
         }
 
         #endregion

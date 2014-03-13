@@ -57,6 +57,7 @@
     <Compile Include="Activities\Map.cs" />
     <Compile Include="Activities\Photo.cs" />
     <Compile Include="Activities\ResourceState.cs" />
+    <Compile Include="Activities\WeeklyProgress.cs" />
     <Compile Include="Activities\WeightClass.cs" />
     <Compile Include="Api\Endpoints.cs" />
     <Compile Include="Api\Limit.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Common\Coordinate.cs" />
     <Compile Include="Common\PolylineDecoder.cs" />
     <Compile Include="Common\Unmarshaller.cs" />
+    <Compile Include="Common\Version.cs" />
     <Compile Include="Gear\BikeType.cs" />
     <Compile Include="Gear\Gear.cs" />
     <Compile Include="Gear\GearSummary.cs" />
