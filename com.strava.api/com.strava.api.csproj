@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Activities\Activity.cs" />
     <Compile Include="Activities\ActivityMeta.cs" />
+    <Compile Include="Activities\ActivityParameter.cs" />
     <Compile Include="Activities\ActivityReceivedEventArgs.cs" />
     <Compile Include="Activities\ActivitySummary.cs" />
     <Compile Include="Activities\ActivityType.cs" />
@@ -87,6 +88,8 @@
     <Compile Include="Clubs\ClubSummary.cs" />
     <Compile Include="Clubs\ClubType.cs" />
     <Compile Include="Clubs\SportType.cs" />
+    <Compile Include="Common\Coordinate.cs" />
+    <Compile Include="Common\PolylineDecoder.cs" />
     <Compile Include="Common\Unmarshaller.cs" />
     <Compile Include="Gear\BikeType.cs" />
     <Compile Include="Gear\Gear.cs" />

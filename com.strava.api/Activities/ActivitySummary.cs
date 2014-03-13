@@ -24,6 +24,12 @@ namespace com.strava.api.Activities
         public String ExternalId { get; set; }
 
         /// <summary>
+        /// The type of the activity.
+        /// </summary>
+        [JsonProperty("type")]
+        public String Type { get; set; }
+
+        /// <summary>
         /// The distance travelled.
         /// </summary>
         [JsonProperty("distance")]

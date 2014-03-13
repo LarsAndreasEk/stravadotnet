@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using com.strava.api.Activities;
 using com.strava.api.Api;
@@ -322,6 +324,70 @@ namespace com.strava.api.Client
             return activities.Count;
         }
 
+        /// <summary>
+        /// Updates an activity. Requires write permissions.
+        /// </summary>
+        /// <param name="activityId">The Strava id of the activity that will be updated.</param>
+        /// <param name="parameter">The parameter that will be updated.</param>
+        /// <param name="value">The value the parameter is updated to.</param>
+        /// <returns>A detailed representation of the updated activity.</returns>
+        public async Task<Activity> UpdateActivityAsync(String activityId, ActivityParameter parameter, String value)
+        {
+            String param = String.Empty;
+
+            switch (parameter)
+            {
+                case ActivityParameter.Commute:
+                    param = "name";
+                    break;
+                case ActivityParameter.Description:
+                    param = "description";
+                    break;
+                case ActivityParameter.GearId:
+                    param = "gear_id";
+                    break;
+                case ActivityParameter.Name:
+                    param = "name";
+                    break;
+                case ActivityParameter.Private:
+                    param = "private";
+                    break;
+                case ActivityParameter.Trainer:
+                    param = "trainer";
+                    break;
+            }
+
+            String putUrl = String.Format("{0}/{1}?{2}={3}&access_token={4}",
+                Endpoints.Activity,
+                activityId,
+                param,
+                value,
+                Authentication.AccessToken);
+
+            String json = await WebRequest.SendPutAsync(new Uri(putUrl));
+
+            return Unmarshaller<Activity>.Unmarshal(json);
+        }
+
+        /// <summary>
+        /// Updates the type of an activity. Requires write permissions.
+        /// </summary>
+        /// <param name="activityId">The Strava id of the activity.</param>
+        /// <param name="type">The type you want to change the activity to.</param>
+        /// <returns>A detailed object of the activity that was updated. Remember that the changed type won't be updated immediately.</returns>
+        public async Task<Activity> UpdateActivityTypeAsync(String activityId, ActivityType type)
+        {
+            String putUrl = String.Format("{0}/{1}?type={2}&access_token={3}",
+                Endpoints.Activity,
+                activityId,
+                type,
+                Authentication.AccessToken);
+
+            String json = await WebRequest.SendPutAsync(new Uri(putUrl));
+
+            return Unmarshaller<Activity>.Unmarshal(json);
+        }
+
         #endregion
 
         #region Sync
@@ -601,6 +667,70 @@ namespace com.strava.api.Client
         public int GetTotalActivityCount()
         {
             return GetAllActivities().Count;
+        }
+
+        /// <summary>
+        /// Updates the type of an activity. Requires write permissions.
+        /// </summary>
+        /// <param name="activityId">The Strava id of the activity.</param>
+        /// <param name="type">The type you want to change the activity to.</param>
+        /// <returns>A detailed object of the activity that was updated. Remember that the changed type won't be updated immediately.</returns>
+        public Activity UpdateActivityType(String activityId, ActivityType type)
+        {
+            String putUrl = String.Format("{0}/{1}?type={2}&access_token={3}",
+                Endpoints.Activity,
+                activityId,
+                type,
+                Authentication.AccessToken);
+
+            String json = WebRequest.SendPut(new Uri(putUrl));
+
+            return Unmarshaller<Activity>.Unmarshal(json);
+        }
+
+        /// <summary>
+        /// Updates an activity. Requires write permissions.
+        /// </summary>
+        /// <param name="activityId">The Strava id of the activity that will be updated.</param>
+        /// <param name="parameter">The parameter that will be updated.</param>
+        /// <param name="value">The value the parameter is updated to.</param>
+        /// <returns>A detailed representation of the updated activity.</returns>
+        public Activity UpdateActivity(String activityId, ActivityParameter parameter, String value)
+        {
+            String param = String.Empty;
+
+            switch (parameter)
+            {
+                case ActivityParameter.Commute:
+                    param = "name";
+                    break;
+                case ActivityParameter.Description:
+                    param = "description";
+                    break;
+                case ActivityParameter.GearId:
+                    param = "gear_id";
+                    break;
+                case ActivityParameter.Name:
+                    param = "name";
+                    break;
+                case ActivityParameter.Private:
+                    param = "private";
+                    break;
+                case ActivityParameter.Trainer:
+                    param = "trainer";
+                    break;
+            }
+
+            String putUrl = String.Format("{0}/{1}?{2}={3}&access_token={4}",
+                Endpoints.Activity,
+                activityId,
+                param,
+                value,
+                Authentication.AccessToken);
+
+            String json = WebRequest.SendPut(new Uri(putUrl));
+
+            return Unmarshaller<Activity>.Unmarshal(json);
         }
 
         #endregion

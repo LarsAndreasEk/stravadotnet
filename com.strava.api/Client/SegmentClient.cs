@@ -217,6 +217,34 @@ namespace com.strava.api.Client
             return Unmarshaller<Leaderboard>.Unmarshal(json);
         }
 
+        /// <summary>
+        /// Gets the number of entries of a segment.
+        /// </summary>
+        /// <param name="segmentId">The Strava segment id.</param>
+        /// <returns>The total number of entries of the specified Strava segment.</returns>
+        public async Task<int> GetSegmentEntryCountAsync(String segmentId)
+        {
+            String getUrl = String.Format("{0}/{1}/leaderboard?filter=overall&access_token={2}", Endpoints.Leaderboard, segmentId, Authentication.AccessToken);
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+            Leaderboard leaderboard = Unmarshaller<Leaderboard>.Unmarshal(json);
+
+            return leaderboard.EntryCount;
+        }
+
+        /// <summary>
+        /// Gets the number of efforts of a segment.
+        /// </summary>
+        /// <param name="segmentId">The Strava segment id.</param>
+        /// <returns>The total number of efforts of the specified Strava segment.</returns>
+        public async Task<int> GetSegmentEffortCountAsync(String segmentId)
+        {
+            String getUrl = String.Format("{0}/{1}/leaderboard?filter=overall&access_token={2}", Endpoints.Leaderboard, segmentId, Authentication.AccessToken);
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+            Leaderboard leaderboard = Unmarshaller<Leaderboard>.Unmarshal(json);
+
+            return leaderboard.EffortCount;
+        }
+
         #endregion
 
         #region Sync
@@ -411,6 +439,34 @@ namespace com.strava.api.Client
             String json = WebRequest.SendGet(new Uri(getUrl));
 
             return Unmarshaller<Leaderboard>.Unmarshal(json);
+        }
+
+        /// <summary>
+        /// Gets the number of entries of a segment.
+        /// </summary>
+        /// <param name="segmentId">The Strava segment id.</param>
+        /// <returns>The total number of entries of the specified Strava segment.</returns>
+        public int GetSegmentEntryCount(String segmentId)
+        {
+            String getUrl = String.Format("{0}/{1}/leaderboard?filter=overall&access_token={2}", Endpoints.Leaderboard, segmentId, Authentication.AccessToken);
+            String json = WebRequest.SendGet(new Uri(getUrl));
+            Leaderboard leaderboard = Unmarshaller<Leaderboard>.Unmarshal(json);
+
+            return leaderboard.EntryCount;
+        }
+
+        /// <summary>
+        /// Gets the number of efforts of a segment.
+        /// </summary>
+        /// <param name="segmentId">The Strava segment id.</param>
+        /// <returns>The total number of efforts of the specified Strava segment.</returns>
+        public int GetSegmentEffortCount(String segmentId)
+        {
+            String getUrl = String.Format("{0}/{1}/leaderboard?filter=overall&access_token={2}", Endpoints.Leaderboard, segmentId, Authentication.AccessToken);
+            String json = WebRequest.SendGet(new Uri(getUrl));
+            Leaderboard leaderboard = Unmarshaller<Leaderboard>.Unmarshal(json);
+
+            return leaderboard.EffortCount;
         }
         
         #endregion
