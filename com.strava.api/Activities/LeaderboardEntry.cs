@@ -103,6 +103,10 @@ namespace com.strava.api.Activities
             }
         }
 
+        /// <summary>
+        /// Returns the information about the entry as a string.
+        /// </summary>
+        /// <returns>Entry as string.</returns>
         public override string ToString()
         {
             return String.Format("{0}:\t{1}:{2}:{3}\t{4}",

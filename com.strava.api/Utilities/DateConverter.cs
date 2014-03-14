@@ -17,5 +17,25 @@ namespace com.strava.api.Utilities
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             return Convert.ToInt64((date.ToUniversalTime() - epoch).TotalSeconds);
         }
+
+        /// <summary>
+        /// Converts an ISO 8601 time string to a DateTime object.
+        /// </summary>
+        /// <param name="isoDate">The ISO 8601 string.</param>
+        /// <returns>The DateTime object</returns>
+        public static DateTime ConvertIsoTimeToDateTime(String isoDate)
+        {
+            try
+            {
+                DateTime time = DateTime.Parse(isoDate);
+                return time;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error converting time: {0}", ex.Message);
+            }
+
+            return new DateTime();
+        }
     }
 }

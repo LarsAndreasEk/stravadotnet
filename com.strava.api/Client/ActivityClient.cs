@@ -456,6 +456,63 @@ namespace com.strava.api.Client
             return progress;
         }
 
+        /// <summary>
+        /// Gets all the activities recorded in a specified period of time.
+        /// </summary>
+        /// <param name="after">Date after the activity was recorded.</param>
+        /// <param name="before">Date before the activity was recorded.</param>
+        /// <returns>A list of activities that was recorded between 'after' and 'before'.</returns>
+        public async Task<List<ActivitySummary>> GetActivitiesAsync(DateTime after, DateTime before)
+        {
+            List<ActivitySummary> activities = new List<ActivitySummary>();
+            int page = 1;
+            bool hasEntries = true;
+
+            while (hasEntries)
+            {
+                List<ActivitySummary> request = await GetActivitiesAsync(after, before, page++, 10);
+
+                if (request.Count == 0)
+                {
+                    hasEntries = false;
+                }
+
+                foreach (ActivitySummary activity in request)
+                {
+                    activities.Add(activity);
+
+                    if (ActivityReceived != null)
+                    {
+                        ActivityReceived(null, new ActivityReceivedEventArgs(activity));
+                    }
+                }
+            }
+
+            return activities;
+        }
+
+        /// <summary>
+        /// Gets all the activities recorded in a specified period of time.
+        /// </summary>
+        /// <param name="after">Date after the activity was recorded.</param>
+        /// <param name="before">Date before the activity was recorded.</param>
+        /// <param name="page">Page of activities. Default value is 30.</param>
+        /// <param name="perPage">Number of activities per page.</param>
+        /// <returns>A list of activities that was recorded between 'after' and 'before'.</returns>
+        public async Task<List<ActivitySummary>> GetActivitiesAsync(DateTime after, DateTime before, int page, int perPage)
+        {
+            String getUrl = String.Format("{0}?after={1}&before={2}&page={3}&per_page={4}&access_token={5}",
+                Endpoints.Activities,
+                DateConverter.GetSecondsSinceUnixEpoch(after),
+                DateConverter.GetSecondsSinceUnixEpoch(before),
+                page,
+                perPage,
+                Authentication.AccessToken);
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+        }
+
         #endregion
 
         #region Sync
@@ -640,6 +697,63 @@ namespace com.strava.api.Client
         public List<ActivitySummary> GetActivities(int page, int perPage)
         {
             String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.Activities, page, perPage, Authentication.AccessToken);
+            String json = WebRequest.SendGet(new Uri(getUrl));
+
+            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+        }
+
+        /// <summary>
+        /// Gets all the activities recorded in a specified period of time.
+        /// </summary>
+        /// <param name="after">Date after the activity was recorded.</param>
+        /// <param name="before">Date before the activity was recorded.</param>
+        /// <returns>A list of activities that was recorded between 'after' and 'before'.</returns>
+        public List<ActivitySummary> GetActivities(DateTime after, DateTime before)
+        {
+            List<ActivitySummary> activities = new List<ActivitySummary>();
+            int page = 1;
+            bool hasEntries = true;
+
+            while (hasEntries)
+            {
+                List<ActivitySummary> request = GetActivities(after, before, page++, 10);
+
+                if (request.Count == 0)
+                {
+                    hasEntries = false;
+                }
+
+                foreach (ActivitySummary activity in request)
+                {
+                    activities.Add(activity);
+
+                    if (ActivityReceived != null)
+                    {
+                        ActivityReceived(null, new ActivityReceivedEventArgs(activity));
+                    }
+                }
+            }
+
+            return activities;
+        }
+
+        /// <summary>
+        /// Gets all the activities recorded in a specified period of time.
+        /// </summary>
+        /// <param name="after">Date after the activity was recorded.</param>
+        /// <param name="before">Date before the activity was recorded.</param>
+        /// <param name="page">Page of activities. Default value is 30.</param>
+        /// <param name="perPage">Number of activities per page.</param>
+        /// <returns>A list of activities that was recorded between 'after' and 'before'.</returns>
+        public List<ActivitySummary> GetActivities(DateTime after, DateTime before, int page, int perPage)
+        {
+            String getUrl = String.Format("{0}?after={1}&before={2}&page={3}&per_page={4}&access_token={5}",
+                Endpoints.Activities,
+                DateConverter.GetSecondsSinceUnixEpoch(after),
+                DateConverter.GetSecondsSinceUnixEpoch(before),
+                page,
+                perPage,
+                Authentication.AccessToken);
             String json = WebRequest.SendGet(new Uri(getUrl));
 
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
