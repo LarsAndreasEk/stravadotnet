@@ -21,5 +21,11 @@ namespace com.strava.api.Activities
         /// </summary>
         [JsonProperty("gear")]
         public GearSummary Gear { get; set; }
+
+        /// <summary>
+        /// the burned kilocalories.
+        /// </summary>
+        [JsonProperty("calories")]
+        public float Calories { get; set; }
     }
 }

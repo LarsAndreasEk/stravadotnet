@@ -94,8 +94,9 @@
     <Compile Include="Common\Unmarshaller.cs" />
     <Compile Include="Common\Version.cs" />
     <Compile Include="Gear\BikeType.cs" />
-    <Compile Include="Gear\Gear.cs" />
+    <Compile Include="Gear\Bike.cs" />
     <Compile Include="Gear\GearSummary.cs" />
+    <Compile Include="Gear\Shoes.cs" />
     <Compile Include="Http\ImageLoader.cs" />
     <Compile Include="Http\AsyncResponseReceivedEventArgs.cs" />
     <Compile Include="Http\ResponseReceivedEventArgs.cs" />

@@ -54,12 +54,6 @@ namespace com.strava.api.Activities
         public float ElevationGain { get; set; }
 
         /// <summary>
-        /// the burned kilocalories.
-        /// </summary>
-        [JsonProperty("calories")]
-        public float Calories { get; set; }
-
-        /// <summary>
         /// True if the currently authenticated athlete has kudoed this activity.
         /// </summary>
         [JsonProperty("has_kudoed")]

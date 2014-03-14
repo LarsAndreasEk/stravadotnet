@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using com.strava.api.Clubs;
+using com.strava.api.Gear;
 using Newtonsoft.Json;
 
 namespace com.strava.api.Athletes
@@ -56,7 +57,13 @@ namespace com.strava.api.Athletes
         /// A list of the athlete's bikes.
         /// </summary>
         [JsonProperty("bikes")]
-        public List<Gear.Gear> Bikes { get; set; }
+        public List<Bike> Bikes { get; set; }
+
+        /// <summary>
+        /// A list of the athlete's shoes.
+        /// </summary>
+        [JsonProperty("shoes")]
+        public List<Shoes> Shoes { get; set; }
 
         /// <summary>
         /// A list of the athlete's clubs.

@@ -35,7 +35,7 @@ namespace com.strava.api.Gear
         /// <summary>
         /// Resource state / level of details.
         /// </summary>
-        [JsonProperty("rsource_state")]
+        [JsonProperty("resource_state")]
         public int ResourceState { get; set; }
     }
 }

@@ -6,32 +6,8 @@ namespace com.strava.api.Gear
     /// <summary>
     /// This class represents gear.
     /// </summary>
-    public class Gear
+    public class Bike : GearSummary
     {
-        /// <summary>
-        /// Id of the gear item.
-        /// </summary>
-        [JsonProperty("id")]
-        public String Id { get; set; }
-
-        /// <summary>
-        /// Is the gear the athlete's primary gear?
-        /// </summary>
-        [JsonProperty("primary")]
-        public bool IsPrimary { get; set; }
-
-        /// <summary>
-        /// The gear's name.
-        /// </summary>
-        [JsonProperty("name")]
-        public String Name { get; set; }
-
-        /// <summary>
-        /// The gear's distance.
-        /// </summary>
-        [JsonProperty("distance")]
-        public float Distance { get; set; }
-
         /// <summary>
         /// The gear's brand name.
         /// </summary>
@@ -48,7 +24,7 @@ namespace com.strava.api.Gear
         /// The type of bike.
         /// </summary>
         [JsonProperty("frame_type")] 
-        private string _frameType;
+        private string _frameType = String.Empty;
 
         /// <summary>
         /// The type of bike.
@@ -83,11 +59,5 @@ namespace com.strava.api.Gear
         /// </summary>
         [JsonProperty("description")]
         public String Description { get; set; }
-
-        /// <summary>
-        /// The gear's resource state.
-        /// </summary>
-        [JsonProperty("resource_state")]
-        public int ResourceState { get; set; }
     }
 }

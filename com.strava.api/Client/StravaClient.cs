@@ -635,12 +635,12 @@ namespace com.strava.api.Client
         #region Gear
 
         [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
-        public async Task<Gear.Gear> GetGearAsync(String gearId)
+        public async Task<Gear.Bike> GetGearAsync(String gearId)
         {
             String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Gear, gearId, _authenticator.AccessToken);
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
-            return Unmarshaller<Gear.Gear>.Unmarshal(json);
+            return Unmarshaller<Gear.Bike>.Unmarshal(json);
         }
 
         #endregion
@@ -1203,12 +1203,12 @@ namespace com.strava.api.Client
         #region Gear
 
         [Obsolete("This method is out of date. Please use the StravaClient Client objects. This method will be removed in a future release.")]
-        public Gear.Gear GetGear(String gearId)
+        public Gear.Bike GetGear(String gearId)
         {
             String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Gear, gearId, _authenticator.AccessToken);
             String json = WebRequest.SendGet(new Uri(getUrl));
 
-            return Unmarshaller<Gear.Gear>.Unmarshal(json);
+            return Unmarshaller<Gear.Bike>.Unmarshal(json);
         }
 
         #endregion

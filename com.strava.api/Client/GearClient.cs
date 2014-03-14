@@ -25,12 +25,12 @@ namespace com.strava.api.Client
         /// </summary>
         /// <param name="gearId">The Strava id of the gear.</param>
         /// <returns>The gear object.</returns>
-        public async Task<Gear.Gear> GetGearAsync(String gearId)
+        public async Task<Gear.Bike> GetGearAsync(String gearId)
         {
             String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Gear, gearId, Authentication.AccessToken);
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
-            return Unmarshaller<Gear.Gear>.Unmarshal(json);
+            return Unmarshaller<Gear.Bike>.Unmarshal(json);
         }
 
         #endregion
@@ -42,12 +42,12 @@ namespace com.strava.api.Client
         /// </summary>
         /// <param name="gearId">The Strava id of the gear.</param>
         /// <returns>The gear object.</returns>
-        public Gear.Gear GetGear(String gearId)
+        public Gear.Bike GetGear(String gearId)
         {
             String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Gear, gearId, Authentication.AccessToken);
             String json = WebRequest.SendGet(new Uri(getUrl));
 
-            return Unmarshaller<Gear.Gear>.Unmarshal(json);
+            return Unmarshaller<Gear.Bike>.Unmarshal(json);
         }
 
         #endregion
