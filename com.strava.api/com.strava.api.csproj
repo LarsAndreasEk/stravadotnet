@@ -57,8 +57,8 @@
     <Compile Include="Activities\Map.cs" />
     <Compile Include="Activities\Photo.cs" />
     <Compile Include="Activities\ResourceState.cs" />
-    <Compile Include="Activities\WeeklyProgress.cs" />
     <Compile Include="Activities\WeightClass.cs" />
+    <Compile Include="Activities\Summary.cs" />
     <Compile Include="Api\Endpoints.cs" />
     <Compile Include="Api\Limit.cs" />
     <Compile Include="Api\Limits.cs" />

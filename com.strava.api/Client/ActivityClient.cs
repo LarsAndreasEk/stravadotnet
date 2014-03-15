@@ -390,9 +390,9 @@ namespace com.strava.api.Client
         /// Gets the currently authenticated athletes progress for the current week.
         /// </summary>
         /// <returns>The weekly progress.</returns>
-        public async Task<WeeklyProgress> GetWeeklyProgressAsync()
+        public async Task<Summary> GetWeeklyProgressAsync()
         {
-            WeeklyProgress progress = new WeeklyProgress();
+            Summary progress = new Summary();
             DateTime now = DateTime.Now;
             int days = 0;
 
@@ -424,6 +424,8 @@ namespace com.strava.api.Client
 
             // Calculate the date
             DateTime date = DateTime.Now - new TimeSpan(days, 0, 0, 0);
+            progress.Start = date;
+            progress.End = now;
 
             List<ActivitySummary> activities = await GetActivitiesAfterAsync(date);
 
@@ -511,6 +513,85 @@ namespace com.strava.api.Client
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
             return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+        }
+
+        /// <summary>
+        /// Gets the summary of a certain date range.
+        /// </summary>
+        /// <param name="start">The start date.</param>
+        /// <param name="end">The end date.</param>
+        /// <returns>A summary of the date range.</returns>
+        public async Task<Summary> GetSummaryAsync(DateTime start, DateTime end)
+        {
+            Summary summary = new Summary
+            {
+                Start = start,
+                End = end
+            };
+
+            int page = 1;
+            bool hasEntries = true;
+            float rideDistance = 0F;
+            float runDistance = 0F;
+
+            while (hasEntries)
+            {
+                List<ActivitySummary> request = await GetActivitiesAsync(start, end, page++, 200);
+
+                if (request.Count == 0)
+                {
+                    hasEntries = false;
+                }
+
+                foreach (ActivitySummary activity in request)
+                {
+                    if (activity.Type.Equals("Ride"))
+                    {
+                        summary.AddRide(activity);
+                        rideDistance += activity.Distance;
+                    }
+                    else if (activity.Type.Equals("Run"))
+                    {
+                        summary.AddRun(activity);
+                        runDistance += activity.Distance;
+                    }
+                    else
+                    {
+                        summary.AddActivity(activity);
+                    }
+
+                    summary.AddTime(TimeSpan.FromSeconds(activity.MovingTime));
+
+                    if (ActivityReceived != null)
+                    {
+                        ActivityReceived(null, new ActivityReceivedEventArgs(activity));
+                    }
+                }
+            }
+
+            summary.RideDistance = rideDistance;
+            summary.RunDistance = runDistance;
+
+            return summary;
+        }
+
+        /// <summary>
+        /// Get the summary of the last year.
+        /// </summary>
+        /// <returns>A summary of the last year.</returns>
+        public async Task<Summary> GetSummaryLastYearAsync()
+        {
+            return await GetSummaryAsync(new DateTime(DateTime.Now.Year - 1, 1, 1),
+                new DateTime(DateTime.Now.Year - 1, 12, 31, 23, 59, 59, DateTimeKind.Local));
+        }
+
+        /// <summary>
+        /// Get the summary of this year.
+        /// </summary>
+        /// <returns>A summary of this year.</returns>
+        public async Task<Summary> GetSummaryThisYearAsync()
+        {
+            return await GetSummaryAsync(new DateTime(DateTime.Now.Year, 1, 1), DateTime.Now);
         }
 
         #endregion
@@ -919,9 +1000,10 @@ namespace com.strava.api.Client
         /// Gets the currently authenticated athletes progress for the current week.
         /// </summary>
         /// <returns>The weekly progress.</returns>
-        public WeeklyProgress GetWeeklyProgress()
+        public Summary GetWeeklyProgress()
         {
-            WeeklyProgress progress = new WeeklyProgress();
+            Summary progress = new Summary();
+
             DateTime now = DateTime.Now;
             int days = 0;
 
@@ -953,6 +1035,8 @@ namespace com.strava.api.Client
 
             // Calculate the date
             DateTime date = DateTime.Now - new TimeSpan(days, 0, 0, 0);
+            progress.Start = date;
+            progress.End = now;
 
             List<ActivitySummary> activities = GetActivitiesAfter(date);
 
@@ -977,12 +1061,96 @@ namespace com.strava.api.Client
                 }
 
                 progress.AddTime(TimeSpan.FromSeconds(activity.MovingTime));
+
+                if (ActivityReceived != null)
+                {
+                    ActivityReceived(null, new ActivityReceivedEventArgs(activity));
+                }
             }
 
             progress.RideDistance = rideDistance;
             progress.RunDistance = runDistance;
 
             return progress;
+        }
+
+        /// <summary>
+        /// Gets the summary of a certain date range.
+        /// </summary>
+        /// <param name="start">The start date.</param>
+        /// <param name="end">The end date.</param>
+        /// <returns>A summary of the date range.</returns>
+        public Summary GetSummary(DateTime start, DateTime end)
+        {
+            Summary summary = new Summary
+            {
+                Start = start,
+                End = end
+            };
+
+            int page = 1;
+            bool hasEntries = true;
+            float rideDistance = 0F;
+            float runDistance = 0F;
+
+            while (hasEntries)
+            {
+                List<ActivitySummary> request = GetActivities(start, end, page++, 200);
+
+                if (request.Count == 0)
+                {
+                    hasEntries = false;
+                }
+
+                foreach (ActivitySummary activity in request)
+                {
+                    if (activity.Type.Equals("Ride"))
+                    {
+                        summary.AddRide(activity);
+                        rideDistance += activity.Distance;
+                    }
+                    else if (activity.Type.Equals("Run"))
+                    {
+                        summary.AddRun(activity);
+                        runDistance += activity.Distance;
+                    }
+                    else
+                    {
+                        summary.AddActivity(activity);
+                    }
+
+                    summary.AddTime(TimeSpan.FromSeconds(activity.MovingTime));
+
+                    if (ActivityReceived != null)
+                    {
+                        ActivityReceived(null, new ActivityReceivedEventArgs(activity));
+                    }
+                }
+            }
+
+            summary.RideDistance = rideDistance;
+            summary.RunDistance = runDistance;
+
+            return summary;
+        }
+
+        /// <summary>
+        /// Get the summary of the last year.
+        /// </summary>
+        /// <returns>A summary of the last year.</returns>
+        public Summary GetSummaryLastYear()
+        {
+            return GetSummary(new DateTime(DateTime.Now.Year - 1, 1, 1),
+                new DateTime(DateTime.Now.Year - 1, 12, 31, 23, 59, 59, DateTimeKind.Local));
+        }
+
+        /// <summary>
+        /// Get the summary of this year.
+        /// </summary>
+        /// <returns>A summary of this year.</returns>
+        public Summary GetSummaryThisYear()
+        {
+            return GetSummary(new DateTime(DateTime.Now.Year, 1, 1), DateTime.Now);
         }
 
         #endregion

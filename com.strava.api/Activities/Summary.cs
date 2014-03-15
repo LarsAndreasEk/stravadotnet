@@ -4,14 +4,35 @@ using System.Collections.Generic;
 namespace com.strava.api.Activities
 {
     /// <summary>
-    /// This class represents the athletes weekly progress.
+    /// This class represents a summary.
     /// </summary>
-    public class WeeklyProgress
+    public class Summary
     {
         /// <summary>
         /// The distance the athlete has ridden this week.
         /// </summary>
         public float RideDistance { get; set; }
+
+        /// <summary>
+        /// The start of the summary.
+        /// </summary>
+        public DateTime Start { get; set; }
+
+        /// <summary>
+        /// The end of the summary.
+        /// </summary>
+        public DateTime End { get; set; }
+
+        /// <summary>
+        /// The duration of the summary.
+        /// </summary>
+        public TimeSpan Duration
+        {
+            get
+            {
+                return End - Start;
+            }
+        }
 
         /// <summary>
         /// The distance the athlete has run this week.
@@ -52,7 +73,7 @@ namespace com.strava.api.Activities
         /// <summary>
         /// Initializes a new instance of the WeeklyProgress class.
         /// </summary>
-        public WeeklyProgress()
+        public Summary()
         {
             Rides = new List<ActivitySummary>();
             Runs = new List<ActivitySummary>();
