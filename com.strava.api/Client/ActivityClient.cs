@@ -39,12 +39,12 @@ namespace com.strava.api.Client
         /// <param name="id">The Strava activity id.</param>
         /// <param name="includeEfforts">Used to include all segment efforts in the result.</param>
         /// <returns>The activity with the specified id.</returns>
-        public async Task<Activity> GetActivityAsync(String id, bool includeEfforts)
+        public async Task<ActivitySummary> GetActivityAsync(String id, bool includeEfforts)
         {
             String getUrl = String.Format("{0}/{1}?include_all_efforts={2}&access_token={3}", Endpoints.Activity, id, includeEfforts, Authentication.AccessToken);
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
-            return Unmarshaller<Activity>.Unmarshal(json);
+            return Unmarshaller<ActivitySummary>.Unmarshal(json);
         }
 
         /// <summary>
@@ -52,22 +52,22 @@ namespace com.strava.api.Client
         /// </summary>
         /// <param name="before">The date.</param>
         /// <returns>A list of activities recorded before the specified date.</returns>
-        public async Task<List<ActivitySummary>> GetActivitiesBeforeAsync(DateTime before)
+        public async Task<List<Activity>> GetActivitiesBeforeAsync(DateTime before)
         {
-            List<ActivitySummary> activities = new List<ActivitySummary>();
+            List<Activity> activities = new List<Activity>();
             int page = 1;
             bool hasEntries = true;
 
             while (hasEntries)
             {
-                List<ActivitySummary> request = await GetActivitiesBeforeAsync(before, page++, 200);
+                List<Activity> request = await GetActivitiesBeforeAsync(before, page++, 200);
 
                 if (request.Count == 0)
                 {
                     hasEntries = false;
                 }
 
-                foreach (ActivitySummary activity in request)
+                foreach (Activity activity in request)
                 {
                     activities.Add(activity);
 
@@ -88,7 +88,7 @@ namespace com.strava.api.Client
         /// <param name="page">The page of the list of activities.</param>
         /// <param name="perPage">The amount of activities per page.</param>
         /// <returns>A list of activities recorded before the specified date.</returns>
-        public async Task<List<ActivitySummary>> GetActivitiesBeforeAsync(DateTime before, int page, int perPage)
+        public async Task<List<Activity>> GetActivitiesBeforeAsync(DateTime before, int page, int perPage)
         {
             //Calculate the UNIX epoch
             long secondsBefore = DateConverter.GetSecondsSinceUnixEpoch(before);
@@ -103,7 +103,7 @@ namespace com.strava.api.Client
 
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
-            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+            return Unmarshaller<List<Activity>>.Unmarshal(json);
         }
 
         /// <summary>
@@ -111,22 +111,22 @@ namespace com.strava.api.Client
         /// </summary>
         /// <param name="after">The date.</param>
         /// <returns>A list of activities recorded after the specified date.</returns>
-        public async Task<List<ActivitySummary>> GetActivitiesAfterAsync(DateTime after)
+        public async Task<List<Activity>> GetActivitiesAfterAsync(DateTime after)
         {
-            List<ActivitySummary> activities = new List<ActivitySummary>();
+            List<Activity> activities = new List<Activity>();
             int page = 1;
             bool hasEntries = true;
 
             while (hasEntries)
             {
-                List<ActivitySummary> request = await GetActivitiesAfterAsync(after, page++, 200);
+                List<Activity> request = await GetActivitiesAfterAsync(after, page++, 200);
 
                 if (request.Count == 0)
                 {
                     hasEntries = false;
                 }
 
-                foreach (ActivitySummary activity in request)
+                foreach (Activity activity in request)
                 {
                     activities.Add(activity);
 
@@ -147,7 +147,7 @@ namespace com.strava.api.Client
         /// <param name="page">The page of the list of activities.</param>
         /// <param name="perPage">The amount of activities per page.</param>
         /// <returns>A list of activities recorded after the specified date.</returns>
-        public async Task<List<ActivitySummary>> GetActivitiesAfterAsync(DateTime after, int page, int perPage)
+        public async Task<List<Activity>> GetActivitiesAfterAsync(DateTime after, int page, int perPage)
         {
             //Calculate the UNIX epoch
             long secondsAfter = DateConverter.GetSecondsSinceUnixEpoch(after);
@@ -162,7 +162,7 @@ namespace com.strava.api.Client
 
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
-            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+            return Unmarshaller<List<Activity>>.Unmarshal(json);
         }
 
         /// <summary>
@@ -221,12 +221,12 @@ namespace com.strava.api.Client
         /// <param name="page">The page of activities.</param>
         /// <param name="perPage">The amount of activities that are loaded per page.</param>
         /// <returns>A list of activities.</returns>
-        public async Task<List<ActivitySummary>> GetActivitiesAsync(int page, int perPage)
+        public async Task<List<Activity>> GetActivitiesAsync(int page, int perPage)
         {
             String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.Activities, page, perPage, Authentication.AccessToken);
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
-            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+            return Unmarshaller<List<Activity>>.Unmarshal(json);
         }
 
         /// <summary>
@@ -235,12 +235,12 @@ namespace com.strava.api.Client
         /// <param name="page">The page of activities.</param>
         /// <param name="perPage">The amount of activities per page.</param>
         /// <returns>A list of activities from your followers.</returns>
-        public async Task<List<ActivitySummary>> GetFollowersActivitiesAsync(int page, int perPage)
+        public async Task<List<Activity>> GetFollowersActivitiesAsync(int page, int perPage)
         {
             String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.ActivitiesFollowers, page, perPage, Authentication.AccessToken);
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
-            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+            return Unmarshaller<List<Activity>>.Unmarshal(json);
         }
 
         /// <summary>
@@ -248,22 +248,22 @@ namespace com.strava.api.Client
         /// </summary>
         /// <param name="count">Specifies how many activities should be loaded.</param>
         /// <returns>A list of activities from your friends.</returns>
-        public async Task<List<ActivitySummary>> GetFriendsActivitiesAsync(int count)
+        public async Task<List<Activity>> GetFriendsActivitiesAsync(int count)
         {
-            List<ActivitySummary> activities = new List<ActivitySummary>();
+            List<Activity> activities = new List<Activity>();
             int page = 1;
             bool hasEntries = true;
 
             while (hasEntries)
             {
-                List<ActivitySummary> request = await GetFollowersActivitiesAsync(page++, 20);
+                List<Activity> request = await GetFollowersActivitiesAsync(page++, 20);
 
                 if (request.Count == 0)
                 {
                     hasEntries = false;
                 }
 
-                foreach (ActivitySummary activity in request)
+                foreach (Activity activity in request)
                 {
                     if (activities.Count < count)
                     {
@@ -283,22 +283,22 @@ namespace com.strava.api.Client
         /// Retrieves all the currently authenticated athletes' activities asynchronously.
         /// </summary>
         /// <returns>All the activities of the currently authenticated athlete.</returns>
-        public async Task<List<ActivitySummary>> GetAllActivitiesAsync()
+        public async Task<List<Activity>> GetAllActivitiesAsync()
         {
-            List<ActivitySummary> activities = new List<ActivitySummary>();
+            List<Activity> activities = new List<Activity>();
             int page = 1;
             bool hasEntries = true;
 
             while (hasEntries)
             {
-                List<ActivitySummary> request = await GetActivitiesAsync(page++, 200);
+                List<Activity> request = await GetActivitiesAsync(page++, 200);
 
                 if (request.Count == 0)
                 {
                     hasEntries = false;
                 }
 
-                foreach (ActivitySummary activity in request)
+                foreach (Activity activity in request)
                 {
                     activities.Add(activity);
 
@@ -318,7 +318,7 @@ namespace com.strava.api.Client
         /// <returns>The total number of activities.</returns>
         public async Task<int> GetTotalActivityCountAsync()
         {
-            List<ActivitySummary> activities = await GetAllActivitiesAsync();
+            List<Activity> activities = await GetAllActivitiesAsync();
             return activities.Count;
         }
 
@@ -427,7 +427,7 @@ namespace com.strava.api.Client
             progress.Start = date;
             progress.End = now;
 
-            List<ActivitySummary> activities = await GetActivitiesAfterAsync(date);
+            List<Activity> activities = await GetActivitiesAfterAsync(date);
 
             float rideDistance = 0F;
             float runDistance = 0f;
@@ -464,22 +464,22 @@ namespace com.strava.api.Client
         /// <param name="after">Date after the activity was recorded.</param>
         /// <param name="before">Date before the activity was recorded.</param>
         /// <returns>A list of activities that was recorded between 'after' and 'before'.</returns>
-        public async Task<List<ActivitySummary>> GetActivitiesAsync(DateTime after, DateTime before)
+        public async Task<List<Activity>> GetActivitiesAsync(DateTime after, DateTime before)
         {
-            List<ActivitySummary> activities = new List<ActivitySummary>();
+            List<Activity> activities = new List<Activity>();
             int page = 1;
             bool hasEntries = true;
 
             while (hasEntries)
             {
-                List<ActivitySummary> request = await GetActivitiesAsync(after, before, page++, 10);
+                List<Activity> request = await GetActivitiesAsync(after, before, page++, 10);
 
                 if (request.Count == 0)
                 {
                     hasEntries = false;
                 }
 
-                foreach (ActivitySummary activity in request)
+                foreach (Activity activity in request)
                 {
                     activities.Add(activity);
 
@@ -501,7 +501,7 @@ namespace com.strava.api.Client
         /// <param name="page">Page of activities. Default value is 30.</param>
         /// <param name="perPage">Number of activities per page.</param>
         /// <returns>A list of activities that was recorded between 'after' and 'before'.</returns>
-        public async Task<List<ActivitySummary>> GetActivitiesAsync(DateTime after, DateTime before, int page, int perPage)
+        public async Task<List<Activity>> GetActivitiesAsync(DateTime after, DateTime before, int page, int perPage)
         {
             String getUrl = String.Format("{0}?after={1}&before={2}&page={3}&per_page={4}&access_token={5}",
                 Endpoints.Activities,
@@ -512,7 +512,7 @@ namespace com.strava.api.Client
                 Authentication.AccessToken);
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
-            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+            return Unmarshaller<List<Activity>>.Unmarshal(json);
         }
 
         /// <summary>
@@ -536,14 +536,14 @@ namespace com.strava.api.Client
 
             while (hasEntries)
             {
-                List<ActivitySummary> request = await GetActivitiesAsync(start, end, page++, 200);
+                List<Activity> request = await GetActivitiesAsync(start, end, page++, 200);
 
                 if (request.Count == 0)
                 {
                     hasEntries = false;
                 }
 
-                foreach (ActivitySummary activity in request)
+                foreach (Activity activity in request)
                 {
                     if (activity.Type.Equals("Ride"))
                     {
@@ -617,22 +617,22 @@ namespace com.strava.api.Client
         /// </summary>
         /// <param name="before">The date.</param>
         /// <returns>A list of activities recorded before the specified date.</returns>
-        public List<ActivitySummary> GetActivitiesBefore(DateTime before)
+        public List<Activity> GetActivitiesBefore(DateTime before)
         {
-            List<ActivitySummary> activities = new List<ActivitySummary>();
+            List<Activity> activities = new List<Activity>();
             int page = 1;
             bool hasEntries = true;
 
             while (hasEntries)
             {
-                List<ActivitySummary> request = GetActivitiesBefore(before, page++, 200);
+                List<Activity> request = GetActivitiesBefore(before, page++, 200);
 
                 if (request.Count == 0)
                 {
                     hasEntries = false;
                 }
 
-                foreach (ActivitySummary activity in request)
+                foreach (Activity activity in request)
                 {
                     activities.Add(activity);
 
@@ -653,7 +653,7 @@ namespace com.strava.api.Client
         /// <param name="page">The page of the list of activities.</param>
         /// <param name="perPage">The amount of activities per page.</param>
         /// <returns>A list of activities recorded before the specified date.</returns>
-        public List<ActivitySummary> GetActivitiesBefore(DateTime before, int page, int perPage)
+        public List<Activity> GetActivitiesBefore(DateTime before, int page, int perPage)
         {
             //Calculate the UNIX epoch
             long secondsBefore = DateConverter.GetSecondsSinceUnixEpoch(before);
@@ -668,7 +668,7 @@ namespace com.strava.api.Client
 
             String json = WebRequest.SendGet(new Uri(getUrl));
 
-            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+            return Unmarshaller<List<Activity>>.Unmarshal(json);
         }
 
         /// <summary>
@@ -676,22 +676,22 @@ namespace com.strava.api.Client
         /// </summary>
         /// <param name="after">The date.</param>
         /// <returns>A list of activities recorded after the specified date.</returns>
-        public List<ActivitySummary> GetActivitiesAfter(DateTime after)
+        public List<Activity> GetActivitiesAfter(DateTime after)
         {
-            List<ActivitySummary> activities = new List<ActivitySummary>();
+            List<Activity> activities = new List<Activity>();
             int page = 1;
             bool hasEntries = true;
 
             while (hasEntries)
             {
-                List<ActivitySummary> request = GetActivitiesAfter(after, page++, 200);
+                List<Activity> request = GetActivitiesAfter(after, page++, 200);
 
                 if (request.Count == 0)
                 {
                     hasEntries = false;
                 }
 
-                foreach (ActivitySummary activity in request)
+                foreach (Activity activity in request)
                 {
                     activities.Add(activity);
 
@@ -712,7 +712,7 @@ namespace com.strava.api.Client
         /// <param name="page">The page of the list of activities.</param>
         /// <param name="perPage">The amount of activities per page.</param>
         /// <returns>A list of activities recorded after the specified date.</returns>
-        public List<ActivitySummary> GetActivitiesAfter(DateTime after, int page, int perPage)
+        public List<Activity> GetActivitiesAfter(DateTime after, int page, int perPage)
         {
             //Calculate the UNIX epoch
             long secondsAfter = DateConverter.GetSecondsSinceUnixEpoch(after);
@@ -727,7 +727,7 @@ namespace com.strava.api.Client
 
             String json = WebRequest.SendGet(new Uri(getUrl));
 
-            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+            return Unmarshaller<List<Activity>>.Unmarshal(json);
         }
 
         /// <summary>
@@ -775,12 +775,12 @@ namespace com.strava.api.Client
         /// <param name="page">The page of activities.</param>
         /// <param name="perPage">The amount of activities that are loaded per page.</param>
         /// <returns>A list of activities.</returns>
-        public List<ActivitySummary> GetActivities(int page, int perPage)
+        public List<Activity> GetActivities(int page, int perPage)
         {
             String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.Activities, page, perPage, Authentication.AccessToken);
             String json = WebRequest.SendGet(new Uri(getUrl));
 
-            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+            return Unmarshaller<List<Activity>>.Unmarshal(json);
         }
 
         /// <summary>
@@ -789,22 +789,22 @@ namespace com.strava.api.Client
         /// <param name="after">Date after the activity was recorded.</param>
         /// <param name="before">Date before the activity was recorded.</param>
         /// <returns>A list of activities that was recorded between 'after' and 'before'.</returns>
-        public List<ActivitySummary> GetActivities(DateTime after, DateTime before)
+        public List<Activity> GetActivities(DateTime after, DateTime before)
         {
-            List<ActivitySummary> activities = new List<ActivitySummary>();
+            List<Activity> activities = new List<Activity>();
             int page = 1;
             bool hasEntries = true;
 
             while (hasEntries)
             {
-                List<ActivitySummary> request = GetActivities(after, before, page++, 10);
+                List<Activity> request = GetActivities(after, before, page++, 10);
 
                 if (request.Count == 0)
                 {
                     hasEntries = false;
                 }
 
-                foreach (ActivitySummary activity in request)
+                foreach (Activity activity in request)
                 {
                     activities.Add(activity);
 
@@ -826,7 +826,7 @@ namespace com.strava.api.Client
         /// <param name="page">Page of activities. Default value is 30.</param>
         /// <param name="perPage">Number of activities per page.</param>
         /// <returns>A list of activities that was recorded between 'after' and 'before'.</returns>
-        public List<ActivitySummary> GetActivities(DateTime after, DateTime before, int page, int perPage)
+        public List<Activity> GetActivities(DateTime after, DateTime before, int page, int perPage)
         {
             String getUrl = String.Format("{0}?after={1}&before={2}&page={3}&per_page={4}&access_token={5}",
                 Endpoints.Activities,
@@ -837,7 +837,7 @@ namespace com.strava.api.Client
                 Authentication.AccessToken);
             String json = WebRequest.SendGet(new Uri(getUrl));
 
-            return Unmarshaller<List<ActivitySummary>>.Unmarshal(json);
+            return Unmarshaller<List<Activity>>.Unmarshal(json);
         }
 
         /// <summary>
@@ -858,22 +858,22 @@ namespace com.strava.api.Client
         /// Retrieves all the currently authenticated athletes' activities.
         /// </summary>
         /// <returns>All the activities of the currently authenticated athlete.</returns>
-        public List<ActivitySummary> GetAllActivities()
+        public List<Activity> GetAllActivities()
         {
-            List<ActivitySummary> activities = new List<ActivitySummary>();
+            List<Activity> activities = new List<Activity>();
             int page = 1;
             bool hasEntries = true;
 
             while (hasEntries)
             {
-                List<ActivitySummary> request = GetActivities(page++, 200);
+                List<Activity> request = GetActivities(page++, 200);
 
                 if (request.Count == 0)
                 {
                     hasEntries = false;
                 }
 
-                foreach (ActivitySummary activity in request)
+                foreach (Activity activity in request)
                 {
                     activities.Add(activity);
 
@@ -1038,7 +1038,7 @@ namespace com.strava.api.Client
             progress.Start = date;
             progress.End = now;
 
-            List<ActivitySummary> activities = GetActivitiesAfter(date);
+            List<Activity> activities = GetActivitiesAfter(date);
 
             float rideDistance = 0F;
             float runDistance = 0f;
@@ -1095,7 +1095,7 @@ namespace com.strava.api.Client
 
             while (hasEntries)
             {
-                List<ActivitySummary> request = GetActivities(start, end, page++, 200);
+                List<Activity> request = GetActivities(start, end, page++, 200);
 
                 if (request.Count == 0)
                 {
