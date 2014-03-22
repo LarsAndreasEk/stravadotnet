@@ -59,5 +59,9 @@ namespace com.strava.api.Api
         /// Url to the endpoint used for receiving starred segments.
         /// </summary>
         public const String Starred = "https://www.strava.com/api/v3/segments/starred";
+        /// <summary>
+        /// Url to the endpoint used for uploads.
+        /// </summary>
+        public const String Uploads = "https://www.strava.com/api/v3/uploads/";
     }
 }

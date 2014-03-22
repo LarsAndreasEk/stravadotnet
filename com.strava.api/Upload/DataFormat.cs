@@ -1,4 +1,4 @@
-﻿namespace com.strava.api.IO
+﻿namespace com.strava.api.Upload
 {
     /// <summary>
     /// Use this enum to specify the data format.

@@ -41,7 +41,7 @@ namespace com.strava.api.Client
         /// <returns>The AthleteSummary object of the athlete.</returns>
         public async Task<AthleteSummary> GetAthleteAsync(String athleteId)
         {
-            String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Athlete, athleteId, Authentication.AccessToken);
+            String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Athletes, athleteId, Authentication.AccessToken);
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
             return Unmarshaller<AthleteSummary>.Unmarshal(json);

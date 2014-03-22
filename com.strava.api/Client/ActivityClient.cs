@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using com.strava.api.Activities;
 using com.strava.api.Api;
 using com.strava.api.Athletes;
 using com.strava.api.Authentication;
 using com.strava.api.Common;
-using com.strava.api.Http;
+using com.strava.api.Upload;
 using com.strava.api.Utilities;
+using Newtonsoft.Json.Serialization;
+using WebRequest = com.strava.api.Http.WebRequest;
 
 namespace com.strava.api.Client
 {
@@ -39,12 +46,12 @@ namespace com.strava.api.Client
         /// <param name="id">The Strava activity id.</param>
         /// <param name="includeEfforts">Used to include all segment efforts in the result.</param>
         /// <returns>The activity with the specified id.</returns>
-        public async Task<ActivitySummary> GetActivityAsync(String id, bool includeEfforts)
+        public async Task<Activity> GetActivityAsync(String id, bool includeEfforts)
         {
             String getUrl = String.Format("{0}/{1}?include_all_efforts={2}&access_token={3}", Endpoints.Activity, id, includeEfforts, Authentication.AccessToken);
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
 
-            return Unmarshaller<ActivitySummary>.Unmarshal(json);
+            return Unmarshaller<Activity>.Unmarshal(json);
         }
 
         /// <summary>
@@ -225,7 +232,7 @@ namespace com.strava.api.Client
         {
             String getUrl = String.Format("{0}?page={1}&per_page={2}&access_token={3}", Endpoints.Activities, page, perPage, Authentication.AccessToken);
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
-
+            Console.WriteLine(getUrl);
             return Unmarshaller<List<Activity>>.Unmarshal(json);
         }
 
@@ -592,6 +599,72 @@ namespace com.strava.api.Client
         public async Task<Summary> GetSummaryThisYearAsync()
         {
             return await GetSummaryAsync(new DateTime(DateTime.Now.Year, 1, 1), DateTime.Now);
+        }
+
+        /// <summary>
+        /// Uploads an activity.
+        /// </summary>
+        /// <param name="filePath">The path to the activity file on your local hard disk.</param>
+        /// <param name="dataFormat">The format of the file.</param>
+        /// <param name="activityType">The type of the activity.</param>
+        /// <returns>The status of the upload.</returns>
+        public async Task<UploadStatus> UploadActivityAsync(String filePath, DataFormat dataFormat, ActivityType activityType = ActivityType.Ride)
+        {
+            String format = String.Empty;
+
+            switch (dataFormat)
+            {
+                case DataFormat.Fit:
+                    format = "fit";
+                    break;
+                case DataFormat.FitGZipped:
+                    format = "fit.gz";
+                    break;
+                case DataFormat.Gpx:
+                    format = "gpx";
+                    break;
+                case DataFormat.GpxGZipped:
+                    format = "gpx.gz";
+                    break;
+                case DataFormat.Tcx:
+                    format = "tcx";
+                    break;
+                case DataFormat.TcxGZipped:
+                    format = "tcx.gz";
+                    break;
+            }
+
+            FileInfo info = new FileInfo(filePath);
+
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Authorization", String.Format("Bearer {0}", Authentication.AccessToken));
+            
+            MultipartFormDataContent content = new MultipartFormDataContent();
+            
+            content.Add(new ByteArrayContent(File.ReadAllBytes(info.FullName)), "file", info.Name);
+
+            HttpResponseMessage result = await client.PostAsync(
+                String.Format("https://www.strava.com/api/v3/uploads?data_type={0}&activity_type={1}", 
+                format,
+                activityType.ToString().ToLower()),
+                content);
+
+            String json = await result.Content.ReadAsStringAsync();
+
+            return Unmarshaller<UploadStatus>.Unmarshal(json);
+        }
+
+        /// <summary>
+        /// Checks the status of an upload.
+        /// </summary>
+        /// <param name="uploadId">The id of the upload.</param>
+        /// <returns>The status of the upload.</returns>
+        public async Task<UploadStatus> CheckUploadStatusAsync(String uploadId)
+        {
+            String checkUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Uploads, uploadId, Authentication.AccessToken);
+            String json = await WebRequest.SendGetAsync(new Uri(checkUrl));
+
+            return Unmarshaller<UploadStatus>.Unmarshal(json);
         }
 
         #endregion
@@ -1151,6 +1224,19 @@ namespace com.strava.api.Client
         public Summary GetSummaryThisYear()
         {
             return GetSummary(new DateTime(DateTime.Now.Year, 1, 1), DateTime.Now);
+        }
+        
+        /// <summary>
+        /// Checks the status of an upload.
+        /// </summary>
+        /// <param name="uploadId">The id of the upload.</param>
+        /// <returns>The status of the upload.</returns>
+        public UploadStatus CheckUploadStatus(String uploadId)
+        {
+            String checkUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Uploads, uploadId, Authentication.AccessToken);
+            String json = WebRequest.SendGet(new Uri(checkUrl));
+
+            return Unmarshaller<UploadStatus>.Unmarshal(json);
         }
 
         #endregion

@@ -1,4 +1,4 @@
-﻿namespace com.strava.api.IO
+﻿namespace com.strava.api.Upload
 {
     /// <summary>
     /// This enum is used to specify the file extension when uploading a file to Strava.
