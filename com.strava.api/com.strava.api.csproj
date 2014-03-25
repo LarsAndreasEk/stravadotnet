@@ -89,6 +89,7 @@
     <Compile Include="Client\SegmentClient.cs" />
     <Compile Include="Client\StravaClient.cs" />
     <Compile Include="Client\StreamClient.cs" />
+    <Compile Include="Client\UploadClient.cs" />
     <Compile Include="Clubs\Club.cs" />
     <Compile Include="Clubs\ClubSummary.cs" />
     <Compile Include="Clubs\ClubType.cs" />
@@ -105,6 +106,8 @@
     <Compile Include="Http\AsyncResponseReceivedEventArgs.cs" />
     <Compile Include="Http\ResponseReceivedEventArgs.cs" />
     <Compile Include="Http\WebRequest.cs" />
+    <Compile Include="Upload\CheckStatus.cs" />
+    <Compile Include="Upload\CurrentUploadStatus.cs" />
     <Compile Include="Upload\DataFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Segments\SegmentEffort.cs" />
@@ -117,6 +120,8 @@
     <Compile Include="Streams\StreamType.cs" />
     <Compile Include="Upload\FileExtension.cs" />
     <Compile Include="Upload\UploadStatus.cs" />
+    <Compile Include="Upload\UploadStatusCheck.cs" />
+    <Compile Include="Upload\UploadStatusCheckedEventArgs.cs" />
     <Compile Include="Utilities\DateConverter.cs" />
   </ItemGroup>
   <ItemGroup>

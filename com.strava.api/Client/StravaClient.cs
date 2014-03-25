@@ -68,6 +68,7 @@ namespace com.strava.api.Client
                 Gear = new GearClient(authenticator);
                 Segments = new SegmentClient(authenticator);
                 Streams = new StreamClient(authenticator);
+                Uploads = new UploadClient(authenticator);
             }
             else
             {
@@ -106,6 +107,11 @@ namespace com.strava.api.Client
         /// Predefined StreamClient.
         /// </summary>
         public StreamClient Streams { get; set; }
+
+        /// <summary>
+        /// The UploadClient is used to upload new activities to Strava.
+        /// </summary>
+        public UploadClient Uploads { get; set; }
 
         #endregion
 

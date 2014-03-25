@@ -37,5 +37,26 @@ namespace com.strava.api.Upload
         /// </summary>
         [JsonProperty("activity_id")]
         public String ActivityId { get; set; }
+
+        /// <summary>
+        /// Returns the status string as a more user-friendly enum.
+        /// </summary>
+        public CurrentUploadStatus CurrentStatus
+        {
+            get
+            {
+                switch (Status)
+                {
+                    case "Your activity is still being processed.":
+                        return CurrentUploadStatus.Processing;
+                    case "The created activity has been deleted.":
+                        return CurrentUploadStatus.Deleted;
+                    case "There was an error processing your activity.":
+                        return CurrentUploadStatus.Error;
+                }
+
+                return CurrentUploadStatus.Ready;
+            }
+        }
     }
 }
