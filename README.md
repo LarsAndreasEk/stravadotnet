@@ -1,6 +1,6 @@
 Strava.NET
 ============
-Current version: 2.0.0 (03/22/2014)
+Current version: 2.1.0 (03/25/2014)
 
 [Changelog](http://www.sascha-simon.com/changelog.html)
 
@@ -218,3 +218,34 @@ You can filter the leaderboard by various parameters like gender or weight. Plea
 | GetSegmentLeaderboardAsync(string segmentId, Gender gender) | Leaderboard | Returns the leaderboard for the specified segment, filtered by gender. |
 | GetSegmentLeaderboardAsync(string segmentId, Gender gender, AgeGroup age) | Leaderboard | Returns the leaderboard for the specified segment, filtered by both gender and age group. (**Premium Feature**) |
 | GetSegmentLeaderboardAsync(string segmentId, Gender gender, WeightClass weight) | Leaderboard | Returns the leaderboard for the specified segment, filtered by both gender and weight class. (**Premium Feature**) |
+
+
+Uploading an activity
+============
+
+You can use the *UploadClient* to upload an activity from a *.fit, *.tcx or a *.gpx file.
+I recommend that you create a *StravaClient* and use the predefined subclients.
+
+After you've defined the file you want to upload, you can use the *UploadStatusCheck* class to check the status of your upload. There are events that are raised when a certain status of the upload is reached.
+
+```C#
+StaticAuthentication auth = new StaticAuthentication("<your token>");
+Client.StravaClient client = new Client.StravaClient(auth);
+
+UploadStatus status = await client.Uploads.UploadActivityAsync(@"F:\2014-03-22-14-43-55.fit", DataFormat.Fit);
+
+UploadStatus s = await client.Uploads.CheckUploadStatusAsync(status.Id.ToString());
+Console.WriteLine(s.Status);
+
+UploadStatusCheck check = new UploadStatusCheck(_token, status.Id.ToString());
+            
+check.UploadChecked += delegate(object o, UploadStatusCheckedEventArgs args)
+{
+    Console.WriteLine(args.Status);
+};
+
+check.Start();
+```
+
+
+
