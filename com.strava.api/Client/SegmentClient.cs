@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.Threading.Tasks;
 using com.strava.api.Activities;
 using com.strava.api.Api;
@@ -60,7 +62,7 @@ namespace com.strava.api.Client
             int page = 1;
 
             //Create one dummy request to get the number of entries.
-            Leaderboard request = await GetLeaderboardAsync(segmentId, 1, 1);
+            Leaderboard request = await GetSegmentLeaderboardAsync(segmentId, 1, 1);
             int totalAthletes = request.EntryCount;
 
             Leaderboard leaderboard = new Leaderboard
@@ -71,7 +73,7 @@ namespace com.strava.api.Client
 
             while ((page - 1) * 200 < totalAthletes)
             {
-                Leaderboard l = await GetLeaderboardAsync(segmentId, page++, 200);
+                Leaderboard l = await GetSegmentLeaderboardAsync(segmentId, page++, 200);
                 
                 foreach (LeaderboardEntry entry in l.Entries)
                 {
@@ -89,7 +91,7 @@ namespace com.strava.api.Client
         /// <param name="page">The page.</param>
         /// <param name="perPage">Defines how many entries will be loaded per page.</param>
         /// <returns>The segment leaderboard</returns>
-        public async Task<Leaderboard> GetLeaderboardAsync(String segmentId, int page, int perPage)
+        public async Task<Leaderboard> GetSegmentLeaderboardAsync(String segmentId, int page, int perPage)
         {
             String getUrl = String.Format("{0}/{1}/leaderboard?filter=overall&page={2}&per_page={3}&access_token={4}", 
                 Endpoints.Leaderboard, 
@@ -111,10 +113,124 @@ namespace com.strava.api.Client
         /// <returns>The leaderboard filtered by gender.</returns>
         public async Task<Leaderboard> GetSegmentLeaderboardAsync(String segmentId, Gender gender)
         {
-            String getUrl = String.Format("{0}/{1}/leaderboard?gender={2}&access_token={3}",
+            int page = 1;
+
+            //Create one dummy request to get the number of entries.
+            Leaderboard request = GetSegmentLeaderboard(segmentId, gender, 1, 1);
+            int totalAthletes = request.EntryCount;
+
+            Leaderboard leaderboard = new Leaderboard
+            {
+                EffortCount = request.EffortCount,
+                EntryCount = request.EntryCount
+            };
+
+            while ((page - 1) * 200 < totalAthletes)
+            {
+                Leaderboard l = await GetSegmentLeaderboardAsync(segmentId, gender, page++, 200);
+
+                foreach (LeaderboardEntry entry in l.Entries)
+                {
+                    leaderboard.Entries.Add(entry);
+                }
+            }
+
+            return leaderboard;
+        }
+
+        /// <summary>
+        /// Gets the gender-filtered leaderboard of a segment. This method requires the currently authenticated 
+        /// athlete to have a Strava premium account.
+        /// </summary>
+        /// <param name="segmentId">The Strava segment Id.</param>
+        /// <param name="gender">The gender used to filter the leaderboard.</param>
+        /// <param name="page">The result page.</param>
+        /// <param name="perPage">Efforts shown per page.</param>
+        /// <returns>The leaderboard filtered by gender.</returns>
+        public async Task<Leaderboard> GetSegmentLeaderboardAsync(String segmentId, Gender gender, int page, int perPage)
+        {
+            String getUrl = String.Format("{0}/{1}/leaderboard?gender={2}&page={3}&per_page={4}&access_token={5}",
                 Endpoints.Leaderboard,
                 segmentId,
                 gender.ToString().Substring(0, 1),
+                page,
+                perPage,
+                Authentication.AccessToken
+                );
+
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            return Unmarshaller<Leaderboard>.Unmarshal(json);
+        }
+
+        /// <summary>
+        /// Gets the leaderboard filtered by time.
+        /// </summary>
+        /// <param name="segmentId">The Strava segment id.</param>
+        /// <param name="filter">The time filter.</param>
+        /// <returns>A time filtered leaderboard.</returns>
+        public async Task<Leaderboard> GetSegmentLeaderboardAsync(String segmentId, TimeFilter filter)
+        {
+            int page = 1;
+
+            //Create one dummy request to get the number of entries.
+            Leaderboard request = await GetSegmentLeaderboardAsync(segmentId, filter, 1, 1);
+            int totalAthletes = request.EntryCount;
+
+            Leaderboard leaderboard = new Leaderboard
+            {
+                EffortCount = request.EffortCount,
+                EntryCount = request.EntryCount
+            };
+
+            while ((page - 1) * 200 < totalAthletes)
+            {
+                Leaderboard l = await GetSegmentLeaderboardAsync(segmentId, filter, page++, 200);
+
+                foreach (LeaderboardEntry entry in l.Entries)
+                {
+                    leaderboard.Entries.Add(entry);
+                }
+            }
+
+            return leaderboard;
+        }
+
+        /// <summary>
+        /// Gets the leaderboard filtered by time.
+        /// </summary>
+        /// <param name="segmentId">The Strava segment id.</param>
+        /// <param name="filter">The time filter.</param>
+        /// <param name="page">The result page.</param>
+        /// <param name="perPage">Entries per page.</param>
+        /// <returns>A time filtered leaderboard.</returns>
+        public async Task<Leaderboard> GetSegmentLeaderboardAsync(String segmentId, TimeFilter filter, int page, int perPage)
+        {
+            String fltr = String.Empty;
+
+            // ‘this_year’, ‘this_month’, ‘this_week’, ‘today’
+            switch (filter)
+            {
+                case TimeFilter.ThisMonth:
+                    fltr = "this_month";
+                    break;
+                case TimeFilter.ThisWeek:
+                    fltr = "this_week";
+                    break;
+                case TimeFilter.ThisYear:
+                    fltr = "this_year";
+                    break;
+                case TimeFilter.Today:
+                    fltr = "today";
+                    break;
+            }
+
+            String getUrl = String.Format("{0}/{1}/leaderboard?date_range={2}&page={3}&per_page={4}&access_token={5}",
+                Endpoints.Leaderboard,
+                segmentId,
+                fltr,
+                page,
+                perPage,
                 Authentication.AccessToken
                 );
 
@@ -245,6 +361,62 @@ namespace com.strava.api.Client
             return leaderboard.EffortCount;
         }
 
+        /// <summary>
+        /// Returns an array of up to ten segments.
+        /// </summary>
+        /// <param name="southWest">The south western border of the boundary.</param>
+        /// <param name="northEast">The north eastern border of the boundary.</param>
+        /// <returns>Up to ten segments within the boundary box. When there are more than ten segments, the ten most 
+        /// popular ones will be returned.</returns>
+        public async Task<ExplorerResult> ExploreSegmentsAsync(Coordinate southWest, Coordinate northEast)
+        {
+            String bnds = String.Format("{0},{1},{2},{3}",
+                southWest.Latitude.ToString(CultureInfo.InvariantCulture),
+                southWest.Longitude.ToString(CultureInfo.InvariantCulture),
+                northEast.Latitude.ToString(CultureInfo.InvariantCulture),
+                northEast.Longitude.ToString(CultureInfo.InvariantCulture)
+                );
+            
+            String getUrl = String.Format("{0}/explore?bounds={1}&access_token={2}",
+                Endpoints.Leaderboard,
+                bnds,
+                Authentication.AccessToken);
+
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            return Unmarshaller<ExplorerResult>.Unmarshal(json);
+        }
+
+        /// <summary>
+        /// Returns an array of up to ten segments.
+        /// </summary>
+        /// <param name="southWest">The south western border of the boundary.</param>
+        /// <param name="northEast">The north eastern border of the boundary.</param>
+        /// <param name="minCat">The min category 0-5, lower is harder.</param>
+        /// <param name="maxCat">The max category 0-5, lower is harder.</param>
+        /// <returns>Up to ten segments within the boundary box. When there are more than ten segments, the ten most 
+        /// popular ones will be returned.</returns>
+        public async Task<ExplorerResult> ExploreSegmentsAsync(Coordinate southWest, Coordinate northEast, int minCat, int maxCat)
+        {
+            String bnds = String.Format("{0},{1},{2},{3}",
+                southWest.Latitude.ToString(CultureInfo.InvariantCulture),
+                southWest.Longitude.ToString(CultureInfo.InvariantCulture),
+                northEast.Latitude.ToString(CultureInfo.InvariantCulture),
+                northEast.Longitude.ToString(CultureInfo.InvariantCulture)
+                );
+
+            String getUrl = String.Format("{0}/explore?bounds={1}&min_cat={2}&max_cat={3}&access_token={4}",
+                Endpoints.Leaderboard,
+                bnds,
+                minCat,
+                maxCat,
+                Authentication.AccessToken);
+
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+            Debug.WriteLine(getUrl);
+            return Unmarshaller<ExplorerResult>.Unmarshal(json);
+        }
+
         #endregion
 
         #region Sync
@@ -284,7 +456,7 @@ namespace com.strava.api.Client
             int page = 1;
 
             //Create one dummy request to get the number of entries.
-            Leaderboard request = GetLeaderboard(segmentId, 1, 1);
+            Leaderboard request = GetSegmentLeaderboard(segmentId, 1, 1);
             int totalAthletes = request.EntryCount;
 
             Leaderboard leaderboard = new Leaderboard
@@ -295,7 +467,7 @@ namespace com.strava.api.Client
 
             while ((page - 1) * 200 < totalAthletes)
             {
-                Leaderboard l = GetLeaderboard(segmentId, page++, 200);
+                Leaderboard l = GetSegmentLeaderboard(segmentId, page++, 200);
 
                 foreach (LeaderboardEntry entry in l.Entries)
                 {
@@ -313,7 +485,7 @@ namespace com.strava.api.Client
         /// <param name="page">The page.</param>
         /// <param name="perPage">Defines how many entries will be loaded per page.</param>
         /// <returns>The segment leaderboard</returns>
-        public Leaderboard GetLeaderboard(String segmentId, int page, int perPage)
+        public Leaderboard GetSegmentLeaderboard(String segmentId, int page, int perPage)
         {
             String getUrl = String.Format("{0}/{1}/leaderboard?filter=overall&page={2}&per_page={3}&access_token={4}",
                 Endpoints.Leaderboard,
@@ -335,10 +507,48 @@ namespace com.strava.api.Client
         /// <returns>The leaderboard filtered by gender.</returns>
         public Leaderboard GetSegmentLeaderboard(String segmentId, Gender gender)
         {
-            String getUrl = String.Format("{0}/{1}/leaderboard?gender={2}&access_token={3}",
+            int page = 1;
+
+            //Create one dummy request to get the number of entries.
+            Leaderboard request = GetSegmentLeaderboard(segmentId, gender, 1, 1);
+            int totalAthletes = request.EntryCount;
+
+            Leaderboard leaderboard = new Leaderboard
+            {
+                EffortCount = request.EffortCount,
+                EntryCount = request.EntryCount
+            };
+
+            while ((page - 1) * 200 < totalAthletes)
+            {
+                Leaderboard l = GetSegmentLeaderboard(segmentId, gender, page++, 200);
+
+                foreach (LeaderboardEntry entry in l.Entries)
+                {
+                    leaderboard.Entries.Add(entry);
+                }
+            }
+
+            return leaderboard;
+        }
+
+        /// <summary>
+        /// Gets the gender-filtered leaderboard of a segment. This method requires the currently authenticated 
+        /// athlete to have a Strava premium account.
+        /// </summary>
+        /// <param name="segmentId">The Strava segment Id.</param>
+        /// <param name="gender">The gender used to filter the leaderboard.</param>
+        /// <param name="page">The result page.</param>
+        /// <param name="perPage">Efforts shown per page.</param>
+        /// <returns>The leaderboard filtered by gender.</returns>
+        public Leaderboard GetSegmentLeaderboard(String segmentId, Gender gender, int page, int perPage)
+        {
+            String getUrl = String.Format("{0}/{1}/leaderboard?gender={2}&page={3}&per_page={4}&access_token={5}",
                 Endpoints.Leaderboard,
                 segmentId,
                 gender.ToString().Substring(0, 1),
+                page,
+                perPage,
                 Authentication.AccessToken
                 );
 
@@ -467,6 +677,101 @@ namespace com.strava.api.Client
             Leaderboard leaderboard = Unmarshaller<Leaderboard>.Unmarshal(json);
 
             return leaderboard.EffortCount;
+        }
+
+        /// <summary>
+        /// Gets the leaderboard filtered by time.
+        /// </summary>
+        /// <param name="segmentId">The Strava segment id.</param>
+        /// <param name="filter">The time filter.</param>
+        /// <returns>A time filtered leaderboard.</returns>
+        public Leaderboard GetSegmentLeaderboard(String segmentId, TimeFilter filter)
+        {
+            String fltr = String.Empty;
+
+            // ‘this_year’, ‘this_month’, ‘this_week’, ‘today’
+            switch (filter)
+            {
+                case TimeFilter.ThisMonth:
+                    fltr = "this_month";
+                    break;
+                case TimeFilter.ThisWeek:
+                    fltr = "this_week";
+                    break;
+                case TimeFilter.ThisYear:
+                    fltr = "this_year";
+                    break;
+                case TimeFilter.Today:
+                    fltr = "today";
+                    break;
+            }
+
+            String getUrl = String.Format("{0}/{1}/leaderboard?filter={2}&access_token={3}",
+                Endpoints.Leaderboard,
+                segmentId,
+                fltr,
+                Authentication.AccessToken
+                );
+
+            String json = WebRequest.SendGet(new Uri(getUrl));
+
+            return Unmarshaller<Leaderboard>.Unmarshal(json);
+        }
+
+        /// <summary>
+        /// Returns an array of up to ten segments.
+        /// </summary>
+        /// <param name="southWest">The south western border of the boundary.</param>
+        /// <param name="northEast">The north eastern border of the boundary.</param>
+        /// <returns>Up to ten segments within the boundary box. When there are more than ten segments, the ten most 
+        /// popular ones will be returned.</returns>
+        public ExplorerResult ExploreSegments(Coordinate southWest, Coordinate northEast)
+        {
+            String bnds = String.Format("{0},{1},{2},{3}",
+                southWest.Latitude.ToString(CultureInfo.InvariantCulture),
+                southWest.Longitude.ToString(CultureInfo.InvariantCulture),
+                northEast.Latitude.ToString(CultureInfo.InvariantCulture),
+                northEast.Longitude.ToString(CultureInfo.InvariantCulture)
+                );
+
+            String getUrl = String.Format("{0}/explore?bounds={1}&access_token={2}",
+                Endpoints.Leaderboard,
+                bnds,
+                Authentication.AccessToken);
+
+            String json = WebRequest.SendGet(new Uri(getUrl));
+
+            return Unmarshaller<ExplorerResult>.Unmarshal(json);
+        }
+
+        /// <summary>
+        /// Returns an array of up to ten segments.
+        /// </summary>
+        /// <param name="southWest">The south western border of the boundary.</param>
+        /// <param name="northEast">The north eastern border of the boundary.</param>
+        /// <param name="minCat">The min category 0-5, lower is harder.</param>
+        /// <param name="maxCat">The max category 0-5, lower is harder.</param>
+        /// <returns>Up to ten segments within the boundary box. When there are more than ten segments, the ten most 
+        /// popular ones will be returned.</returns>
+        public ExplorerResult ExploreSegments(Coordinate southWest, Coordinate northEast, int minCat, int maxCat)
+        {
+            String bnds = String.Format("{0},{1},{2},{3}",
+                southWest.Latitude.ToString(CultureInfo.InvariantCulture),
+                southWest.Longitude.ToString(CultureInfo.InvariantCulture),
+                northEast.Latitude.ToString(CultureInfo.InvariantCulture),
+                northEast.Longitude.ToString(CultureInfo.InvariantCulture)
+                );
+
+            String getUrl = String.Format("{0}/explore?bounds={1}&min_cat={2}&max_cat={3}&access_token={4}",
+                Endpoints.Leaderboard,
+                bnds,
+                minCat,
+                maxCat,
+                Authentication.AccessToken);
+
+            String json = WebRequest.SendGet(new Uri(getUrl));
+
+            return Unmarshaller<ExplorerResult>.Unmarshal(json);
         }
         
         #endregion

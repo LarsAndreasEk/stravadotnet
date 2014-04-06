@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using com.strava.api.Activities;
 using com.strava.api.Api;
 using com.strava.api.Athletes;
 using com.strava.api.Authentication;
 using com.strava.api.Common;
-using com.strava.api.Upload;
 using com.strava.api.Utilities;
-using Newtonsoft.Json.Serialization;
 using WebRequest = com.strava.api.Http.WebRequest;
 
 namespace com.strava.api.Client

@@ -61,6 +61,7 @@
     <Compile Include="Activities\Map.cs" />
     <Compile Include="Activities\Photo.cs" />
     <Compile Include="Activities\ResourceState.cs" />
+    <Compile Include="Activities\TimeFilter.cs" />
     <Compile Include="Activities\WeightClass.cs" />
     <Compile Include="Activities\Summary.cs" />
     <Compile Include="Api\Endpoints.cs" />
@@ -106,6 +107,8 @@
     <Compile Include="Http\AsyncResponseReceivedEventArgs.cs" />
     <Compile Include="Http\ResponseReceivedEventArgs.cs" />
     <Compile Include="Http\WebRequest.cs" />
+    <Compile Include="Segments\ExplorerResult.cs" />
+    <Compile Include="Segments\ExplorerSegment.cs" />
     <Compile Include="Upload\CheckStatus.cs" />
     <Compile Include="Upload\CurrentUploadStatus.cs" />
     <Compile Include="Upload\DataFormat.cs" />
