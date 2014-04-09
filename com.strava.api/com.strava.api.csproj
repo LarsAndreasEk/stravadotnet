@@ -86,6 +86,7 @@
     <Compile Include="Client\AthleteClient.cs" />
     <Compile Include="Client\BaseClient.cs" />
     <Compile Include="Client\ClubClient.cs" />
+    <Compile Include="Client\EffortClient.cs" />
     <Compile Include="Client\GearClient.cs" />
     <Compile Include="Client\SegmentClient.cs" />
     <Compile Include="Client\StravaClient.cs" />

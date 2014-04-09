@@ -69,6 +69,7 @@ namespace com.strava.api.Client
                 Segments = new SegmentClient(authenticator);
                 Streams = new StreamClient(authenticator);
                 Uploads = new UploadClient(authenticator);
+                Efforts = new EffortClient(authenticator);
             }
             else
             {
@@ -112,6 +113,11 @@ namespace com.strava.api.Client
         /// The UploadClient is used to upload new activities to Strava.
         /// </summary>
         public UploadClient Uploads { get; set; }
+
+        /// <summary>
+        /// The EffortClient is used to receive efforts on a segment.
+        /// </summary>
+        public EffortClient Efforts { get; set; }
 
         #endregion
 
