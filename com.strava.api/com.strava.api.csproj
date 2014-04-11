@@ -97,6 +97,8 @@
     <Compile Include="Clubs\ClubType.cs" />
     <Compile Include="Clubs\SportType.cs" />
     <Compile Include="Common\Coordinate.cs" />
+    <Compile Include="Common\Dimension.cs" />
+    <Compile Include="Common\MapType.cs" />
     <Compile Include="Common\PolylineDecoder.cs" />
     <Compile Include="Common\Unmarshaller.cs" />
     <Compile Include="Common\Version.cs" />
@@ -127,6 +129,7 @@
     <Compile Include="Upload\UploadStatusCheck.cs" />
     <Compile Include="Upload\UploadStatusCheckedEventArgs.cs" />
     <Compile Include="Utilities\DateConverter.cs" />
+    <Compile Include="Utilities\GoogleImageLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
