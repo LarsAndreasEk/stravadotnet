@@ -413,8 +413,25 @@ namespace com.strava.api.Client
                 Authentication.AccessToken);
 
             String json = await WebRequest.SendGetAsync(new Uri(getUrl));
-            Debug.WriteLine(getUrl);
+
             return Unmarshaller<ExplorerResult>.Unmarshal(json);
+        }
+
+        /// <summary>
+        /// Gets a detailed representation of the specified segment id.
+        /// </summary>
+        /// <param name="segmentId">The Strava segment id.</param>
+        /// <returns>A detailed representation of the segment.</returns>
+        public async Task<Segment> GetSegmentAsync(String segmentId)
+        {
+            String getUrl = String.Format("{0}/{1}?access_token={2}",
+                Endpoints.Leaderboard,
+                segmentId,
+                Authentication.AccessToken);
+
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            return Unmarshaller<Segment>.Unmarshal(json);
         }
 
         #endregion
@@ -772,6 +789,23 @@ namespace com.strava.api.Client
             String json = WebRequest.SendGet(new Uri(getUrl));
 
             return Unmarshaller<ExplorerResult>.Unmarshal(json);
+        }
+
+        /// <summary>
+        /// Gets a detailed representation of the specified segment id.
+        /// </summary>
+        /// <param name="segmentId">The Strava segment id.</param>
+        /// <returns>A detailed representation of the segment.</returns>
+        public Segment GetSegment(String segmentId)
+        {
+            String getUrl = String.Format("{0}/{1}?access_token={2}",
+                Endpoints.Leaderboard,
+                segmentId,
+                Authentication.AccessToken);
+
+            String json = WebRequest.SendGet(new Uri(getUrl));
+
+            return Unmarshaller<Segment>.Unmarshal(json);
         }
         
         #endregion
