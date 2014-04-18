@@ -109,7 +109,7 @@ namespace com.strava.api.Segments
         /// The total elevation gain of the segment.
         /// </summary>
         [JsonProperty("total_elevation_gain")]
-        public String TotalElevationGain { get; set; }
+        public float TotalElevationGain { get; set; }
 
         /// <summary>
         /// A map with the segment's route.

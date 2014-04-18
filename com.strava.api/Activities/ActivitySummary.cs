@@ -27,7 +27,12 @@ namespace com.strava.api.Activities
         /// The type of the activity.
         /// </summary>
         [JsonProperty("type")]
-        public String Type { get; set; }
+        private String _type { get; set; }
+
+        public ActivityType Type
+        {
+            get { return (ActivityType) Enum.Parse(typeof (ActivityType), _type); }
+        }
 
         /// <summary>
         /// The distance travelled.
