@@ -29,6 +29,9 @@ namespace com.strava.api.Activities
         [JsonProperty("type")]
         private String _type { get; set; }
 
+        /// <summary>
+        /// The type of the activity.
+        /// </summary>
         public ActivityType Type
         {
             get { return (ActivityType) Enum.Parse(typeof (ActivityType), _type); }

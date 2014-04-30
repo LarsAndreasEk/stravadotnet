@@ -594,6 +594,66 @@ namespace com.strava.api.Client
             return await GetSummaryAsync(new DateTime(DateTime.Now.Year, 1, 1), DateTime.Now);
         }
 
+        /// <summary>
+        /// Returns a list of recent photos.
+        /// </summary>
+        /// <returns>A list of Photos.</returns>
+        public async Task<List<Photo>> GetLatestPhotosAsync(DateTime time)
+        {
+            List<Photo> photos = new List<Photo>();
+
+            List<Activity> activities = await GetActivitiesAfterAsync(time);
+            foreach (Activity a in activities)
+            {
+                if (a.PhotoCount > 0)
+                {
+                    List<Photo> p = await GetPhotosAsync(a.Id.ToString());
+                    photos.AddRange(p);
+                }
+
+                if (photos.Count >= 4)
+                    return photos;
+            }
+
+            return photos;
+        }
+
+        /// <summary>
+        /// Returns a list of photos linked to the specified activity.
+        /// </summary>
+        /// <param name="activityId">The activity</param>
+        /// <returns>A list of photos.</returns>
+        public async Task<List<Photo>> GetPhotosAsync(String activityId)
+        {
+            // https://www.strava.com/api/v3/activities/:id/photos
+            String getUrl = String.Format("{0}/{1}/photos?access_token={2}",
+                Endpoints.Activity,
+                activityId,
+                Authentication.AccessToken);
+
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            return Unmarshaller<List<Photo>>.Unmarshal(json);
+        }
+
+        /// <summary>
+        /// Gets a list of all laps of an activity.
+        /// </summary>
+        /// <param name="activityId">The Strava id of the activity.</param>
+        /// <returns>A list of laps of the activity.</returns>
+        public async Task<List<ActivityLap>> GetActivityLapsAsync(String activityId)
+        {
+            // https://www.strava.com/api/v3/activities/:id/laps
+            String getUrl = String.Format("{0}/{1}/laps?access_token={2}",
+                Endpoints.Activity,
+                activityId,
+                Authentication.AccessToken);
+
+            String json = await WebRequest.SendGetAsync(new Uri(getUrl));
+
+            return Unmarshaller<List<ActivityLap>>.Unmarshal(json);
+        }
+
         #endregion
 
         #region Sync
@@ -1151,6 +1211,62 @@ namespace com.strava.api.Client
         public Summary GetSummaryThisYear()
         {
             return GetSummary(new DateTime(DateTime.Now.Year, 1, 1), DateTime.Now);
+        }
+
+        /// <summary>
+        /// Returns a list of recent photos.
+        /// </summary>
+        /// <returns>A list of Photos.</returns>
+        public List<Photo> GetLatestPhotos(DateTime time)
+        {
+            List<Photo> photos = new List<Photo>();
+
+            List<Activity> activities = GetActivitiesAfter(time);
+            foreach (Activity a in activities)
+            {
+                if (a.PhotoCount > 0)
+                {
+                    List<Photo> p = GetPhotos(a.Id.ToString());
+                    photos.AddRange(p);
+                }
+            }
+
+            return photos;
+        }
+
+        /// <summary>
+        /// Returns a list of photos linked to the specified activity.
+        /// </summary>
+        /// <param name="activityId">The activity</param>
+        /// <returns>A list of photos.</returns>
+        public List<Photo> GetPhotos(String activityId)
+        {
+            // https://www.strava.com/api/v3/activities/:id/photos
+            String getUrl = String.Format("{0}/{1}/photos?access_token={2}",
+                Endpoints.Activity,
+                activityId,
+                Authentication.AccessToken);
+
+            String json = WebRequest.SendGet(new Uri(getUrl));
+
+            return Unmarshaller<List<Photo>>.Unmarshal(json);
+        }
+
+        /// <summary>
+        /// Gets a list of all laps of an activity.
+        /// </summary>
+        /// <param name="activityId">The Strava id of the activity.</param>
+        /// <returns>A list of laps of the activity.</returns>
+        public List<ActivityLap> GetActivityLaps(String activityId)
+        {
+            String getUrl = String.Format("{0}/{1}/laps?access_token={2}",
+                Endpoints.Activity,
+                activityId,
+                Authentication.AccessToken);
+
+            String json = WebRequest.SendGet(new Uri(getUrl));
+
+            return Unmarshaller<List<ActivityLap>>.Unmarshal(json);
         }
 
         #endregion

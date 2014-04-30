@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\Activity.cs" />
+    <Compile Include="Activities\ActivityLap.cs" />
     <Compile Include="Activities\ActivityMeta.cs" />
     <Compile Include="Activities\ActivityParameter.cs" />
     <Compile Include="Activities\ActivityReceivedEventArgs.cs" />

@@ -12,7 +12,7 @@ namespace com.strava.api.Gear
         /// The gear's brand name.
         /// </summary>
         [JsonProperty("brand_name")]
-        public String Brand { get; set;}
+        public String Brand { get; set; }
 
         /// <summary>
         /// The gear's model.
@@ -23,7 +23,7 @@ namespace com.strava.api.Gear
         /// <summary>
         /// The type of bike.
         /// </summary>
-        [JsonProperty("frame_type")] 
+        [JsonProperty("frame_type")]
         private string _frameType = String.Empty;
 
         /// <summary>

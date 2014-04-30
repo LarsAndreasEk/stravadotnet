@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Timers;
-using com.strava.api.Activities;
 using com.strava.api.Authentication;
 using com.strava.api.Client;
 
@@ -28,6 +27,11 @@ namespace com.strava.api.Upload
             }
         }
 
+        /// <summary>
+        /// This attribute contains details about the error.
+        /// </summary>
+        public String ErrorMessage { get; set; }
+
         #region Events
 
         /// <summary>
@@ -45,6 +49,11 @@ namespace com.strava.api.Upload
         /// </summary>
         public event EventHandler ActivityProcessing;
 
+        /// <summary>
+        /// Error is raised whenever an error has occured.
+        /// </summary>
+        public event EventHandler Error;
+
         #endregion
 
         /// <summary>
@@ -59,12 +68,12 @@ namespace com.strava.api.Upload
             _uploadId = uploadId;
         }
 
-        private async void TimerTick(object sender, ElapsedEventArgs e)
+        private void TimerTick(object sender, ElapsedEventArgs e)
         {
             StaticAuthentication auth = new StaticAuthentication(_token);
             StravaClient client = new StravaClient(auth);
 
-            UploadStatus status = await client.Uploads.CheckUploadStatusAsync(_uploadId);
+            UploadStatus status = client.Uploads.CheckUploadStatus(_uploadId);
 
             switch (status.Status)
             {
@@ -84,6 +93,7 @@ namespace com.strava.api.Upload
                     {
                         UploadChecked(this, new UploadStatusCheckedEventArgs(CurrentUploadStatus.Deleted));
                     }
+                    Finish();
                     break;
 
                 case "There was an error processing your activity.":
@@ -91,6 +101,12 @@ namespace com.strava.api.Upload
                     {
                         UploadChecked(this, new UploadStatusCheckedEventArgs(CurrentUploadStatus.Error));
                     }
+                    if (Error != null)
+                    {
+                        Error(this, EventArgs.Empty);
+                    }
+                    ErrorMessage = status.Error;
+                    Finish();
                     break;
 
                 case "Your activity is ready.":
@@ -113,8 +129,7 @@ namespace com.strava.api.Upload
         public void Start()
         {
             if (!IsFinished)
-            {
-                
+            {                
                 _timer.Start();
                 _currentStatus = CheckStatus.Busy;
             }

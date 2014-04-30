@@ -177,7 +177,7 @@ namespace com.strava.api.Client
         /// <returns>The AthleteSummary object of the athlete.</returns>
         public AthleteSummary GetAthlete(String athleteId)
         {
-            String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Athlete, athleteId, Authentication.AccessToken);
+            String getUrl = String.Format("{0}/{1}?access_token={2}", Endpoints.Athletes, athleteId, Authentication.AccessToken);
             String json = WebRequest.SendGet(new Uri(getUrl));
 
             return Unmarshaller<AthleteSummary>.Unmarshal(json);
