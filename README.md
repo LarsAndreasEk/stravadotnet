@@ -1,6 +1,6 @@
 Strava.NET
 ============
-Current version: 2.6.1 (04/30/2014)
+Current version: 2.7.0 (05/02/2014)
 
 [Changelog](http://www.sascha-simon.com/changelog.html)
 
